@@ -1,7 +1,19 @@
 import React, { useRef, useState } from 'react';
 import {Canvas, useFrame} from "@react-three/fiber"
-import { OrbitControls } from "@react-three/drei"
+import { OrbitControls, useGLTF } from "@react-three/drei"
 
+const Model = (props) =>{
+
+    const ref = useRef()
+    const speed = 0.1;
+    
+    useFrame((state, delta) => {
+        ref.current.rotation.y += delta * speed;
+    })
+
+    const { scene } = useGLTF('/Earth.glb')
+    return <primitive ref = {ref} object={scene} {...props} />
+}
 
 const Cube = ({position, size, color}) => {
     const ref = useRef()
@@ -47,15 +59,14 @@ function Viewport() {
     return ( 
         <div className='viewport-container'>
             <Canvas >
-                <directionalLight position={[0,0,3]}/>
+                <directionalLight intensity={2} position={[0,0,3]}/>
                 <ambientLight intensity={2}/>
-                <Sphere position={[0,0,0]} size ={[2,20,20]} color={'hotpink'}/>
-                {/* <Cube position={[2,0,0]} size ={[1,3,2]} color={'steelblue'}/>                    */}
+                <Model scale ={0.005} />
+                <Sphere position={[0,1,3]} size ={[0.2,10,10]} color={'hotpink'}/>
+                {/* <Cube position={[2,0,0]} size ={[1,3,2]} color={'steelblue'}/>*/}
 
                 <OrbitControls/>
             </Canvas> 
-
-
         </div>
     );
 }

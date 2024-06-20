@@ -26,21 +26,18 @@ function App() {
 			<div className='duration-200 flex-col items-center main-body min-h-screen bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-white m-0'>
 				<ThemeProvider value={{themeMode, lightTheme, darkTheme}}>
 				<UserContextProvider>
-
+					{/* header */}
 					<div className="flex flex-wrap">
 						<div className="w-full">
 							<div className="p-4 flex mb-4 bg-white dark:bg-black"> 
 								<h1 className='main-head font-mono'>Eyes like the Sky</h1>
-								<div className="w-full max-w-sm flex justify-end mx-auto">
-									<ThemeBtn />
-								</div>
+								<div className="w-full max-w-10 ml-auto mr-2 my-auto"><ThemeBtn /></div>
 							</div>
-
-							
 						</div>
 					</div>
+
 					<Profile/>
-					
+
 				</UserContextProvider>
 				</ThemeProvider>
 			</div>

@@ -9,17 +9,21 @@ function Login(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        //check username/password from backend
         setUser({username, password});
     }
     return(
-        <div className='flex-col w-screen'>
+        <div className='viewport-container flex-col w-screen content-center'>
             <h1 className='text-3xl font-mono font-bold'>Login</h1>
-            <input type='text' 
+            <input className= 'dark:text-zinc-700' 
+            type='text' 
             value={username} 
             onChange={(e) => {setUsername(e.target.value)}} 
             placeholder='Username'/> <br/>
             
-            <input type='text' 
+            <input className='dark:text-zinc-700'
+            type='password' 
             value={password} 
             onChange={(e) => {setPassword(e.target.value)}} 
             placeholder='Password'/> <br/>
