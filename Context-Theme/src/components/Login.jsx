@@ -12,8 +12,8 @@ function Login(){
         setUser({username, password});
     }
     return(
-        <div>
-            <h2>Login</h2>
+        <div className='flex-col w-screen'>
+            <h1 className='text-3xl font-mono font-bold'>Login</h1>
             <input type='text' 
             value={username} 
             onChange={(e) => {setUsername(e.target.value)}} 

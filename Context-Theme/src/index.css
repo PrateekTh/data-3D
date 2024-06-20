@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,14 +12,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.main-head {
+  font-family: "Abril Fatface";
+  font-size: 3em;
+}
+
 body {
   margin: 0;
   padding: 0;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
