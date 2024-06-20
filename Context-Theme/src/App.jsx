@@ -8,7 +8,7 @@ function App() {
 
 	return (
 		<>
-			<h1>Eyes like the Sky</h1>
+			<h1 className='font-mono'>Eyes like the Sky</h1>
 
 			<UserContextProvider>
 				<Login/><br/>
