@@ -1,12 +1,17 @@
 import React, {useContext} from 'react'
 import UserContext from '../context/UserContext'
+import Card from './Card'
+import Login from './Login'
 
 function Profile() {
     const {user} = useContext(UserContext)
     
-    if (!user) return <div>Please Login.</div>
+    if (!user) return <div><Login/></div>
 
-    return <div className='text-xl'>Welcome {user.username}</div>
+    return (
+    <>
+            <Card />
+    </>)
 }
 
 export default Profile
