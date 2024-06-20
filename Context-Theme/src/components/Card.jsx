@@ -1,14 +1,17 @@
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
+import Viewport from "./Viewport";
 
 export default function Card() {
     
     const {user} = useContext(UserContext);
     const image = 'https://www.musiclipse.com/wp-content/uploads/2024/02/kurt-cobain-aesthetic-large-wallpaper-for-desktop-background-e1713406563867.jpg';
     return (
-        <div className="w-4/5 m-4 flex bg-white border border-zinc-200 rounded-lg shadow dark:bg-zinc-900 dark:border-zinc-700">
-            <div className="p-4 w-4/5 rounded-lg overflow-hidden" >
-                <img className="rounded-lg" src={image} alt="product_image1" />
+        <div className=" duration-300 w-5/6 m-4 flex bg-white border border-zinc-200 rounded-lg shadow dark:bg-zinc-900 dark:border-zinc-700">
+            <div className="p-4 h-full w-4/5 rounded-lg overflow-hidden" >
+                {/* {<img className="rounded-lg" src={image} alt="product_image1" />} */}
+
+                <Viewport/>
 
             </div>
             <div className="p-5">

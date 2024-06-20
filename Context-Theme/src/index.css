@@ -17,6 +17,10 @@
   font-size: 3em;
 }
 
+.viewport-container {
+  height: 72vh;
+}
+
 body {
   margin: 0;
   padding: 0;
