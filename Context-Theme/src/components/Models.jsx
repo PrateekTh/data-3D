@@ -23,7 +23,11 @@ export const Cube = ({position, size, color}) => {
     })
 
     return(
-        <mesh position={position} ref={ref}>
+        <mesh 
+        position={position} 
+        castShadow 
+        receiveShadow 
+        ref={ref}>
             <boxGeometry args={size}/>
             <meshStandardMaterial color={color} />
         </mesh>
@@ -47,11 +51,13 @@ export const Sphere = ({position, size, color}) => {
 
     return(
         <mesh 
+        castShadow
+        receiveShadow
         position={position} ref={ref} 
         onPointerEnter={() => setIsHovered(true)}
         onPointerLeave={() => setIsHovered(false)}>
             <sphereGeometry args={size}/>
-            <meshStandardMaterial color={isHovered? 'slateblue': color} wireframe/>
+            <meshStandardMaterial color={isHovered? 'slateblue': color}/>
         </mesh>
     )
 }
