@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import * as THREE from 'three';
-import useTheme from '../context/ThemeContext';
+// https://www.science.org/doi/10.1126/science.aat4382 
+// A really interesting visualisation project I came across
 
+import React, { useState, useEffect, useContext } from 'react';
+import * as THREE from 'three';
+import useTheme, { ThemeContext } from '../context/ThemeContext';
+
+//consider declaring geometry here, and initializing in useEffect
 let geometry = new THREE.PlaneGeometry( 20, 20, 200, 200 );
 geometry.rotateX( - Math.PI / 2 );
 
-function DatasetModel() {
+function PlaneModel(data) {
     const {themeMode} = useTheme();
 
     // let geometry = new THREE.PlaneGeometry( 20, 20, 200, 200 );
@@ -13,6 +17,7 @@ function DatasetModel() {
     // let material = new THREE.MeshBasicMaterial( { color: 0x0044ff } );
 
     useEffect(() => {
+        console.log(data)
         const position = geometry.attributes.position;
         position.usage = THREE.DynamicDrawUsage;
         const l = 0.6;
@@ -34,12 +39,10 @@ function DatasetModel() {
             geometry={geometry}
             receiveShadow
         > 
-
-        <meshStandardMaterial color={'white'}/>
-
+            <meshStandardMaterial color={'white'} side={THREE.DoubleSide}/>
         </mesh>
     
     );
 }
 
-export default DatasetModel;
+export default PlaneModel;
