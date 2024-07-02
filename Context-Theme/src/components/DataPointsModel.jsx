@@ -4,13 +4,13 @@ import InstancedPoints from './InstancedPoints';
 const DataPointsModel = ({ data }) => {
   return (
     <>
-      <ambientLight color="#ffffff" intensity={0.1} />
-      <hemisphereLight
+      <ambientLight color="#ffffff" intensity={0.3} />
+      {/* <hemisphereLight
         color="#ffffff"
         skyColor="#ffffbb"
         groundColor="#080820"
         intensity={1.0}
-      />
+      /> */}
       <InstancedPoints
         data={data}
         // layout={layout}
