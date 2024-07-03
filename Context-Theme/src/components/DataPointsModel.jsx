@@ -5,18 +5,7 @@ const DataPointsModel = ({ data }) => {
   return (
     <>
       <ambientLight color="#ffffff" intensity={0.3} />
-      {/* <hemisphereLight
-        color="#ffffff"
-        skyColor="#ffffbb"
-        groundColor="#080820"
-        intensity={1.0}
-      /> */}
-      <InstancedPoints
-        data={data}
-        // layout={layout}
-        // selectedPoint={selectedPoint}
-        // onSelectPoint={onSelectPoint}
-      />
+      <InstancedPoints data={data} />
     </>
   );
 };

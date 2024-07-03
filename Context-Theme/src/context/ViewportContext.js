@@ -2,13 +2,13 @@ import { createContext, useContext } from 'react';
 
 export const ViewportContext = createContext({
     data:[],
-    layout:"",
-    selectedPoint: 0,
-    onSelectPoint:() => {}
+    layout:"grid",
+    selectedPoint: null,
+    onSelectPoint:() => {console.log("Selected")}
 })
 
-export const ViewportContextProvider = ViewportContext.Provider;
+export const ViewportDataProvider = ViewportContext.Provider;
 
-export default function useViewport(){
+export default function useViewportData(){
     return useContext(ViewportContext);
 }
