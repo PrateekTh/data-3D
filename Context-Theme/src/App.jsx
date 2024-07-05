@@ -5,16 +5,18 @@ import { ThemeProvider } from './context/ThemeContext.js'
 import './App.css'
 import Profile from './components/Profile'
 import Header from './components/Header.jsx';
+import TestDataDanfo from './components/TestDataDanfo.jsx';
 
 function App() {
 	
 	const [themeMode, setThemeMode] = useState('dark');
 	const lightTheme = () => {setThemeMode('light');}
 	const darkTheme = () => {setThemeMode('dark');}
-	const selectedPoint = null;
+	const [selectedPoint, setSelectedPoint] = useState(null);
+
 	const data = [10];
 	const layout = "grid";
-	const onSelectPoint = () => {};
+	const onSelectPoint = (point) => {setSelectedPoint(point)};
 	
 	useEffect(() => {
 		document.querySelector('html').classList.remove("light", "dark");
@@ -28,6 +30,7 @@ function App() {
 						<ViewportDataProvider value={{data, layout, selectedPoint, onSelectPoint}}>
 							<Header />
 							<Profile/>
+							<TestDataDanfo/>
 						</ViewportDataProvider>
 					</UserContextProvider>
 				</ThemeProvider>
