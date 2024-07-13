@@ -12,11 +12,7 @@ function App() {
 	const [themeMode, setThemeMode] = useState('dark');
 	const lightTheme = () => {setThemeMode('light');}
 	const darkTheme = () => {setThemeMode('dark');}
-	const [selectedPoint, setSelectedPoint] = useState(null);
-
-	const data = [10];
-	const layout = "grid";
-	const onSelectPoint = (point) => {setSelectedPoint(point)};
+	
 	
 	useEffect(() => {
 		document.querySelector('html').classList.remove("light", "dark");
@@ -27,11 +23,9 @@ function App() {
 			<div className='duration-200 flex-col items-center main-body min-h-screen bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-white m-0'>
 				<ThemeProvider value={{themeMode, lightTheme, darkTheme}}>
 					<UserContextProvider>
-						<ViewportDataProvider value={{data, layout, selectedPoint, onSelectPoint}}>
 							<Header />
 							<Profile/>
-							<TestDataDanfo/>
-						</ViewportDataProvider>
+							{/* <TestDataDanfo/> */}
 					</UserContextProvider>
 				</ThemeProvider>
 			</div>

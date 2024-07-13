@@ -9,10 +9,11 @@ function gridLayout(data) {
 		const datum = data[i];
 		const col = (i % numCols) - numCols / 2;
 		const row = Math.floor(i / numCols) - numRows / 2;
-
-		datum.x = col * 1.05;
-		datum.z = row * 1.05;
-		datum.y = 0;
+		
+		console.log(data);
+		// datum.x = col * 1.05;
+		// datum.z = row * 1.05;
+		// datum.y = 0;
 	}
 }
 

@@ -16,14 +16,16 @@ function TestDataDanfo() {
 
     React.useEffect(()=>{
         console.log(data);
-        if(data) setTemp(dfd.toJSON(data.head()));
-
+        if(data) {
+            console.log(data.columns);
+            setTemp(dfd.toJSON(data.head()));
+        }
     }, [data])
 
 
     return ( 
     <div className='w-screen font-mono text-left text-wrap'>
-        {console.log(JSON.stringify(temp, null, 3))}
+        {/* {console.log(JSON.stringify(temp, null, 3))} */}
     </div>
     );
 }

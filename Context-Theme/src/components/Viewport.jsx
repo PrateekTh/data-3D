@@ -6,15 +6,15 @@ import PlaneModel from './PlaneModel';
 import useTheme from '../context/ThemeContext';
 import UserContext from '../context/UserContext'
 import DataPointsModel from './DataPointsModel';
-import TestDocsInstanced from "./TestDocsInstanced";
+import useViewportData from '../context/ViewportContext';
 
 
 
 function Viewport() {
 
-    const [fogColor, setFogColor] = useState('#18181B');
-    const {themeMode} = useTheme();
-    const {data, setData} = useContext(UserContext)
+    const [fogColor, setFogColor] = useState('#18181B')
+    const {themeMode} = useTheme()
+    const {data} = useViewportData()
 
     useEffect(() => {
         if(themeMode == 'dark') {
@@ -23,11 +23,6 @@ function Viewport() {
             setFogColor('white');
         }
     }, [themeMode]);
-    
-    useEffect(() => {
-        const dt = new Array(10000).fill(0).map((d, id) => ({ id }));
-        setData(dt)
-    }, []);
 
     return ( 
         <div className='viewport-container'>
