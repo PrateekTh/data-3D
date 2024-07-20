@@ -3,13 +3,15 @@ import UserContext from "../context/UserContext";
 import Viewport from "./Viewport";
 import * as dfd from "danfojs/dist/danfojs-browser/src";
 import { ViewportDataProvider } from "../context/ViewportContext";
- 
+
+//To Add: More User Customizability and Control
 export default function Card() {
 
     const filename = "h_weather.csv";
     const {user, dataset, setDataset} = useContext(UserContext);
     const [data, setData] = useState();
     const [selectedPoint, setSelectedPoint] = useState(null);
+    const [dataTypes, setDataTypes] = useState(['x','y','z']);
 	const layout = "grid";
 	const onSelectPoint = (point) => {setSelectedPoint(point)};
     
@@ -40,7 +42,7 @@ export default function Card() {
                 </a>
                 <div className="items-center mt-2.5 mb-5">
                     <span className="bg-zinc-100 text-zinc-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-zinc-200 dark:text-zinc-800 ml-3">
-                        Sales Forecasting
+                        Dataset Analysis
                     </span>
 
                 </div>
@@ -56,7 +58,7 @@ export default function Card() {
             </div>
             
             <div className="p-4 h-full w-3/5 rounded-lg overflow-hidden" >
-                <ViewportDataProvider value={{data, layout, selectedPoint, onSelectPoint}}>
+                <ViewportDataProvider value={{data, dataTypes, layout, selectedPoint, onSelectPoint}}>
                     <Viewport/>
                 </ViewportDataProvider>
             </div>

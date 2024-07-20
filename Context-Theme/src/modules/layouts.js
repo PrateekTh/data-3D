@@ -1,14 +1,15 @@
 import * as React from 'react';
-
-function gridLayout(data) {
-  	const numPoints = data.index.length;
+import useViewportData from '../context/ViewportContext';
+// To Add: Additional Backend Layouts
+function gridLayout(data, dataTypes) {
+	const numPoints = data.index.length;
   	const numCols = Math.ceil(Math.sqrt(numPoints));
   	const numRows = numCols;
 	const x = [];
 	const y = [];
 	const z = [];
 	
-	console.log(data);
+	console.log(dataTypes);
 
 	for (let i = 0; i < numPoints; i++) {
 		const col = (i % numCols) - numCols / 2;
@@ -40,6 +41,8 @@ function spiralLayout(data) {
 }
 
 export const useLayout = ({ data, layout = 'grid' }) => {
+	const {dataTypes} = useViewportData();
+
 	React.useEffect(() => {
 		switch (layout) {
 		case 'spiral':
@@ -47,7 +50,7 @@ export const useLayout = ({ data, layout = 'grid' }) => {
 			break;
 		case 'grid':
 		default: {
-			gridLayout(data);
+			gridLayout(data, dataTypes);
 		}
 		}
 	}, [data, layout]);

@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react';
 
 export const ViewportContext = createContext({
     data:[],
+    dataTypes:[],
     layout:"grid",
     selectedPoint: null,
     onSelectPoint:() => {console.log("Selected")}

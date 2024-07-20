@@ -33,13 +33,16 @@ function updateInstancedMeshMatrices({ mesh, data, selectedPoint }) {
 		if(selectedPoint && i == selectedPoint.id ) {
 			mesh.setColorAt( i, SELECTED_COLOR); 
 		} else mesh.setColorAt( i, color );		
-		// const { x, y, z } = data[i];
+		const x = data.iat(i, 3);
+		const y = data.iat(i, 4);
+		const z = data.iat(i, 5)
+		// console.log(x);
 		const scale = (1000/(i+10));
-		scratchObject3D.position.set(i%100, scale/10 - 10, i%40);
+		// scratchObject3D.position.set(i%100, scale/10 - 10, i%40);
 
-		// scratchObject3D.scale.setY(scale);
-		// scratchObject3D.position.set(x, scale/10 - 10, z);
-		// scratchObject3D.rotation.set(Math.PI, 0, 0); // cylinders face y direction
+		scratchObject3D.scale.setY(scale);
+		scratchObject3D.position.set(x, scale/14, z);
+		scratchObject3D.rotation.set(Math.PI, 0, 0); // cylinders face y direction
 
 		scratchObject3D.updateMatrix();
 		mesh.setMatrixAt(i, scratchObject3D.matrix);
