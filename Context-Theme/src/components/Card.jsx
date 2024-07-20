@@ -21,19 +21,14 @@ export default function Card() {
         let sub_df = [0];
         if(dataset.index){
             console.log(dataset);
-            sub_df = dataset.loc({columns: [dataset.columns[0], dataset.columns[1], dataset.columns[2]]})
+            sub_df = dataset.loc({columns: [dataset.columns[0], dataset.columns[2], dataset.columns[3]]})
         }
         setData(sub_df)
     }, [dataset])
 
     return (
         <div className="duration-300 m-6 flex bg-white border border-zinc-200 rounded-lg shadow dark:bg-zinc-900 dark:border-zinc-700">
-            <div className="p-4 h-full w-3/5 rounded-lg overflow-hidden" >
-            <ViewportDataProvider value={{data, layout, selectedPoint, onSelectPoint}}>
-                <Viewport/>
-            </ViewportDataProvider>
-            </div>
-
+            
             <div className="p-5 w-2/6 content-center">
                 <a href="#">
                     <h5 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-white">
@@ -59,6 +54,14 @@ export default function Card() {
                     See Details
                 </button>
             </div>
+            
+            <div className="p-4 h-full w-3/5 rounded-lg overflow-hidden" >
+                <ViewportDataProvider value={{data, layout, selectedPoint, onSelectPoint}}>
+                    <Viewport/>
+                </ViewportDataProvider>
+            </div>
+
+            
         </div>
     );
 }

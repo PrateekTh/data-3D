@@ -46,7 +46,7 @@ function updateInstancedMeshMatrices({ mesh, data, selectedPoint }) {
 	}
 
 	//needs update vs Dynamic Draw Usage
-	// mesh.instanceColor.needsUpdate = true;
+	mesh.instanceColor.needsUpdate = true;
     mesh.instanceMatrix.needsUpdate = true;
 }
 //-----------------------------------------------------------//
