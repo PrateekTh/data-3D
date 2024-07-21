@@ -1,16 +1,36 @@
 import * as React from 'react';
 import useViewportData from '../context/ViewportContext';
+import {Series} from 'danfojs/dist/danfojs-browser/src'
 // To Add: Additional Backend Layouts
+
+function normalizeField(s){
+	const max  = s.max;
+	const min = s.min;
+
+	//iterate over the series with a normalizing function
+	
+	
+	//return an array of processed elements
+}
+
+function categorizeField(s){
+	const categoryIndex = new Set();
+	
+	//iterate over the series to categorize each field into the set
+
+	//return an array of integer mapped categorized data
+}
+
 function gridLayout(data, dataTypes) {
 	const numPoints = data.index.length;
   	const numCols = Math.ceil(Math.sqrt(numPoints));
-  	const numRows = numCols;
+  	const numRows = numCols;	
+	console.log(dataTypes);
+
 	const x = [];
 	const y = [];
 	const z = [];
-	
-	console.log(dataTypes);
-
+	//Normalize/categorize instead of this loop
 	for (let i = 0; i < numPoints; i++) {
 		const col = (i % numCols) - numCols / 2;
 		const row = Math.floor(i / numCols) - numRows / 2;
