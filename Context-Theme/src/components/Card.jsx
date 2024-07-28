@@ -11,7 +11,7 @@ export default function Card() {
     const {user, dataset, setDataset} = useContext(UserContext);
     const [data, setData] = useState();
     const [selectedPoint, setSelectedPoint] = useState(null);
-    const [dataTypes, setDataTypes] = useState(['x','y','z']);
+    const [dataTypes, setDataTypes] = useState(['index','continuous','continuous']);
 	const layout = "grid";
 	const onSelectPoint = (point) => {setSelectedPoint(point)};
     
