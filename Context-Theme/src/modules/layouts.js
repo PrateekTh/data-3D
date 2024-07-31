@@ -31,21 +31,18 @@ function indicizeField(df, col){
 
 function categorizeField(df, col){	
 	const s = df.column(df.columns[col]);
-	//iterate over the series to categorize each field into a map (str, array[2])
+	//iterate over the series to categorize each field into a map (str, array[2]) i.e. ["category name"] -> [catID(int), totalCount(int)]
 	const categoryList = new Map();
 	let catCount = 0;
 
-	/////////////////////fix
 	for(let i = 0; i<s.count(); i++){
 		if(categoryList.get(s.values[i])){
 			const cInfo = categoryList.get(s.values[i]);
 			s.values[i] = cInfo[0];
-			// df.values[i][col] = cInfo[0];
 			categoryList.set(s.values[i], [cInfo[0], cInfo[1] + 1])
 		}else{
 			categoryList.set(s.values[i], [catCount, 1]);
 			s.values[i] = catCount;
-			// df.values[i][col] = catCount;
 			catCount++;
 		}
 	}
@@ -60,37 +57,27 @@ function gridLayout(data, dataTypes) {
   	const numRows = numCols;	
 	console.log(dataTypes);
 
-	const itemp = ['x', 'y', 'z'];
-		
+	const iTemp = ['x', 'y', 'z'];
+
 	for(let i = 0; i < dataTypes.length; i++){
 		switch (dataTypes[i]){
 			case 'categorical':
 				console.log("Categorizing: " + i + " - " + data.columns[i]);
-				data.addColumn(itemp[i], categorizeField(data, i));
+				data.addColumn(iTemp[i], categorizeField(data, i));
 				break;
 			case 'continuous':
 				console.log("Normalizing: " + i + " - " + data.columns[i]);
-				data.addColumn(itemp[i], normalizeField(data, i), { inplace: true });
+				data.addColumn(iTemp[i], normalizeField(data, i), { inplace: true });
 				break;
 			case 'index':
 				console.log("Indicizing: " + i + " - " + data.columns[i]);
-				data.addColumn(itemp[i], indicizeField(data, i), { inplace: true });
+				data.addColumn(iTemp[i], indicizeField(data, i), { inplace: true });
 				break;
 			default: 
-				data.addColumn(itemp[i], indicizeField(data, i), { inplace: true });
+				data.addColumn(iTemp[i], indicizeField(data, i), { inplace: true });
 		}
 	}
 
-	//Normalize/categorize instead of this loop
-	// for (let i = 0; i < numPoints; i++) {
-	// 	const col = (i % numCols) - numCols / 2;
-	// 	const row = Math.floor(i / numCols) - numRows / 2;
-	// 	// console.log(i + " - " + x.length);
-	// 	x.push(col * 1.05);
-	// 	z.push(row * 1.05);
-	// 	y.push(0);
-	// }
-	// data = dfd.concat({dfList: [data, data], axis: 1});
 	console.log(data);
 }
 

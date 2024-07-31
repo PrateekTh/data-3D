@@ -34,27 +34,89 @@ export default function Card() {
             <div className="p-5 w-2/6 content-center">
                 <a href="#">
                     <h5 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-white">
-                    <span className="mb-4 text-2xl font-bold text-zinc-900 dark:text-white">                        
-                        {user.username}'s Dashboard
-                    </span>
-                        {}
+                        <span className="mb-4 text-4xl font-bold text-zinc-900 dark:text-white">                        
+                            {user.username}'s Dashboard
+                        </span>
                     </h5>
                 </a>
                 <div className="items-center mt-2.5 mb-5">
                     <span className="bg-zinc-100 text-zinc-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-zinc-200 dark:text-zinc-800 ml-3">
                         Dataset Analysis
                     </span>
-
                 </div>
 
-                <p align ='justify' className="font-mono">
-                
-                </p>
-                <button href="#" className=" m-4 text-white bg-zinc-700 hover:bg-zinc-800 focus:ring-4 focus:outline-none 
+                <div className="userInputBox text-left p-4">
+                    <div className="axis mb-6">
+                        <div className="inputLabel text-xl font-bold">X Axis </div>
+                        <select name="xCol" className="text-zinc-800 rounded-md mx-2"> 
+                            <option value=""> Please Select</option>
+                            <option value="1"> Option 1</option>
+                            <option value="2"> Option 2</option>
+                            <option value="3"> Option 3</option>    
+                        </select> 
+                        Normalize <input type="checkbox" name="normalize" className="rounded-lg text-zinc-600 focus:ring-0 focus:ring-white"/>
+                        <div className="dataType">
+                            <input id="continuous" type="radio" name="type-x" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="continuous">Continuous</label> 
+                            <input id="categorical" type="radio" name="type-x" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="categorical">Categorical</label> 
+                            <input id="index" type="radio" name="type-x" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="index">Index</label> 
+                        </div>
+                    </div>
+                    
+                    <div className="axis mb-6">
+                        <div className="inputLabel text-xl font-bold">Y Axis </div>
+                        <select name="xCol" className="text-zinc-800 rounded-md mx-2"> 
+                            <option value=""> Please Select</option>
+                            <option value="1"> Option 1</option>
+                            <option value="2"> Option 2</option>
+                            <option value="3"> Option 3</option>    
+                        </select> 
+                        Normalize <input type="checkbox" name="normalize" className="rounded-lg text-zinc-600 focus:ring-0 focus:ring-white"/>
+                        <div className="dataType">
+                            <input id="continuous" type="radio" name="type-y" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="continuous">Continuous</label> 
+                            <input id="categorical" type="radio" name="type-y" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="categorical">Categorical</label> 
+                            <input id="index" type="radio" name="type-y" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="index">Index</label> 
+                        </div>
+                    </div>
+
+                    <div className="axis mb-6">
+                        <div className="inputLabel text-xl font-bold">Z Axis </div>
+                        <select name="xCol" className="text-zinc-800 rounded-md mx-2"> 
+                            <option value=""> Please Select</option>
+                            <option value="1"> Option 1</option>
+                            <option value="2"> Option 2</option>
+                            <option value="3"> Option 3</option>    
+                        </select> 
+                        Normalize <input type="checkbox" name="normalize" className="rounded-lg text-zinc-600 focus:ring-0 focus:ring-white"/>
+                        <div className="dataType">
+                            <input id="continuous" type="radio" name="type-z" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="continuous">Continuous</label> 
+                            <input id="categorical" type="radio" name="type-z" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="categorical">Categorical</label> 
+                            <input id="index" type="radio" name="type-z" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
+                            <label for="index">Index</label> 
+                        </div>
+                    </div>
+                    
+                    <div className="inputLabel text-xl font-bold">Model </div>
+                    <select name="xCol" className="text-zinc-800 rounded-md mx-2"> 
+                            <option value=""> Please Select</option>
+                            <option value="1"> Scatter</option>
+                            <option value="2"> Plane</option>
+                            <option value="3"> Datapoint</option>    
+                        </select> 
+
+                </div>
+                {/* <button href="#" className=" m-4 text-white bg-zinc-700 hover:bg-zinc-800 focus:ring-4 focus:outline-none 
                 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
                 dark:bg-zinc-600 dark:hover:bg-zinc-700 dark:focus:ring-zinc-800">
                     See Details
-                </button>
+                </button> */}
             </div>
             
             <div className="p-4 h-full w-3/5 rounded-lg overflow-hidden" >
