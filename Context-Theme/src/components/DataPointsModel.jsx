@@ -1,11 +1,11 @@
 import * as React from 'react';
 import InstancedPoints from './InstancedPoints';
 
-const DataPointsModel = ({ data }) => {
+const DataPointsModel = () => {
   return (
     <>
       <ambientLight color="#ffffff" intensity={0.3} />
-      <InstancedPoints data={data} />
+      <InstancedPoints />
     </>
   );
 };

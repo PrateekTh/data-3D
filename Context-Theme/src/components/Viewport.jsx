@@ -6,15 +6,14 @@ import PlaneModel from './PlaneModel';
 import useTheme from '../context/ThemeContext';
 import UserContext from '../context/UserContext'
 import DataPointsModel from './DataPointsModel';
-import useViewportData from '../context/ViewportContext';
-
+import { basicMaterial } from '../modules/shaders';
 
 
 function Viewport() {
 
+    console.log(basicMaterial);
     const [fogColor, setFogColor] = useState('#18181B')
     const {themeMode} = useTheme()
-    const {data} = useViewportData()
 
     useEffect(() => {
         if(themeMode == 'dark') {
@@ -34,7 +33,7 @@ function Viewport() {
                 <directionalLight color={"#FF8552"} intensity={2} position={[5,1,1]}/>
                 <Sphere position={[0,3,3]} size ={[0.2,10,10]} color={'hotpink'}/>
                 
-                <DataPointsModel data={data}/>
+                <DataPointsModel/>
                 {/* <TestDocsInstanced /> */}
                 {/* <PlaneModel data = {data}/> */}
                 {/* <Model link = '/Earth.glb' scale ={0.005} rotation = {[0.2, 1.8, 0]} /> */}
