@@ -6,6 +6,7 @@ import * as dfd from 'danfojs/dist/danfojs-browser/src'
 
 function normalizeField(df, col){
 	const s = df.column(df.columns[col]);
+	console.log(s)
 
 	const sMax = s.max();
 	const sMin = s.min();
@@ -14,7 +15,7 @@ function normalizeField(df, col){
 		s.values[i] = 100 * (s.values[i] - sMin)/(sMax - sMin);
 	}
 
-	console.log(s);
+	// console.log(s);
 	return s;
 }
 
@@ -22,11 +23,15 @@ function indicizeField(df, col){
 	const s = df.column(df.columns[col]);
 	//iterate over the series with a normalizing function
 	for(let i = 0; i<s.count(); i++){
-		s.values[i] = i%100;
+		s.values[i] = (i - s.count()/2)/2;
 		// df.values[i][col] = i;
 	}
-	console.log(s);
+	// console.log(s);
 	return s;
+}
+
+function discretizeField(df, col){
+
 }
 
 function categorizeField(df, col){	
@@ -38,7 +43,7 @@ function categorizeField(df, col){
 	for(let i = 0; i<s.count(); i++){
 		if(categoryList.get(s.values[i])){
 			const cInfo = categoryList.get(s.values[i]);
-			s.values[i] = cInfo[0];
+			s.values[i] = (cInfo[0] - catCount/2) * 4;
 			categoryList.set(s.values[i], [cInfo[0], cInfo[1] + 1])
 		}else{
 			categoryList.set(s.values[i], [catCount, 1]);
@@ -55,7 +60,7 @@ function gridLayout(data, dataTypes) {
 	const numPoints = data.index.length;
   	const numCols = Math.ceil(Math.sqrt(numPoints));
   	const numRows = numCols;	
-	console.log(dataTypes);
+	// console.log(dataTypes);
 
 	const iTemp = ['x', 'y', 'z'];
 
@@ -63,7 +68,7 @@ function gridLayout(data, dataTypes) {
 		switch (dataTypes[i]){
 			case 'categorical':
 				console.log("Categorizing: " + i + " - " + data.columns[i]);
-				data.addColumn(iTemp[i], categorizeField(data, i));
+				data.addColumn(iTemp[i], categorizeField(data, i), { inplace: true });
 				break;
 			case 'continuous':
 				console.log("Normalizing: " + i + " - " + data.columns[i]);
@@ -78,7 +83,7 @@ function gridLayout(data, dataTypes) {
 		}
 	}
 
-	console.log(data);
+	// console.log(data);
 }
 
 function spiralLayout(data) {

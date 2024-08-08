@@ -11,7 +11,7 @@ import { basicMaterial } from '../modules/shaders';
 
 function Viewport() {
 
-    console.log(basicMaterial);
+    // console.log(basicMaterial);
     const [fogColor, setFogColor] = useState('#18181B')
     const {themeMode} = useTheme()
 
@@ -39,7 +39,11 @@ function Viewport() {
                 {/* <Model link = '/Earth.glb' scale ={0.005} rotation = {[0.2, 1.8, 0]} /> */}
                 <Cube position={[0,2,3]} size ={[2,1,2]} color={'steelblue'}/>
 
-                <OrbitControls/>
+                <OrbitControls
+                    minPolarAngle={-Math.PI/2}
+                    maxPolarAngle={Math.PI/2}
+                    
+                />
             </Canvas> 
         </div>
     );

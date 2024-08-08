@@ -27,6 +27,7 @@ function updateInstancedMeshMatrices({ mesh, data, selectedPoint }) {
 	//f7fff6-bcebcb-87d68d-93b48b-8491a3
 	const blossomPalette = [ 0xf7fff6, 0xbcebcb, 0x87d68d, 0x93b48b ];
 	// console.log(selectedPoint);
+	console.log(data);
 
 	for (let i = 0; i < data.index.length; ++i) {
 		color.setHex( blossomPalette[ Math.floor( Math.abs(Math.sin(i)) * blossomPalette.length ) ] );
@@ -35,13 +36,10 @@ function updateInstancedMeshMatrices({ mesh, data, selectedPoint }) {
 		} else mesh.setColorAt( i, color );		
 		const x = data.iat(i, 3);
 		const y = data.iat(i, 4);
-		const z = data.iat(i, 5)
-		// console.log(x);
-		const scale = (1000/(i+10));
-		// scratchObject3D.position.set(i%100, scale/10 - 10, i%40);
+		const z = data.iat(i, 5);
 
-		scratchObject3D.scale.setY(scale);
-		scratchObject3D.position.set(x, scale/14, z);
+		// scratchObject3D.scale.setY(y);
+		scratchObject3D.position.set(x, y, z);
 		scratchObject3D.rotation.set(Math.PI, 0, 0); // cylinders face y direction
 
 		scratchObject3D.updateMatrix();
@@ -65,7 +63,6 @@ const InstancedPoints = () => {
 
     // update instance matrices when needed
     React.useEffect(() => {
-		console.log(data);
 		updateInstancedMeshMatrices({ mesh: meshRef.current, data, selectedPoint });
     }, [data, selectedPoint]);
 	

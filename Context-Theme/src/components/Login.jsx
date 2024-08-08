@@ -15,18 +15,18 @@ function Login(){
     }
     return(
         <div className='viewport-container flex-col w-screen content-center'>
-            <h1 className='text-3xl font-mono font-bold'>Login</h1>
-            <input className= 'dark:text-zinc-700' 
+            <h1 className='text-3xl font-mono font-bold'>Welcome</h1>
+            <input className= 'rounded-md m-2 dark:text-zinc-700' 
             type='text' 
             value={username} 
             onChange={(e) => {setUsername(e.target.value)}} 
-            placeholder='Username'/> <br/>
+            placeholder='Project Name'/> <br/>
             
-            <input className='dark:text-zinc-700'
-            type='password' 
+            <input className='rounded-md m-2 dark:text-zinc-700'
+            type='text' 
             value={password} 
             onChange={(e) => {setPassword(e.target.value)}} 
-            placeholder='Password'/> <br/>
+            placeholder='Link to Dataset'/> <br/>
 
             <button onClick={handleSubmit} className='text-white'>Submit</button>
         </div>

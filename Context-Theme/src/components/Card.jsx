@@ -3,6 +3,7 @@ import UserContext from "../context/UserContext";
 import Viewport from "./Viewport";
 import * as dfd from "danfojs/dist/danfojs-browser/src";
 import { ViewportDataProvider } from "../context/ViewportContext";
+import ScatterController from "./ScatterController";
 
 //To Add: More User Customizability and Control
 export default function Card() {
@@ -14,28 +15,43 @@ export default function Card() {
     const [dataTypes, setDataTypes] = useState(['index','continuous','continuous']);
 	const layout = "grid";
 	const onSelectPoint = (point) => {setSelectedPoint(point)};
-    
+
     useEffect(() => {
-        dfd.readCSV("/" + filename).then((dataset) => setDataset(dataset)).then(console.log(dataset));        
+        dfd.readCSV("/" + filename).then((dataset) => setDataset(dataset));        
     }, []);
 
+    // setting columns for data (to be done via components)
     useEffect(()=>{
         let sub_df = [0];
         if(dataset.index){
-            console.log(dataset);
+            // console.log(dataset);
             sub_df = dataset.loc({columns: [dataset.columns[0], dataset.columns[2], dataset.columns[3]]})
         }
         setData(sub_df)
     }, [dataset])
 
+    // to be passed to controllers
+    function setViewportData(userPrefs){
+        console.log(userPrefs);
+        setDataTypes([userPrefs.xType, userPrefs.yType, userPrefs.zType])
+        console.log(dataTypes);
+        let sub_df = dataset.loc({columns: [dataset.columns[userPrefs.xCol]]});
+        console.log(dataset.column(dataset.columns[userPrefs.yCol]));
+
+        sub_df.addColumn(dataset.columns[userPrefs.yCol], dataset.column(dataset.columns[userPrefs.yCol]), { inplace: true });
+        sub_df.addColumn(dataset.columns[userPrefs.zCol], dataset.column(dataset.columns[userPrefs.zCol]), { inplace: true });
+        console.log(sub_df);
+        setData(sub_df);
+    }
+
     return (
-        <div className="duration-300 m-6 flex bg-white border border-zinc-200 rounded-lg shadow dark:bg-zinc-900 dark:border-zinc-700">
+        <div className=" py-4 duration-300 m-6 flex bg-white border bg-opacity-50 border-zinc-200 rounded-lg shadow dark:bg-zinc-900 dark:bg-opacity-50 dark:border-zinc-700">
             
-            <div className="p-5 w-2/6 content-center">
+            <div className="w-2/6 content-center border-r-2 border-zinc-200 dark:border-zinc-600">
                 <a href="#">
                     <h5 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-white">
                         <span className="mb-4 text-4xl font-bold text-zinc-900 dark:text-white">                        
-                            {user.username}'s Dashboard
+                            {user.username}
                         </span>
                     </h5>
                 </a>
@@ -44,73 +60,16 @@ export default function Card() {
                         Dataset Analysis
                     </span>
                 </div>
-
-                <div className="userInputBox text-left p-4">
-                    <div className="axis mb-6">
-                        <div className="inputLabel text-xl font-bold">X Axis </div>
-                        <select name="xCol" className="text-zinc-800 rounded-md mx-2"> 
-                            <option value=""> Please Select</option>
-                            <option value="1"> Option 1</option>
-                            <option value="2"> Option 2</option>
-                            <option value="3"> Option 3</option>    
-                        </select> 
-                        Normalize <input type="checkbox" name="normalize" className="rounded-lg text-zinc-600 focus:ring-0 focus:ring-white"/>
-                        <div className="dataType">
-                            <input id="continuous" type="radio" name="type-x" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="continuous">Continuous</label> 
-                            <input id="categorical" type="radio" name="type-x" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="categorical">Categorical</label> 
-                            <input id="index" type="radio" name="type-x" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="index">Index</label> 
-                        </div>
-                    </div>
-                    
-                    <div className="axis mb-6">
-                        <div className="inputLabel text-xl font-bold">Y Axis </div>
-                        <select name="xCol" className="text-zinc-800 rounded-md mx-2"> 
-                            <option value=""> Please Select</option>
-                            <option value="1"> Option 1</option>
-                            <option value="2"> Option 2</option>
-                            <option value="3"> Option 3</option>    
-                        </select> 
-                        Normalize <input type="checkbox" name="normalize" className="rounded-lg text-zinc-600 focus:ring-0 focus:ring-white"/>
-                        <div className="dataType">
-                            <input id="continuous" type="radio" name="type-y" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="continuous">Continuous</label> 
-                            <input id="categorical" type="radio" name="type-y" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="categorical">Categorical</label> 
-                            <input id="index" type="radio" name="type-y" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="index">Index</label> 
-                        </div>
-                    </div>
-
-                    <div className="axis mb-6">
-                        <div className="inputLabel text-xl font-bold">Z Axis </div>
-                        <select name="xCol" className="text-zinc-800 rounded-md mx-2"> 
-                            <option value=""> Please Select</option>
-                            <option value="1"> Option 1</option>
-                            <option value="2"> Option 2</option>
-                            <option value="3"> Option 3</option>    
-                        </select> 
-                        Normalize <input type="checkbox" name="normalize" className="rounded-lg text-zinc-600 focus:ring-0 focus:ring-white"/>
-                        <div className="dataType">
-                            <input id="continuous" type="radio" name="type-z" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="continuous">Continuous</label> 
-                            <input id="categorical" type="radio" name="type-z" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="categorical">Categorical</label> 
-                            <input id="index" type="radio" name="type-z" className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white"/>
-                            <label for="index">Index</label> 
-                        </div>
-                    </div>
-                    
-                    <div className="inputLabel text-xl font-bold">Model </div>
-                    <select name="xCol" className="text-zinc-800 rounded-md mx-2"> 
-                            <option value=""> Please Select</option>
-                            <option value="1"> Scatter</option>
-                            <option value="2"> Plane</option>
-                            <option value="3"> Datapoint</option>    
-                        </select> 
-
+                <span className="inputLabel text-xl font-bold">Plot Type </span> 
+                <select name="xCol" className="text-zinc-800 rounded-md mb-2 bg-inherit dark:text-white font-mono"> 
+                    <option value="" className="text-black"> Please Select</option>
+                    <option value="1" className="text-black"> Scatter</option>
+                    <option value="2" className="text-black"> Discrete</option>
+                    <option value="3" className="text-black"> Homogenous</option>    
+                </select>
+                
+                <div className="userInputBox text-left">
+                    <ScatterController dataset = {dataset} setViewportData = {setViewportData} />
                 </div>
                 {/* <button href="#" className=" m-4 text-white bg-zinc-700 hover:bg-zinc-800 focus:ring-4 focus:outline-none 
                 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
@@ -123,9 +82,7 @@ export default function Card() {
                 <ViewportDataProvider value={{data, dataTypes, layout, selectedPoint, onSelectPoint}}>
                     <Viewport/>
                 </ViewportDataProvider>
-            </div>
-
-            
+            </div>            
         </div>
     );
 }
