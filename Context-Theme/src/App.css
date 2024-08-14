@@ -11,3 +11,8 @@ input {
   margin: 1vh;
   padding: 1vh;
 }
+
+::selection {
+  color: red;
+  background: inherit;
+}

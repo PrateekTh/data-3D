@@ -2,11 +2,12 @@ import * as React from 'react';
 import useViewportData from '../context/ViewportContext';
 import * as dfd from 'danfojs/dist/danfojs-browser/src'
 
+const categoryGap = 25;
 // To Add: Additional Backend Layouts
 
 function normalizeField(df, col){
 	const s = df.column(df.columns[col]);
-	console.log(s)
+	// console.log(s)
 
 	const sMax = s.max();
 	const sMin = s.min();
@@ -14,8 +15,6 @@ function normalizeField(df, col){
 	for(let i = 0; i<s.count(); i++){
 		s.values[i] = 100 * (s.values[i] - sMin)/(sMax - sMin);
 	}
-
-	// console.log(s);
 	return s;
 }
 
@@ -31,7 +30,13 @@ function indicizeField(df, col){
 }
 
 function discretizeField(df, col){
+	const s = df.column(df.columns[col]);
+	for(let i = 0; i<s.count(); i++){
+		s.values[i] = (i - s.count()/2)/2;
+		// df.values[i][col] = i;
+	}
 
+	return s;
 }
 
 function categorizeField(df, col){	
@@ -43,7 +48,7 @@ function categorizeField(df, col){
 	for(let i = 0; i<s.count(); i++){
 		if(categoryList.get(s.values[i])){
 			const cInfo = categoryList.get(s.values[i]);
-			s.values[i] = (cInfo[0] - catCount/2) * 4;
+			s.values[i] = (cInfo[0] - catCount/2) * categoryGap;
 			categoryList.set(s.values[i], [cInfo[0], cInfo[1] + 1])
 		}else{
 			categoryList.set(s.values[i], [catCount, 1]);
@@ -52,7 +57,16 @@ function categorizeField(df, col){
 		}
 	}
 
-	console.log(s);
+	// console.log(s);
+	return s;
+}
+
+function uniformizeField(df, col){
+	const s = df.column(df.columns[col]);
+	for(let i = 0; i<s.count(); i++){
+		s.values[i] = 0;
+	}
+
 	return s;
 }
 
@@ -62,7 +76,7 @@ function gridLayout(data, dataTypes) {
   	const numRows = numCols;	
 	// console.log(dataTypes);
 
-	const iTemp = ['x', 'y', 'z'];
+	const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 
 	for(let i = 0; i < dataTypes.length; i++){
 		switch (dataTypes[i]){
@@ -79,7 +93,7 @@ function gridLayout(data, dataTypes) {
 				data.addColumn(iTemp[i], indicizeField(data, i), { inplace: true });
 				break;
 			default: 
-				data.addColumn(iTemp[i], indicizeField(data, i), { inplace: true });
+				data.addColumn(iTemp[i], uniformizeField(data, i), { inplace: true });
 		}
 	}
 

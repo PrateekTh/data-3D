@@ -30,36 +30,29 @@ export default function Card() {
         setData(sub_df)
     }, [dataset])
 
-    // to be passed to controllers
     function setViewportData(userPrefs){
         console.log(userPrefs);
-        setDataTypes([userPrefs.xType, userPrefs.yType, userPrefs.zType])
-        console.log(dataTypes);
+        setDataTypes([userPrefs.xType, userPrefs.yType, userPrefs.zType, "categorical", "continuous"]);
+        // console.log(dataTypes);
         let sub_df = dataset.loc({columns: [dataset.columns[userPrefs.xCol]]});
         console.log(dataset.column(dataset.columns[userPrefs.yCol]));
-
         sub_df.addColumn(dataset.columns[userPrefs.yCol], dataset.column(dataset.columns[userPrefs.yCol]), { inplace: true });
         sub_df.addColumn(dataset.columns[userPrefs.zCol], dataset.column(dataset.columns[userPrefs.zCol]), { inplace: true });
+        sub_df.addColumn( "Color", dataset.column(dataset.columns[userPrefs.colorCol]), { inplace: true });
+        sub_df.addColumn( "Scale", dataset.column(dataset.columns[userPrefs.scaleCol]), { inplace: true });
+
         console.log(sub_df);
         setData(sub_df);
     }
 
     return (
-        <div className=" py-4 duration-300 m-6 flex bg-white border bg-opacity-50 border-zinc-200 rounded-lg shadow dark:bg-zinc-900 dark:bg-opacity-50 dark:border-zinc-700">
-            
-            <div className="w-2/6 content-center border-r-2 border-zinc-200 dark:border-zinc-600">
-                <a href="#">
-                    <h5 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-white">
-                        <span className="mb-4 text-4xl font-bold text-zinc-900 dark:text-white">                        
-                            {user.username}
-                        </span>
-                    </h5>
-                </a>
-                <div className="items-center mt-2.5 mb-5">
-                    <span className="bg-zinc-100 text-zinc-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-zinc-200 dark:text-zinc-800 ml-3">
-                        Dataset Analysis
+        <div className="py-4 duration-300 m-6 bg-white border bg-opacity-50 border-zinc-200 rounded-lg shadow lg:flex dark:bg-zinc-900 dark:bg-opacity-50 dark:border-zinc-700">
+            <div className="lg:w-2/6 content-center lg:border-r-2 border-zinc-200 dark:border-zinc-600">
+                <h5 className="text-xl font-semibold text-zinc-900 dark:text-white">
+                    <span className="text-4xl font-bold text-zinc-900 dark:text-white">                        
+                        {user.username} Project
                     </span>
-                </div>
+                </h5>
                 <span className="inputLabel text-xl font-bold">Plot Type </span> 
                 <select name="xCol" className="text-zinc-800 rounded-md mb-2 bg-inherit dark:text-white font-mono"> 
                     <option value="" className="text-black"> Please Select</option>
@@ -77,8 +70,7 @@ export default function Card() {
                     See Details
                 </button> */}
             </div>
-            
-            <div className="p-4 h-full w-3/5 rounded-lg overflow-hidden" >
+            <div className="p-4 border-zinc-200 h-full lg:w-3/5 rounded-lg overflow-hidden" >
                 <ViewportDataProvider value={{data, dataTypes, layout, selectedPoint, onSelectPoint}}>
                     <Viewport/>
                 </ViewportDataProvider>

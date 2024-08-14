@@ -10,7 +10,7 @@ function Profile() {
 
     return (
     <>
-        <div className='w-screen'>
+        <div className='p-2'>
             <Card />
         </div>
     </>)

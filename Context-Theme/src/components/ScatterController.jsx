@@ -111,7 +111,7 @@ function ScatterController({dataset, setViewportData}) {
                 </div>
             </div> 
             
-            <div className='flex align-middle p-2'>
+            <div className='md:flex align-middle p-2'>
                 <div className="axis flex p-6">
                     <div className="inputLabel text-xl font-bold">Color </div>
                     <select name="colorCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
@@ -123,12 +123,10 @@ function ScatterController({dataset, setViewportData}) {
                 </div> 
                 <div className="axis flex p-6">
                     <div className="inputLabel text-xl font-bold"> Scale </div>
-                    <select name="colorCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
+                    <select name="scaleCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
                     <option className="text-zinc-800" value={-1}> Uniform </option>
-                        {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
-                        }
-                    </select>        
+                        {dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))}
+                    </select>
                 </div>
             </div>
             <button className="border-zinc-500 border-2 mx-4 w-1/3 text-white" type="submit"> Build Visualisation </button>

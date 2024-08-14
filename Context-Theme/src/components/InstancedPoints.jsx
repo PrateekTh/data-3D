@@ -30,15 +30,20 @@ function updateInstancedMeshMatrices({ mesh, data, selectedPoint }) {
 	console.log(data);
 
 	for (let i = 0; i < data.index.length; ++i) {
-		color.setHex( blossomPalette[ Math.floor( Math.abs(Math.sin(i)) * blossomPalette.length ) ] );
+
+		const x = data.iat(i, 5);
+		const y = data.iat(i, 6);
+		const z = data.iat(i, 7);
+		const colorID = data.iat(i, 8);
+		const scale = data.iat(i, 9)/10; // some error
+
+		//lerpHSL or setHSL
+		color.setHex( blossomPalette[ Math.floor( Math.abs(Math.sin(colorID)) * blossomPalette.length ) ] );
 		if(selectedPoint && i == selectedPoint.id ) {
 			mesh.setColorAt( i, SELECTED_COLOR); 
 		} else mesh.setColorAt( i, color );		
-		const x = data.iat(i, 3);
-		const y = data.iat(i, 4);
-		const z = data.iat(i, 5);
-
-		// scratchObject3D.scale.setY(y);
+		
+		scratchObject3D.scale.set(scale + 1, scale + 1, scale + 1);
 		scratchObject3D.position.set(x, y, z);
 		scratchObject3D.rotation.set(Math.PI, 0, 0); // cylinders face y direction
 
