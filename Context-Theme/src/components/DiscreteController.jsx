@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-function ScatterController({dataset, setViewportData}) {
+function DiscreteController({dataset, setViewportData}) {
 
     function handleSubmit(e){
         e.preventDefault();
@@ -12,11 +12,15 @@ function ScatterController({dataset, setViewportData}) {
         const formJson = Object.fromEntries(formData.entries());
         // console.log(formJson);
 
+        formJson.yCol = "";
+        formJson.yType = "count";
+        formJson.colorCol = "";
+        // formJson.colorType = "";
         //Perform Sanity Checks
         if(formJson.xCol.length)
             setViewportData(formJson);
         else{
-            alert("Please Choose X Column!");
+            alert("Please Choose Columns!");
         }
 
     }
@@ -53,40 +57,12 @@ function ScatterController({dataset, setViewportData}) {
                 </div>
             </div>
             
-            <div className="axis align-middle flex p-6">
-                <div className="inputLabel text-xl font-bold p-2">Y</div>
-                <div>
-                    <select name="yCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
-                        <option className="text-zinc-800" value=""> None </option>
-                        {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
-                        }
-                    </select> 
-                    <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
-                        <div>
-                            <input id="yCont" type="radio" value="continuous" name="yType" 
-                            className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
-                            <label className="p-2 my-8 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yCont">Continuous</label> 
-                        </div>
-                        <div>
-                            <input id="yCat" type="radio" value="categorical" name="yType" 
-                            className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
-                            <label className="p-2 m-2 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yCat">Categorical</label> 
-                        </div>
-                        <div>
-                            <input id="yInd" type="radio" value="index" name="yType" defaultChecked
-                            className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer" />
-                            <label className="p-2 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yInd">Index </label> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
             <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel text-xl font-bold p-2">Z </div>
                 <div>
                     <select name="zCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
-                        <option value="" className="text-zinc-800"> None </option>
+                        <option value="" className="text-zinc-800"> Please Select</option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
                         }  
@@ -113,15 +89,6 @@ function ScatterController({dataset, setViewportData}) {
             
             <div className='md:flex align-middle p-2'>
                 <div className="axis flex p-6">
-                    <div className="inputLabel text-xl font-bold">Color </div>
-                    <select name="colorCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
-                    <option className="text-zinc-800" value=""> Uniform </option>
-                        {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
-                        }
-                    </select>        
-                </div> 
-                <div className="axis flex p-6">
                     <div className="inputLabel text-xl font-bold"> Scale </div>
                     <select name="scaleCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
@@ -139,4 +106,4 @@ function ScatterController({dataset, setViewportData}) {
     </>
 }
 
-export default ScatterController;
+export default DiscreteController;

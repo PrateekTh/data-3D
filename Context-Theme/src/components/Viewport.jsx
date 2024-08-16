@@ -26,7 +26,9 @@ function Viewport() {
     return ( 
         <div className='viewport-container'>
             <Canvas shadows >
-                <fog attach="fog" color={fogColor} near={100} far={600} />
+                <fog attach="fog" color={fogColor} near={150} far={600} />
+                <axesHelper args={[200, 200, 200]} />
+
 
                 <spotLight args={["#5DFDCB"]} intensity={50} position={[20,8,20]} decay={1.2}/>
                 <spotLight args={["#FF006E"]} intensity={50} position={[-20,8,-20]} decay={1.2}/>

@@ -6,7 +6,7 @@ import useViewportData from '../context/ViewportContext';
 
 const SELECTED_COLOR = new THREE.Color('red');
 const DEFAULT_COLOR = new THREE.Color('red');
-
+const scaleAdjust = 25;
 const scratchObject3D = new THREE.Object3D();
 
 // function updateInstancedMeshColors({mesh, selectedPoint}){
@@ -16,7 +16,7 @@ const scratchObject3D = new THREE.Object3D();
 // 	console.log(color);
 
 // 	mesh.setColorAt(selectedPoint, SELECTED_COLOR);
-// 	mesh.instanceMatrix.needsUpdate = true;
+// 	mesh.instanceColor.needsUpdate = true;
 // }
 
 function updateInstancedMeshMatrices({ mesh, data, selectedPoint }) {
@@ -25,18 +25,19 @@ function updateInstancedMeshMatrices({ mesh, data, selectedPoint }) {
 
 	const color = new THREE.Color();
 	//f7fff6-bcebcb-87d68d-93b48b-8491a3
-	const blossomPalette = [ 0xf7fff6, 0xbcebcb, 0x87d68d, 0x93b48b ];
+	const blossomPalette = [ 0xF15BB5, 0xFEE440, 0x00BBF9, 0x00F5D4 ];
 	// console.log(selectedPoint);
 	console.log(data);
 
 	for (let i = 0; i < data.index.length; ++i) {
 
-		const x = data.iat(i, 5);
-		const y = data.iat(i, 6);
-		const z = data.iat(i, 7);
-		const colorID = data.iat(i, 8);
-		const scale = data.iat(i, 9)/10; // some error
+		const x = data['x'].values[i];
+		const y = data['y'].values[i];
+		const z = data['z'].values[i];
+		const colorID = data['color'].values[i];
+		const scale = data['scale'].values[i]/scaleAdjust; // some error
 
+		// console.log(x + " " + y + " " + z);
 		//lerpHSL or setHSL
 		color.setHex( blossomPalette[ Math.floor( Math.abs(Math.sin(colorID)) * blossomPalette.length ) ] );
 		if(selectedPoint && i == selectedPoint.id ) {
@@ -93,7 +94,7 @@ const InstancedPoints = () => {
 				frustumCulled={false}
 				onClick={handleInstanceClick}
 			>
-				<cylinderGeometry attach="geometry" args={[0.5, 0.5, 0.15, 8]} />
+				<sphereGeometry attach="geometry" args={[0.5, 8, 6]} />
 				<meshStandardMaterial attach="material"/>
 			</instancedMesh>
 		</>

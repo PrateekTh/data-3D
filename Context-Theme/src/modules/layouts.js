@@ -1,46 +1,50 @@
-import * as React from 'react';
+import React, {useEffect } from 'react';
 import useViewportData from '../context/ViewportContext';
 import * as dfd from 'danfojs/dist/danfojs-browser/src'
 
-const categoryGap = 25;
-// To Add: Additional Backend Layouts
+// config variables
+const categoryGap = 10;
+const discreteSteps = 20;
+const normalizeRange = 150;
+const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];
 
-function normalizeField(df, col){
-	const s = df.column(df.columns[col]);
-	// console.log(s)
+
+function normalizeField(df, col, nRange){
+	const s = df.column(iRef[col]);
 
 	const sMax = s.max();
 	const sMin = s.min();
 
 	for(let i = 0; i<s.count(); i++){
-		s.values[i] = 100 * (s.values[i] - sMin)/(sMax - sMin);
+		s.values[i] = nRange * (s.values[i] - sMin)/(sMax - sMin);
 	}
+	// console.log(s)
 	return s;
 }
 
 function indicizeField(df, col){
-	const s = df.column(df.columns[col]);
-	//iterate over the series with a normalizing function
+	const s = df.column(iRef[col]);
 	for(let i = 0; i<s.count(); i++){
 		s.values[i] = (i - s.count()/2)/2;
-		// df.values[i][col] = i;
 	}
 	// console.log(s);
 	return s;
 }
 
-function discretizeField(df, col){
-	const s = df.column(df.columns[col]);
+//to divide a given continuous field to sections
+function discretizeField(df, col, nRange, dSteps){
+	const s = normalizeField(df, col, nRange); // [-50, 50]
+	const discreteDiv = nRange/dSteps;
 	for(let i = 0; i<s.count(); i++){
-		s.values[i] = (i - s.count()/2)/2;
+		s.values[i] = Math.floor(s.values[i]/discreteDiv);
 		// df.values[i][col] = i;
 	}
-
+	console.log(s);
 	return s;
 }
 
-function categorizeField(df, col){	
-	const s = df.column(df.columns[col]);
+function categorizeField(df, col, catGap){	
+	const s = df.column(iRef[col]);
 	//iterate over the series to categorize each field into a map (str, array[2]) i.e. ["category name"] -> [catID(int), totalCount(int)]
 	const categoryList = new Map();
 	let catCount = 0;
@@ -48,7 +52,7 @@ function categorizeField(df, col){
 	for(let i = 0; i<s.count(); i++){
 		if(categoryList.get(s.values[i])){
 			const cInfo = categoryList.get(s.values[i]);
-			s.values[i] = (cInfo[0] - catCount/2) * categoryGap;
+			s.values[i] = (cInfo[0]) * catGap;
 			categoryList.set(s.values[i], [cInfo[0], cInfo[1] + 1])
 		}else{
 			categoryList.set(s.values[i], [catCount, 1]);
@@ -58,73 +62,110 @@ function categorizeField(df, col){
 	}
 
 	// console.log(s);
+	return {
+		data: s,
+		map: categoryList
+	};
+}
+
+function uniformizeField(numPoints){
+	let arr = Array(numPoints).fill(0);
+	let s = new dfd.Series(arr)
+	console.log(s);
 	return s;
 }
 
-function uniformizeField(df, col){
-	const s = df.column(df.columns[col]);
-	for(let i = 0; i<s.count(); i++){
-		s.values[i] = 0;
-	}
-
-	return s;
-}
-
-function gridLayout(data, dataTypes) {
+function scatterLayout(data, dataTypes) {
 	const numPoints = data.index.length;
-  	const numCols = Math.ceil(Math.sqrt(numPoints));
-  	const numRows = numCols;	
 	// console.log(dataTypes);
+
+	// i can explain - (or find a optimize for a better solution)
+	/*
+		Option 1: fix the name of x when setting data (Card/setViewportData) - necessary
+		Option 2: Uniformize when setting the data (Card/setViewportData).
+		Option 3: Modify dataframe itself, instead of adding 5 new processed coordinate fields here.
+	*/
+
+	iRef[0] = data.columns[0];
 
 	const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 
+	//processing each column
 	for(let i = 0; i < dataTypes.length; i++){
 		switch (dataTypes[i]){
 			case 'categorical':
-				console.log("Categorizing: " + i + " - " + data.columns[i]);
-				data.addColumn(iTemp[i], categorizeField(data, i), { inplace: true });
+				console.log("Categorizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
+				data.addColumn(iTemp[i], categorizeField(data, i, categoryGap).data, { inplace: true });
 				break;
 			case 'continuous':
-				console.log("Normalizing: " + i + " - " + data.columns[i]);
-				data.addColumn(iTemp[i], normalizeField(data, i), { inplace: true });
+				console.log("Normalizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
+				data.addColumn(iTemp[i], normalizeField(data, i, normalizeRange), { inplace: true });
 				break;
 			case 'index':
-				console.log("Indicizing: " + i + " - " + data.columns[i]);
+				console.log("Indicizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
 				data.addColumn(iTemp[i], indicizeField(data, i), { inplace: true });
 				break;
 			default: 
-				data.addColumn(iTemp[i], uniformizeField(data, i), { inplace: true });
+				console.log("Uniformizing: " + i + " for " + iRef[i]);
+				data.addColumn(iTemp[i], uniformizeField(numPoints), { inplace: true });
 		}
 	}
-
 	// console.log(data);
 }
 
-function spiralLayout(data) {
-	let theta = 0;
-	for (let i = 0; i < data.length; ++i) {
-		const datum = data[i];
-		const radius = Math.max(1, Math.sqrt(i + 1) * 0.8);
-		theta += Math.asin(1 / radius) * 1;
+function discreteLayout(data, dataTypes) {
+	const numPoints = data.index.length;
+	const iTemp = ['x', 'y', 'z', 'color', 'scale'];
+	iRef[0] = data.columns[0];
 
-		datum.x = radius * Math.cos(theta);
-		datum.z = radius * Math.sin(theta);
-		datum.y = 0;
+	/* 
+		Y must be zero, and scale must be added to the new dataset. color is kinda irrelevant?
+	*/
+
+	for(let i = 0; i < dataTypes.length; i++){
+		console.log(data);
+		switch (dataTypes[i]){
+			case 'categorical':
+				console.log("Categorizing: " + i + " - " + iRef[i]);
+				data.addColumn(iTemp[i], categorizeField(data, i, 1).data, { inplace: true });
+				break;
+			case 'continuous':
+				console.log("Normalizing: " + i + " - " + iRef[i]);
+				data.addColumn(iTemp[i], discretizeField(data, i, normalizeRange, discreteSteps), { inplace: true });
+				break;
+			case 'index':
+				console.log("Indicizing: " + i + " - " + iRef[i]);
+				data.addColumn(iTemp[i], indicizeField(data, i), { inplace: true });
+				break;
+			case 'count':
+				console.log("To Count: "+ i + " - " + iRef[i]);
+				break;
+			default: 
+				data.addColumn(iTemp[i], uniformizeField(numPoints), { inplace: true });
+		}
+
+		// const newData = new dfd.DataFrame();
+
+		// data = newData;
+		
 	}
+	
 }
 
 export const useLayout = ({ data, layout = 'grid' }) => {
-	const {dataTypes} = useViewportData();
+	const {dataTypes, plotType} = useViewportData();
 
-	React.useEffect(() => {
-		switch (layout) {
-		case 'spiral':
-			spiralLayout(data);
+	useEffect(() => {
+		switch (plotType) {
+		case 'discrete':
+			discreteLayout(data, dataTypes);
 			break;
-		case 'grid':
+		case 'scatter':
+			scatterLayout(data, dataTypes);
+			break;
 		default: {
-			gridLayout(data, dataTypes);
+			scatterLayout(data, dataTypes);
 		}
 		}
-	}, [data, layout]);
+	}, [data, plotType]);
 };
