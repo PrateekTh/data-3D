@@ -28,7 +28,7 @@ function Controller({dataset, setViewportData, plotType}){
 //To Add: More User Customizability and Control
 export default function Card() {
 
-    const filename = "h_weather.csv";
+    const filename = "happiness_2019.csv";
     const {user, dataset, setDataset} = useContext(UserContext);
     const [data, setData] = useState();
     const [selectedPoint, setSelectedPoint] = useState(null);
@@ -81,8 +81,8 @@ export default function Card() {
     }
 
     return (
-        <div className="duration-300 m-6 bg-white border bg-opacity-50 border-zinc-200 rounded-lg shadow lg:flex dark:bg-zinc-900 dark:bg-opacity-50 dark:border-zinc-700">
-            <div className="lg:w-2/6 items-center lg:border-r-2 border-zinc-200 dark:border-zinc-600">
+        <div className="duration-300 m-6 bg-white border bg-opacity-50 border-zinc-200 rounded-lg shadow xl:flex dark:bg-zinc-900 dark:bg-opacity-50 dark:border-zinc-700">
+            <div className="xl:w-2/6 items-center xl:border-r-2 border-zinc-200 dark:border-zinc-600">
                 <div className="flex gap-4 p-5">
                     <div className="grow text-xl font-semibold text-zinc-900 dark:text-white">
                         <span className="text-4xl font-bold text-zinc-900 dark:text-white">                        
@@ -106,7 +106,7 @@ export default function Card() {
                     See Details
                 </button> */}
             </div>
-            <div className="p-4 border-zinc-200 h-full lg:w-3/5 rounded-lg overflow-hidden" >
+            <div className="p-4 border-zinc-200 h-full xl:w-3/5 rounded-xl overflow-hidden" >
                 <ViewportDataProvider value={{data, dataTypes, layout, selectedPoint, plotType, onSelectPoint}}>
                     <Viewport/>
                 </ViewportDataProvider>

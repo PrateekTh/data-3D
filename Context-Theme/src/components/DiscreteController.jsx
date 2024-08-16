@@ -13,8 +13,10 @@ function DiscreteController({dataset, setViewportData}) {
         // console.log(formJson);
 
         formJson.yCol = "";
-        formJson.yType = "count";
+        formJson.yType = "";
         formJson.colorCol = "";
+        formJson.scaleCol = "";
+        // formJson.scale = "count";
         // formJson.colorType = "";
         //Perform Sanity Checks
         if(formJson.xCol.length)
@@ -88,13 +90,13 @@ function DiscreteController({dataset, setViewportData}) {
             </div> 
             
             <div className='md:flex align-middle p-2'>
-                <div className="axis flex p-6">
+                {/* <div className="axis flex p-6">
                     <div className="inputLabel text-xl font-bold"> Scale </div>
                     <select name="scaleCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))}
                     </select>
-                </div>
+                </div> */}
             </div>
             <button className="border-zinc-500 border-2 mx-4 w-1/3 text-white" type="submit"> Build Visualisation </button>
         </form>               

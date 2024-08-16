@@ -19,23 +19,23 @@ const scratchObject3D = new THREE.Object3D();
 // 	mesh.instanceColor.needsUpdate = true;
 // }
 
-function updateInstancedMeshMatrices({ mesh, data, selectedPoint }) {
+function updateInstancedMeshMatrices({ mesh, layoutData, selectedPoint }) {
   	if (!mesh) return;
-  // set the transform matrix for each instance
 
+	// set the transform matrix for each instance
 	const color = new THREE.Color();
 	//f7fff6-bcebcb-87d68d-93b48b-8491a3
 	const blossomPalette = [ 0xF15BB5, 0xFEE440, 0x00BBF9, 0x00F5D4 ];
 	// console.log(selectedPoint);
-	console.log(data);
+	console.log(layoutData);
 
-	for (let i = 0; i < data.index.length; ++i) {
+	for (let i = 0; i < layoutData.index.length; ++i) {
 
-		const x = data['x'].values[i];
-		const y = data['y'].values[i];
-		const z = data['z'].values[i];
-		const colorID = data['color'].values[i];
-		const scale = data['scale'].values[i]/scaleAdjust; // some error
+		const x = layoutData['x'].values[i];
+		const y = layoutData['y'].values[i];
+		const z = layoutData['z'].values[i];
+		const colorID = layoutData['color'].values[i];
+		const scale = layoutData['scale'].values[i]/scaleAdjust; // some error
 
 		// console.log(x + " " + y + " " + z);
 		//lerpHSL or setHSL
@@ -65,17 +65,19 @@ const InstancedPoints = () => {
 	// console.log(data.index.length);
     const {selectedPoint, onSelectPoint} = useViewportData();
 
-	useLayout({data, layout: "grid"});
+	const layoutData = useLayout({data});
 
     // update instance matrices when needed
     React.useEffect(() => {
-		updateInstancedMeshMatrices({ mesh: meshRef.current, data, selectedPoint });
-    }, [data, selectedPoint]);
+		console.log("Updating Now");
+		console.log(layoutData);
+		if (layoutData) updateInstancedMeshMatrices({ mesh: meshRef.current, layoutData, selectedPoint });
+    }, [layoutData, selectedPoint]);
+	
 	
 	function handleInstanceClick(e){
 		e.stopPropagation();
 		const { instanceId } = e;
-
 		const point  = data[instanceId];
 
 		if(point === selectedPoint){

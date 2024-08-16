@@ -112,18 +112,18 @@ function ScatterController({dataset, setViewportData}) {
             </div> 
             
             <div className='md:flex align-middle p-2'>
-                <div className="axis flex p-6">
+                <div className="axis md:w-1/2 flex p-6">
                     <div className="inputLabel text-xl font-bold">Color </div>
-                    <select name="colorCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
+                    <select name="colorCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
                         }
                     </select>        
                 </div> 
-                <div className="axis flex p-6">
+                <div className="axis md:w-1/2 flex p-6">
                     <div className="inputLabel text-xl font-bold"> Scale </div>
-                    <select name="scaleCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
+                    <select name="scaleCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))}
                     </select>
