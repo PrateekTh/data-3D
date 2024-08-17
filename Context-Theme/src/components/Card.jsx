@@ -28,7 +28,7 @@ function Controller({dataset, setViewportData, plotType}){
 //To Add: More User Customizability and Control
 export default function Card() {
 
-    const filename = "happiness_2019.csv";
+    const filename = "Pokemon.csv";
     const {user, dataset, setDataset} = useContext(UserContext);
     const [data, setData] = useState();
     const [selectedPoint, setSelectedPoint] = useState(null);

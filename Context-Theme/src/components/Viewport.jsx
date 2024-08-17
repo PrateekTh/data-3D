@@ -30,21 +30,21 @@ function Viewport() {
                 <axesHelper args={[200, 200, 200]} />
 
 
-                <spotLight args={["#5DFDCB"]} intensity={50} position={[20,8,20]} decay={1.2}/>
-                <spotLight args={["#FF006E"]} intensity={50} position={[-20,8,-20]} decay={1.2}/>
+                <spotLight args={["#5DFDCB"]} intensity={50} position={[30,8,20]} decay={1.2}/>
                 <directionalLight color={"#FF8552"} intensity={2} position={[5,1,1]}/>
-                <Sphere position={[0,3,3]} size ={[0.2,10,10]} color={'hotpink'}/>
+                <directionalLight color={"#FF8552"} intensity={2} position={[-5,1,1]}/>
+
+                {/* <Sphere position={[0,3,3]} size ={[0.2,10,10]} color={'hotpink'}/> */}
                 
                 <DataPointsModel/>
                 {/* <TestDocsInstanced /> */}
                 {/* <PlaneModel data = {data}/> */}
                 {/* <Model link = '/Earth.glb' scale ={0.005} rotation = {[0.2, 1.8, 0]} /> */}
-                <Cube position={[0,2,3]} size ={[2,1,2]} color={'steelblue'}/>
+                {/* <Cube position={[0,2,3]} size ={[2,1,2]} color={'steelblue'}/> */}
 
                 <OrbitControls
                     minPolarAngle={-Math.PI/2}
                     maxPolarAngle={Math.PI/2}
-                    
                 />
             </Canvas> 
         </div>
