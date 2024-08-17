@@ -26,9 +26,8 @@ function Controller({dataset, setViewportData, plotType}){
 }
 
 //To Add: More User Customizability and Control
-export default function Card() {
+export default function Card({file}) {
 
-    const filename = "Pokemon.csv";
     const {user, dataset, setDataset} = useContext(UserContext);
     const [data, setData] = useState();
     const [selectedPoint, setSelectedPoint] = useState(null);
@@ -38,7 +37,7 @@ export default function Card() {
 	const onSelectPoint = (point) => {setSelectedPoint(point)};
 
     useEffect(() => {
-        dfd.readCSV("/" + filename).then((dataset) => setDataset(dataset));        
+        dfd.readCSV(file).then((dataset) => setDataset(dataset));        
     }, []);
 
     // setting columns for data (to be done via components)
@@ -89,7 +88,7 @@ export default function Card() {
                             {user.username}
                         </span>
                     </div>
-                    <span className="basis-1/5 align-middle inputLabel text-xl font-bold">Plot Type </span> 
+                    <span className="basis-1/6 align-middle inputLabel text-xl font-bold">Plot Type </span> 
                     <select name="val" className="text-zinc-800 rounded-md mb-2 bg-inherit dark:text-white font-mono" onChange={(e)=>setPlotType(e.target.value)}> 
                         <option value="" className="text-black"> Please Select</option>
                         <option value="scatter" className="text-black"> Scatter</option>

@@ -10,7 +10,6 @@ function ScatterController({dataset, setViewportData}) {
         const formData = new FormData(form);
 
         const formJson = Object.fromEntries(formData.entries());
-        // console.log(formJson);
 
         //Perform Sanity Checks
         if(formJson.xCol.length)
