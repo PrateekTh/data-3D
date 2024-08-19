@@ -5,7 +5,8 @@ import useViewportData from '../context/ViewportContext';
 
 
 const SELECTED_COLOR = new THREE.Color('red');
-const DEFAULT_COLOR = new THREE.Color('red');
+const COLOR_LOW = new THREE.Color('#A63D40');
+const COLOR_HIGH = new THREE.Color('#1AC8ED');
 const scaleAdjust = 25;
 const scratchObject3D = new THREE.Object3D();
 
@@ -23,8 +24,7 @@ function updateInstancedMeshMatrices({ mesh, layoutData, selectedPoint, plotType
   	if (!mesh) return;
 
 	// set the transform matrix for each instance
-	const color = new THREE.Color();
-	//f7fff6-bcebcb-87d68d-93b48b-8491a3
+	let color = new THREE.Color();
 	const scaleMatrix = [1, 1, 1];
 	let scaleOffset = 0;
 
@@ -33,20 +33,23 @@ function updateInstancedMeshMatrices({ mesh, layoutData, selectedPoint, plotType
 		scaleMatrix[1] = 40;
 		scaleOffset = 1;
 	}
-	const blossomPalette = [ 0xF15BB5, 0xFEE440, 0x00BBF9, 0x00F5D4 ];
+
 	// console.log(selectedPoint);
 	console.log(layoutData);
 	mesh.count = layoutData.index.length;
 	for (let i = 0; i < mesh.count; i++) {
-		const colorID = layoutData['color'].values[i];
-		const scale = layoutData['scale'].values[i]/scaleAdjust;
-		const x = layoutData['x'].values[i];
-		const y = layoutData['y'].values[i] + scaleOffset * (scale * scaleMatrix[1] + 1)/4;
-		const z = layoutData['z'].values[i];
+		const colorID = layoutData.at(i, "color");
+		const scale = layoutData.at(i, "scale")/scaleAdjust;
+		const x = layoutData.at(i, "x");
+		const y = layoutData.at(i, "y") + scaleOffset * (scale * scaleMatrix[1] + 1)/4;
+		const z = layoutData.at(i, "z");
 
-		// console.log(x + " " + y + " " + z);
 		//lerpHSL or setHSL
-		color.setHex( blossomPalette[ Math.floor( Math.abs(Math.sin(colorID)) * blossomPalette.length ) ] );
+		color = COLOR_LOW.clone();
+		color.lerpHSL(COLOR_HIGH, colorID);
+
+		// console.log(color , COLOR_LOW, COLOR_HIGH);
+
 		if(selectedPoint && i == selectedPoint.id ) {
 			mesh.setColorAt( i, SELECTED_COLOR); 
 		} else mesh.setColorAt( i, color );		

@@ -42,10 +42,9 @@ export default function Card({file}) {
 
     // setting columns for data (to be done via components)
     useEffect(()=>{
-        let sub_df = [0];
+        let sub_df = new dfd.DataFrame();
         if(dataset.index){
             // console.log(dataset);
-            sub_df = dataset.loc({columns: [dataset.columns[0], dataset.columns[2], dataset.columns[3]]})
         }
         setData(sub_df)
     }, [dataset])
@@ -66,7 +65,7 @@ export default function Card({file}) {
 
         if(userPrefs.colorCol.length) {
             sub_df.addColumn( "Color", dataset.column(dataset.columns[userPrefs.colorCol]), { inplace: true })
-            cType = "categorical";
+            cType = "continuous";
         };
 
         if(userPrefs.scaleCol.length) {
@@ -80,7 +79,7 @@ export default function Card({file}) {
     }
 
     return (
-        <div className="duration-300 m-6 bg-white border bg-opacity-50 border-zinc-200 rounded-lg shadow xl:flex dark:bg-zinc-900 dark:bg-opacity-50 dark:border-zinc-700">
+        <div className="duration-300 m-6 bg-white border-2 bg-opacity-90 border-zinc-400 rounded-sm shadow xl:flex dark:bg-black dark:bg-opacity-90 dark:border-zinc-300">
             <div className="xl:w-2/6 items-center xl:border-r-2 border-zinc-200 dark:border-zinc-600">
                 <div className="flex gap-4 p-5">
                     <div className="grow text-xl font-semibold text-zinc-900 dark:text-white">

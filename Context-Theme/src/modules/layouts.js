@@ -5,16 +5,31 @@ import * as dfd from 'danfojs/dist/danfojs-browser/src'
 // config variables
 const categoryGap = 10;
 const discreteSteps = 20;
-const normalizeRange = 150;
+const normalizeRange = 100;
 const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];
 
 
 function normalizeField(df, col, nRange){
-	const s = df.column(iRef[col]);
+	let s;
+	// Categorising Check for color
+	if(iRef[col] == 'Color') {
+		nRange = 1;
+		if(typeof(df.iat(0, col)) != typeof(0)){
+			s = categorizeField(df, col, 1).data;
+		}else s = df.column(iRef[col]);
+	}else{
+		s = df.column(iRef[col]);
+	}
 
+	//Set datatype & account for NAs
+	s = s.asType("float32");
+	// s = s.fillNa(0);
+
+	//Find Max and Min
 	const sMax = s.max();
 	const sMin = s.min();
 
+	//Normalize all values based on Max and Min
 	for(let i = 0; i<s.count(); i++){
 		s.values[i] = nRange * (s.values[i] - sMin)/(sMax - sMin);
 	}
@@ -22,12 +37,11 @@ function normalizeField(df, col, nRange){
 	return s;
 }
 
-function indicizeField(numPoints){
-	let arr = Array(numPoints).fill(0);
-	let s = new dfd.Series(arr)
+function indicizeField(numPoints){;
+	let s = new dfd.Series([0])
 
-	for(let i = 0; i<s.count(); i++){
-		s.values[i] = i;
+	for(let i = 1; i<numPoints; i++){
+		s.append([i], [i]);
 	}
 	// console.log(s);
 	return s;
@@ -41,12 +55,12 @@ function discretizeField(df, col, nRange, dSteps){
 		s.values[i] = Math.floor(s.values[i]/discreteDiv);
 		// df.values[i][col] = i;
 	}
-	console.log(s);
+	// console.log(s);
 	return s;
 }
 
 function categorizeField(df, col, catGap){	
-	const s = df.column(iRef[col]);
+	let s = df.column(iRef[col]);
 	//iterate over the series to categorize each field into a map (str, array[2]) i.e. ["category name"] -> [catID(int), totalCount(int)]
 	const categoryList = new Map();
 	let catCount = 0;
@@ -63,30 +77,30 @@ function categorizeField(df, col, catGap){
 		}
 	}
 
-	// console.log(s);
+	s = s.asType("float32");
+
+
+	console.log(s);
 	return {
 		data: s,
 		map: categoryList
 	};
 }
 
-function uniformizeField(numPoints){
-	let arr = Array(numPoints).fill(0);
+function uniformizeField(numPoints, col){
+	let val = 0;
+	if(iRef[col] == 'Scale') val = 10;
+	let arr = Array(numPoints).fill(val);
 	let s = new dfd.Series(arr)
 	// console.log(s);
 	return s;
 }
 
 function scatterLayout(data, dataTypes) {
-	const numPoints = data.index.length;
+	let numPoints = data.index.length;
+	if(numPoints == 0) numPoints = 1;
 	// console.log(dataTypes);
-	/*
-		Option 1: fix the name of x when setting data (Card/setViewportData) - necessary
-		Option 2: Uniformize when setting the data (Card/setViewportData).
-		Option 3: Modify dataframe itself, instead of adding 5 new processed coordinate fields here.
-		Option 4 [NEW] : Create a new dataframe and return it here
-	*/
-
+	
 	iRef[0] = data.columns[0];
 	const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 	
@@ -113,7 +127,7 @@ function scatterLayout(data, dataTypes) {
 				break;
 			default: 
 				console.log("Uniformizing: " + i + " for " + iRef[i]);
-				layoutData.addColumn(iTemp[i], uniformizeField(numPoints), { inplace: true });
+				layoutData.addColumn(iTemp[i], uniformizeField(numPoints, i), { inplace: true });
 		}
 	}
 	// console.log(layoutData);
@@ -121,7 +135,7 @@ function scatterLayout(data, dataTypes) {
 }
 
 function discreteLayout(data, dataTypes) {
-	const numPoints = data.index.length;
+	let numPoints = data.index.length;
 	const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 	iRef[0] = data.columns[0];
 
@@ -158,7 +172,14 @@ function discreteLayout(data, dataTypes) {
 	}
 
 	console.log(data);
-	const temp = data.loc("x", "z");
+	let temp;
+	if(data.index.length < 1){
+		//Create an empty dataframe
+		temp = new dfd.DataFrame([[0,0,0,0,0]], {index:[0], columns:iTemp, dtypes:["int32","int32","int32","int32","int32"] })
+		numPoints = 1;
+	}else{
+		temp = data.loc("x", "z");
+	}
 
 	let arr =  Array(numPoints).fill(1);
 
@@ -173,15 +194,14 @@ function discreteLayout(data, dataTypes) {
 
 	console.log(layoutData);
 
-	// const newData = new dfd.DataFrame();
-	// data = newData;
 	return layoutData;
-	
 }
 
 export const useLayout = ({ data }) => {
 	const {dataTypes, plotType} = useViewportData();
 	const [layoutData, setLayoutData] = useState(null);
+	data.dropNa({ axis: 1, inplace:true });
+
 	useEffect(() => {
 		switch (plotType) {
 		case 'discrete':

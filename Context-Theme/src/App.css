@@ -7,12 +7,18 @@
   text-align: center;
 }
 
+body{
+  background: url("./seamless-bg.svg");
+  /* background-repeat:repeat-x; */
+  background-size: 250px;
+}
+
 input {
   margin: 1vh;
   padding: 1vh;
 }
 
 ::selection {
-  color: red;
+  color: #A855F7;
   background: inherit;
 }

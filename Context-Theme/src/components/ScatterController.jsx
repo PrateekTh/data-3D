@@ -8,13 +8,32 @@ function ScatterController({dataset, setViewportData}) {
 
         const form = e.target;
         const formData = new FormData(form);
-
         const formJson = Object.fromEntries(formData.entries());
 
         //Perform Sanity Checks
-        if(formJson.xCol.length)
+        if(formJson.yCol.length && formJson.yType == "continuous"){
+            if(typeof(dataset.at(0, dataset.columns[formJson.yCol])) != typeof(0)){
+                alert("Y Axis (" + dataset.columns[formJson.yCol] + " column) does not have a numerical datatype.");
+                return;
+            }
+        }
+
+        if(formJson.zCol.length && formJson.zType == "continuous"){
+            if(typeof(dataset.at(0, dataset.columns[formJson.zCol])) != typeof(0)){
+                alert("Z Axis (" + dataset.columns[formJson.zCol] + " column) does not have a numerical datatype.");
+                return;
+            }
+        }
+
+        if(formJson.xCol.length){
+            if(formJson.xType == "continuous"){
+                if(typeof(dataset.at(0, dataset.columns[formJson.xCol])) != typeof(0)){
+                    alert("X Axis (" + dataset.columns[formJson.xCol] + " column) does not have a numerical datatype.");
+                    return;
+                }
+            }
             setViewportData(formJson);
-        else{
+        }else{
             alert("Please Choose X Column!");
         }
 

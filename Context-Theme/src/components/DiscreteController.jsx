@@ -16,13 +16,25 @@ function DiscreteController({dataset, setViewportData}) {
         formJson.yType = "";
         formJson.colorCol = "";
         formJson.scaleCol = "";
-        // formJson.scale = "count";
-        // formJson.colorType = "";
-        //Perform Sanity Checks
-        if(formJson.xCol.length)
+        
+        //Perform Sanity Checks      
+        if(formJson.zCol.length && formJson.zType == "continuous"){
+            if(typeof(dataset.at(0, dataset.columns[formJson.zCol])) != typeof(0)){
+                alert("Z Axis (" + dataset.columns[formJson.zCol] + " column) does not have a numerical datatype.");
+                return;
+            }
+        }
+
+        if(formJson.xCol.length){
+            if(formJson.xType == "continuous"){
+                if(typeof(dataset.at(0, dataset.columns[formJson.xCol])) != typeof(0)){
+                    alert("X Axis (" + dataset.columns[formJson.xCol] + " column) does not have a numerical datatype.");
+                    return;
+                }
+            }
             setViewportData(formJson);
-        else{
-            alert("Please Choose Columns!");
+        }else{
+            alert("Please Choose X Column!");
         }
 
     }
