@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import Alert from './Alert';
 
 function DiscreteController({dataset, setViewportData}) {
+
+    const [alert, setAlert] = useState(null);
+    
+    useEffect(() => {
+        if(alert){
+            //render?
+            setTimeout(()=> setAlert(null), 5000)
+        }
+    }, [alert]);
 
     function handleSubmit(e){
         e.preventDefault();
@@ -18,26 +27,35 @@ function DiscreteController({dataset, setViewportData}) {
         formJson.scaleCol = "";
         
         //Perform Sanity Checks      
+        let alertMessage = ""
+
+        //Perform Sanity Checks
         if(formJson.zCol.length && formJson.zType == "continuous"){
             if(typeof(dataset.at(0, dataset.columns[formJson.zCol])) != typeof(0)){
-                alert("Z Axis (" + dataset.columns[formJson.zCol] + " column) does not have a numerical datatype.");
-                return;
+                alertMessage += "Z Axis (" + dataset.columns[formJson.zCol] + " column) does not have a numerical datatype.\n";
             }
         }
 
         if(formJson.xCol.length){
             if(formJson.xType == "continuous"){
                 if(typeof(dataset.at(0, dataset.columns[formJson.xCol])) != typeof(0)){
-                    alert("X Axis (" + dataset.columns[formJson.xCol] + " column) does not have a numerical datatype.");
-                    return;
+                    alertMessage+= "X Axis (" + dataset.columns[formJson.xCol] + " column) does not have a numerical datatype.\n";
                 }
             }
-            setViewportData(formJson);
+
         }else{
-            alert("Please Choose X Column!");
+            alertMessage+= "Please Choose X Column!\n";
+        }
+
+        if(alertMessage.length){
+            setAlert(alertMessage);
+        }else {
+            // console.log("setting viewport data")
+            setViewportData(formJson)
         }
 
     }
+
     if(dataset.index) return ( <>
     {/* Using a form here (instead of states for each thing), since I do not wish to update the entire 3D viewport every time there's a change.
         For the situations that I might need to do that, the viewport data context is directly updated*/}
@@ -111,7 +129,9 @@ function DiscreteController({dataset, setViewportData}) {
                 </div> */}
             </div>
             <button className="border-zinc-500 border-2 mx-4 w-1/3 text-white" type="submit"> Build Visualisation </button>
-        </form>               
+        </form>  
+
+        <Alert alert={alert} />               
     </>
     );
 

@@ -4,11 +4,11 @@ import * as dfd from 'danfojs/dist/danfojs-browser/src'
 
 // config variables
 const categoryGap = 10;
-const discreteSteps = 20;
+const discreteSteps = 30;
 const normalizeRange = 100;
 const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];
 
-
+//Need to optimise normalization a lot
 function normalizeField(df, col, nRange){
 	let s;
 	// Categorising Check for color
@@ -23,7 +23,7 @@ function normalizeField(df, col, nRange){
 
 	//Set datatype & account for NAs
 	s = s.asType("float32");
-	// s = s.fillNa(0);
+	s = s.fillNa(0);
 
 	//Find Max and Min
 	const sMax = s.max();

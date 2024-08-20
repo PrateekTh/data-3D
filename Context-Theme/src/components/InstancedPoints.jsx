@@ -20,7 +20,7 @@ const scratchObject3D = new THREE.Object3D();
 // 	mesh.instanceColor.needsUpdate = true;
 // }
 
-function updateInstancedMeshMatrices({ mesh, layoutData, selectedPoint, plotType }) {
+function updateInstancedMeshMatrices({ mesh, layoutData, plotType }) {
   	if (!mesh) return;
 
 	// set the transform matrix for each instance
@@ -47,12 +47,12 @@ function updateInstancedMeshMatrices({ mesh, layoutData, selectedPoint, plotType
 		//lerpHSL or setHSL
 		color = COLOR_LOW.clone();
 		color.lerpHSL(COLOR_HIGH, colorID);
-
+		mesh.setColorAt( i, color );
 		// console.log(color , COLOR_LOW, COLOR_HIGH);
 
-		if(selectedPoint && i == selectedPoint.id ) {
-			mesh.setColorAt( i, SELECTED_COLOR); 
-		} else mesh.setColorAt( i, color );		
+		// if(selectedPoint && i == selectedPoint.id ) {
+		// 	mesh.setColorAt( i, SELECTED_COLOR); 
+		// } else mesh.setColorAt( i, color );		
 		
 		scratchObject3D.scale.set(scaleMatrix[0] * scale + 1, scaleMatrix[1] * scale + 1, scaleMatrix[2]*scale + 1);
 		scratchObject3D.position.set(x, y, z);
@@ -91,8 +91,8 @@ const InstancedPoints = () => {
     React.useEffect(() => {
 		// console.log("Updating Now");
 		// console.log(layoutData);
-		if (layoutData) updateInstancedMeshMatrices({ mesh: meshRef.current, layoutData, selectedPoint, plotType });
-    }, [layoutData, selectedPoint]);
+		if (layoutData) updateInstancedMeshMatrices({ mesh: meshRef.current, layoutData, plotType });
+    }, [layoutData]);
 	
 	
 	function handleInstanceClick(e){

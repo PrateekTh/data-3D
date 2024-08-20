@@ -84,7 +84,7 @@ export default function Card({file}) {
                 <div className="flex gap-4 p-5">
                     <div className="grow text-xl font-semibold text-zinc-900 dark:text-white">
                         <span className="text-4xl font-bold text-zinc-900 dark:text-white">                        
-                            {user.username}
+                            {user.projectName}
                         </span>
                     </div>
                     <span className="basis-1/6 align-middle inputLabel text-xl font-bold">Plot Type </span> 
