@@ -13,19 +13,12 @@ function HomogenousController({dataset, setViewportData}) {
         // console.log(formJson);
 
         //Perform Sanity Checks
-        if(formJson.xCol.length && formJson.yCol.length && formJson.zCol.length)
-            setViewportData(formJson);
-        else{
-            alert("Please Choose Columns!");
-        }
 
     }
-    if(dataset.index) return ( <>
-    {/* Using a form here (instead of states for each thing), since I do not wish to update the entire 3D viewport every time there's a change.
-        For the situations that I might need to do that, the viewport data context is directly updated*/}
-        
-        <div className="text-lg p-4 text-center font-semibold"> 
-            Coming Soon! 
+    if(dataset.index) return ( <>        
+        <div className="text-lg p-4 text-left font-mono"> 
+            <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2"> Homogenous Plots will be added soon!</div>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem suscipit dolores totam, fugit recusandae sint deserunt distinctio quidem explicabo, deleniti magni, praesentium culpa impedit labore inventore mollitia animi iusto dolorem!
         </div>
         
     </>

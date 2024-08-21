@@ -7,8 +7,9 @@ const categoryGap = 10;
 const discreteSteps = 30;
 const normalizeRange = 100;
 const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];
+const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 
-//Need to optimise normalization a lot
+// optimisation required for 40k+ datapoints
 function normalizeField(df, col, nRange){
 	let s;
 	// Categorising Check for color
@@ -37,17 +38,11 @@ function normalizeField(df, col, nRange){
 	return s;
 }
 
-function indicizeField(numPoints){;
-	let s = new dfd.Series([0])
-
-	for(let i = 1; i<numPoints; i++){
-		s.append([i], [i]);
-	}
-	// console.log(s);
-	return s;
+function indicizeField(numPoints){
+	return new dfd.Series(Array.from(Array(numPoints).keys()))
 }
 
-//to divide a given continuous field to sections
+// Divide a field into steps
 function discretizeField(df, col, nRange, dSteps){
 	const s = normalizeField(df, col, nRange); // [-50, 50]
 	const discreteDiv = nRange/dSteps;
@@ -102,7 +97,6 @@ function scatterLayout(data, dataTypes) {
 	// console.log(dataTypes);
 	
 	iRef[0] = data.columns[0];
-	const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 	
 	let temp = {
 		size: Array(numPoints).fill(0)
@@ -114,15 +108,15 @@ function scatterLayout(data, dataTypes) {
 	for(let i = 0; i < dataTypes.length; i++){
 		switch (dataTypes[i]){
 			case 'categorical':
-				console.log("Categorizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
+				// console.log("Categorizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
 				layoutData.addColumn(iTemp[i], categorizeField(data, i, categoryGap).data, { inplace: true });
 				break;
 			case 'continuous':
-				console.log("Normalizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
+				// console.log("Normalizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
 				layoutData.addColumn(iTemp[i], normalizeField(data, i, normalizeRange), { inplace: true });
 				break;
 			case 'index':
-				console.log("Indicizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
+				// console.log("Indicizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
 				layoutData.addColumn(iTemp[i], indicizeField(numPoints), { inplace: true });
 				break;
 			default: 
@@ -136,42 +130,35 @@ function scatterLayout(data, dataTypes) {
 
 function discreteLayout(data, dataTypes) {
 	let numPoints = data.index.length;
-	const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 	iRef[0] = data.columns[0];
-
-	/* 
-		Y must be zero (or 1/2 of scale), and scale must be added to the new dataset. color is kinda irrelevant?
-	*/
 
 	// console.log(dataTypes.length);
 
 	for(let i = 0; i < dataTypes.length; i++){
-		console.log(i);
-		// console.log(data);
-		
 		//Only x and z are needed, so i should ditch the for loop?
 		switch (dataTypes[i]){
 			case 'categorical':
-				console.log("Categorizing: " + i + " - " + iRef[i]);
+				// console.log("Categorizing: " + i + " - " + iRef[i]);
 				data.addColumn(iTemp[i], categorizeField(data, i, 1).data, { inplace: true });
 				break;
 			case 'continuous':
-				console.log("Normalizing: " + i + " - " + iRef[i]);
+				// console.log("Discretizing: " + i + " - " + iRef[i]);
 				data.addColumn(iTemp[i], discretizeField(data, i, normalizeRange, discreteSteps), { inplace: true });
 				break;
 			case 'index':
-				console.log("Indicizing: " + i + " - " + iRef[i]);
+				// console.log("Indicizing: " + i + " - " + iRef[i]);
 				data.addColumn(iTemp[i], indicizeField(numPoints), { inplace: true });
 				break;
 			case 'count':
 				console.log("To Count: "+ i + " - " + iRef[i]);
 				break;
 			default: 
+				console.log("Uniformizing: " + i + " for " + iRef[i]);
 				data.addColumn(iTemp[i], uniformizeField(numPoints), { inplace: true });
 		}
 	}
 
-	console.log(data);
+	// console.log(data);
 	let temp;
 	if(data.index.length < 1){
 		//Create an empty dataframe
@@ -192,8 +179,6 @@ function discreteLayout(data, dataTypes) {
 	layoutData.addColumn("y", arr, {inplace: true});
 	layoutData.addColumn("color", arr, {inplace: true});
 
-	console.log(layoutData);
-
 	return layoutData;
 }
 
@@ -208,7 +193,6 @@ export const useLayout = ({ data }) => {
 			setLayoutData(discreteLayout(data, dataTypes));
 			break;
 		case 'scatter':
-			// console.log("Scatter Plot")
 			setLayoutData(scatterLayout(data, dataTypes));
 			break;
 		default: {
@@ -217,6 +201,6 @@ export const useLayout = ({ data }) => {
 		}
 	}, [data, plotType]);
 
-	console.log(layoutData)
+	// console.log(layoutData)
 	return layoutData;
 };

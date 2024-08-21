@@ -60,27 +60,27 @@ function ScatterController({dataset, setViewportData}) {
             <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel align-middle text-xl font-bold p-2">X</div>
                 <div>
-                    <select name="xCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
-                        <option className="text-zinc-800" value=""> Please Select</option>
+                    <select name="xCol" className="text-red-500 rounded-md mx-2 bg-inherit dark:text-red-500 font-bold"> 
+                        <option className="text-zinc-800 font-mono" value=""> Please Select</option>
                         {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
+                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
                         }
                     </select> 
                     <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
                         <div>
                             <input id="xCont" type="radio" value="continuous" name="xType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
-                            <label className="p-2 my-8 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="xCont">Continuous</label> 
+                            <label className="p-2 my-8 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="xCont">Continuous</label> 
                         </div>
                         <div>
                             <input id="xCat" type="radio" value="categorical" name="xType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
-                            <label className="p-2 m-2 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="xCat">Categorical</label> 
+                            <label className="p-2 m-2 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="xCat">Categorical</label> 
                         </div>
                         <div>
                             <input id="xInd" type="radio" value="index" name="xType" defaultChecked
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer" />
-                            <label className="p-2 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="xInd">Index </label> 
+                            <label className="p-2 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="xInd">Index </label> 
                         </div>
                     </div>
                 </div>
@@ -89,27 +89,27 @@ function ScatterController({dataset, setViewportData}) {
             <div className="axis align-middle flex p-6">
                 <div className="inputLabel text-xl font-bold p-2">Y</div>
                 <div>
-                    <select name="yCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
-                        <option className="text-zinc-800" value=""> None </option>
+                    <select name="yCol" className="text-green-600 rounded-md mx-2 bg-inherit dark:text-green-600 font-bold"> 
+                        <option className="text-zinc-800 font-mono" value=""> None </option>
                         {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
+                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
                         }
                     </select> 
                     <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
                         <div>
                             <input id="yCont" type="radio" value="continuous" name="yType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
-                            <label className="p-2 my-8 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yCont">Continuous</label> 
+                            <label className="p-2 my-8 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yCont">Continuous</label> 
                         </div>
                         <div>
                             <input id="yCat" type="radio" value="categorical" name="yType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
-                            <label className="p-2 m-2 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yCat">Categorical</label> 
+                            <label className="p-2 m-2 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yCat">Categorical</label> 
                         </div>
                         <div>
                             <input id="yInd" type="radio" value="index" name="yType" defaultChecked
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer" />
-                            <label className="p-2 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yInd">Index </label> 
+                            <label className="p-2 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="yInd">Index </label> 
                         </div>
                     </div>
                 </div>
@@ -118,27 +118,27 @@ function ScatterController({dataset, setViewportData}) {
             <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel text-xl font-bold p-2">Z </div>
                 <div>
-                    <select name="zCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
-                        <option value="" className="text-zinc-800"> None </option>
+                    <select name="zCol" className="text-blue-600 rounded-md mx-2 bg-inherit font-bold"> 
+                        <option value="" className="text-zinc-800 font-mono"> None </option>
                         {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
+                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
                         }  
                     </select> 
                     <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
                         <div>
                             <input id="zCont" type="radio" value="continuous" name="zType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
-                            <label className="p-2 my-8 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="zCont">Continuous</label> 
+                            <label className="p-2 my-8 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="zCont">Continuous</label> 
                         </div>
                         <div>
                             <input id="zCat" type="radio" value="categorical" name="zType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
-                            <label className="p-2 m-2 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="zCat">Categorical</label> 
+                            <label className="p-2 m-2 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="zCat">Categorical</label> 
                         </div>
                         <div>
                             <input id="zInd" type="radio" value="index" name="zType" defaultChecked
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer" />
-                            <label className="p-2 ring-1 rounded-sm ring-white peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="zInd">Index </label> 
+                            <label className="p-2 ring-1 rounded-sm ring-white peer-checked:ring-black peer-checked:bg-white peer-checked:font-bold peer-checked:text-black" htmlFor="zInd">Index </label> 
                         </div>
                     </div>
                 </div>

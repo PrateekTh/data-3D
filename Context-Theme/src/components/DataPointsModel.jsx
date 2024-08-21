@@ -4,7 +4,7 @@ import InstancedPoints from './InstancedPoints';
 const DataPointsModel = () => {
   return (
     <>
-      <ambientLight color="#ffffff" intensity={0.3} />
+      <ambientLight color="#ffffff" intensity={0.8} />
       <InstancedPoints />
     </>
   );

@@ -28,7 +28,9 @@ function SelectCard({setFile}){
         //Sanity Check for data
         
         if(fileStatus){
-            setUser({projectName});
+            console.log(projectName.len)
+            if (projectName.length > 0) setUser({projectName});
+            else setUser({projectName:"My Data"})
         }else{
             alert("Please select a file!");
         }
