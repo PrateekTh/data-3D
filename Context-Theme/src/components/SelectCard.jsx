@@ -7,28 +7,21 @@ function SelectCard({setFile}){
     const {setUser} = useContext(UserContext);
 
     const handleFileChange = (e) => {
-
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         setFile(e.target.files[0]);
-
         setFileStatus(true);
-
-        const fileReader = new FileReader();
-        fileReader.readAsText(e.target.files[0], "UTF-8");
-        fileReader.onload = e => {
-            // console.log("e.target.result", e.target.result);
-        };
-
-        //send to a huggingface inference API and set a data card result
+        // const fileReader = new FileReader();
+        // fileReader.readAsText(e.target.files[0], "UTF-8");
+        // fileReader.onload = e => {
+        //      console.log("e.target.result", e.target.result);
+        // };
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         //Sanity Check for data
-        
         if(fileStatus){
-            console.log(projectName.len)
             if (projectName.length > 0) setUser({projectName});
             else setUser({projectName:"My Data"})
         }else{
@@ -37,7 +30,7 @@ function SelectCard({setFile}){
         
     }
     return(
-        <div className='m-10 md:flex gap-10'>
+        <div className='m-8 md:flex gap-10'>
             <div className='viewport-container flex-col lg:w-1/3 rounded-sm border-zinc-400 border-2 content-center text-left p-10 bg-white dark:bg-black dark:border-zinc-300'>
                 <span className='text-3xl font-mono font-bold'>Get Started, <span className='text-purple-500'>fast.</span></span><br/>
                 <div className='text-2xl mb-2 font-mono'>select a dataset from storage</div>

@@ -7,7 +7,7 @@ import ScatterController from "./ScatterController";
 import DiscreteController from "./DiscreteController";
 import HomogenousController from "./HomogenousController";
 
-function Controller({dataset, setViewportData, plotType}){
+function Controller({dataset, setViewportData, plotType, setUser}){
     switch (plotType) {
         case 'scatter':
             return <ScatterController dataset={dataset} setViewportData={setViewportData} />        
@@ -17,21 +17,24 @@ function Controller({dataset, setViewportData, plotType}){
             return <HomogenousController dataset={dataset} setViewportData={setViewportData} />
         default:
             return (
-                <div className=" flex-col space-y-4 text-zinc-800 text-lg font-mono p-4 text-left dark:text-white">
+                <div className=" flex-col space-y-6 text-zinc-800 text-lg font-mono p-4 text-left dark:text-white">
                     <div className="text-2xl font-bold text-zinc-700 dark:text-zinc-400"> Select a plot type to continue.</div>
 
                     <div>
                         <div className="text-2xl font-bold text-purple-600 dark:text-purple-400"> Scatter Plots</div>
                         <div>
-                            A scatter plot is Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse, autem asperiores ipsa nulla iste ratione magnam praesentium cupiditate obcaecati, repudiandae veniam error id. Itaque, aspernatur cumque eos eaque culpa doloribus.
+                            Each entry in data serves as a separate sphere datapoint in space, with dimensions being linked to its position and properties.
                         </div>
                     </div>
                     <div>
                         <div className="text-2xl font-bold text-purple-600 dark:text-purple-400"> Distribution Plots</div>
                         <div>
-                            A Distribution plot is Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse, autem asperiores ipsa nulla iste ratione magnam praesentium cupiditate obcaecati, repudiandae veniam error id. Itaque, aspernatur cumque eos eaque culpa doloribus.
+                            A count based distribution plot, which displays the number of entries in a sub-range as the height of a datapoints. Each datapoint is cylindrical, and support upto two dimensions.
                         </div>
                     </div>
+
+                    <button className="border-zinc-500 border-2 my w-1/3 text-white" onClick={()=>setUser(null)}> Reset Data </button>
+
                 </div>
             )
     }
@@ -40,7 +43,7 @@ function Controller({dataset, setViewportData, plotType}){
 //To Add: More User Customizability and Control
 export default function Card({file}) {
 
-    const {user, dataset, setDataset} = useContext(UserContext);
+    const {user, setUser, dataset, setDataset} = useContext(UserContext);
     const [data, setData] = useState();
     const [selectedPoint, setSelectedPoint] = useState(null);
     const [dataTypes, setDataTypes] = useState(["","","", "", ""]);
@@ -106,7 +109,7 @@ export default function Card({file}) {
                     </select>
                 </div>
                 <div className="userInputBox text-left">
-                    <Controller dataset = {dataset} setViewportData = {setViewportData} plotType={plotType}/>
+                    <Controller dataset = {dataset} setViewportData = {setViewportData} plotType={plotType} setUser={setUser}/>
                 </div>
 
             </div>

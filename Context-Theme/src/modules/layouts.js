@@ -87,7 +87,6 @@ function uniformizeField(numPoints, col){
 	if(iRef[col] == 'Scale') val = 10;
 	let arr = Array(numPoints).fill(val);
 	let s = new dfd.Series(arr)
-	// console.log(s);
 	return s;
 }
 
@@ -120,7 +119,7 @@ function scatterLayout(data, dataTypes) {
 				layoutData.addColumn(iTemp[i], indicizeField(numPoints), { inplace: true });
 				break;
 			default: 
-				console.log("Uniformizing: " + i + " for " + iRef[i]);
+				// console.log("Uniformizing: " + i + " for " + iRef[i]);
 				layoutData.addColumn(iTemp[i], uniformizeField(numPoints, i), { inplace: true });
 		}
 	}
@@ -153,7 +152,7 @@ function discreteLayout(data, dataTypes) {
 				console.log("To Count: "+ i + " - " + iRef[i]);
 				break;
 			default: 
-				console.log("Uniformizing: " + i + " for " + iRef[i]);
+				// console.log("Uniformizing: " + i + " for " + iRef[i]);
 				data.addColumn(iTemp[i], uniformizeField(numPoints), { inplace: true });
 		}
 	}
