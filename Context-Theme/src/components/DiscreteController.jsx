@@ -62,13 +62,13 @@ function DiscreteController({dataset, setViewportData}) {
             <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel align-middle text-xl font-bold p-2">X</div>
                 <div>
-                    <select name="xCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
+                    <select name="xCol" className="text-zinc-800 rounded-md text-sm mx-2 bg-inherit dark:text-white font-mono"> 
                         <option className="text-zinc-800" value=""> Please Select</option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
                         }
                     </select> 
-                    <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
+                    <div className="dataType text-sm flex h-6 p-2 my-2 font-mono align-middle">
                         <div>
                             <input id="xCont" type="radio" value="continuous" name="xType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
@@ -92,13 +92,13 @@ function DiscreteController({dataset, setViewportData}) {
             <div className="axis border-b-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel text-xl font-bold p-2">Z </div>
                 <div>
-                    <select name="zCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
+                    <select name="zCol" className="text-zinc-800 rounded-md text-sm mx-2 bg-inherit dark:text-white font-mono"> 
                         <option value="" className="text-zinc-800"> Please Select</option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
                         }  
                     </select> 
-                    <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
+                    <div className="dataType text-sm flex h-6 p-2 my-2 font-mono align-middle">
                         <div>
                             <input id="zCont" type="radio" value="continuous" name="zType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
@@ -117,17 +117,8 @@ function DiscreteController({dataset, setViewportData}) {
                     </div>
                 </div>
             </div> 
-            
-            <div className='md:flex align-middle p-2'>
-                {/* <div className="axis flex p-6">
-                    <div className="inputLabel text-xl font-bold"> Scale </div>
-                    <select name="scaleCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 
-                    <option className="text-zinc-800" value=""> Uniform </option>
-                        {dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))}
-                    </select>
-                </div> */}
-            </div>
-            <button className="border-zinc-500 border-2 mx-4 w-1/3 bg-inherit dark:text-white" type="submit"> Build Visualisation </button>
+        
+            <button className="border-zinc-500 border-2 m-4 w-1/2 center bg-inherit dark:text-white" type="submit"> Build Visualisation </button>
         </form>  
 
         <Alert alert={alert} />               

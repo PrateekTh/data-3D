@@ -17,23 +17,23 @@ function Controller({dataset, setViewportData, plotType, setUser}){
             return <HomogenousController dataset={dataset} setViewportData={setViewportData} />
         default:
             return (
-                <div className=" flex-col space-y-6 text-zinc-800 text-lg font-mono p-6 text-left dark:text-white">
-                    <div className="text-2xl font-bold text-zinc-700 dark:text-zinc-400"> Select a plot type to continue.</div>
+                <div className=" flex-col space-y-4 text-zinc-800 text-md font-mono p-6 text-left dark:text-white">
+                    <div className="text-xl font-bold text-zinc-700 dark:text-zinc-400"> Select a plot type to continue.</div>
 
                     <div>
-                        <div className="text-2xl font-bold text-purple-600 dark:text-purple-400"> Scatter Plots</div>
+                        <div className="text-xl font-bold text-purple-600 dark:text-purple-400"> Scatter Plots</div>
                         <div>
                             Each entry in data serves as a separate sphere datapoint in space, with dimensions being linked to its position and properties.
                         </div>
                     </div>
                     <div>
-                        <div className="text-2xl font-bold text-purple-600 dark:text-purple-400"> Distribution Plots</div>
+                        <div className="text-xl font-bold text-purple-600 dark:text-purple-400"> Distribution Plots</div>
                         <div>
                             A count based distribution plot, which displays the number of entries in a sub-range as the height of a datapoints. Each datapoint is cylindrical, and support upto two dimensions.
                         </div>
                     </div>
 
-                    <button className="border-zinc-500 font-bold border-2 my w-1/3 bg-inherit dark:text-white" onClick={()=>setUser(null)}> Reset Data </button>
+                    <button className="border-zinc-500 font-bold border-2 my w-1/2 bg-inherit dark:text-white" onClick={()=>setUser(null)}> Reset Data </button>
 
                 </div>
             )
@@ -92,16 +92,16 @@ export default function Card({file}) {
     }
 
     return (
-        <div className="duration-300 m-6 bg-white border-2 bg-opacity-90 border-zinc-400 rounded-sm shadow xl:flex dark:bg-black dark:bg-opacity-90 dark:border-zinc-300">
+        <div className="duration-300 m-4 h-full bg-white border-2 bg-opacity-90 border-zinc-400 rounded-sm shadow xl:flex dark:bg-black dark:bg-opacity-90 dark:border-zinc-300">
             <div className="xl:w-2/6 items-center xl:border-r-2 border-zinc-200 dark:border-zinc-600">
                 <div className="flex items-center gap-4 p-4">
-                    <div className="grow text-xl font-semibold text-zinc-900 dark:text-white">
-                        <span className="text-3xl font-bold text-zinc-900 dark:text-white">                        
+                    <div className="grow font-semibold text-zinc-900 dark:text-white">
+                        <span className="text-xl font-bold text-zinc-900 dark:text-white">                        
                             {user.projectName}
                         </span>
                     </div>
-                    <span className="basis-1/6 text-right inputLabel text-lg font-bold">Type </span> 
-                    <select name="val" className="text-zinc-800 rounded-md bg-inherit dark:text-white font-mono" onChange={(e)=>setPlotType(e.target.value)}> 
+                    <span className="basis-1/6 text-right inputLabel text-md font-bold">Type</span> 
+                    <select name="val" className="w-1/3 text-zinc-800 text-xs rounded-md bg-inherit dark:text-white font-mono" onChange={(e)=>setPlotType(e.target.value)}> 
                         <option value="" className="text-black"> Please Select</option>
                         <option value="scatter" className="text-black"> Scatter</option>
                         <option value="discrete" className="text-black"> Distribution</option>

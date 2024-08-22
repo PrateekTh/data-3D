@@ -23,7 +23,7 @@ function Viewport() {
 
     return ( 
         <div className='viewport-container'>
-            <Canvas shadows camera={{position:[32,24,32]}} >
+            <Canvas shadows camera={{position:[64,48,64]}} >
                 <fog attach="fog" color={fogColor} near={150} far={500} />
                 <axesHelper args={[200, 200, 200]} />
                 <directionalLight color={"#FF8552"} intensity={2} position={[5,1,1]}/>

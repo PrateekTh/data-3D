@@ -56,10 +56,10 @@ function ScatterController({dataset, setViewportData}) {
     {/* Using a form here (instead of states for each thing), since I do not wish to update the entire 3D viewport every time there's a change.
         For the situations that I might need to do that, the viewport data context is directly updated*/}
         <form onSubmit={handleSubmit}>
-            <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
-                <div className="inputLabel align-middle text-xl font-bold p-2">X</div>
+            <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 text-sm flex p-3 dark:border-zinc-700">
+                <div className="inputLabel align-middle text-lg font-bold p-2">X</div>
                 <div>
-                    <select name="xCol" className="text-red-500 rounded-md mx-2 bg-inherit dark:text-red-400 font-bold"> 
+                    <select name="xCol" className="text-red-500 text-sm rounded-md mx-2 bg-inherit dark:text-red-400 font-bold"> 
                         <option className="text-zinc-800 font-mono" value=""> Please Select</option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
@@ -85,10 +85,10 @@ function ScatterController({dataset, setViewportData}) {
                 </div>
             </div>
             
-            <div className="axis align-middle flex p-6">
-                <div className="inputLabel text-xl font-bold p-2">Y</div>
+            <div className="axis align-middle text-sm flex p-3">
+                <div className="inputLabel text-lg font-bold p-2">Y</div>
                 <div>
-                    <select name="yCol" className="text-green-600 rounded-md mx-2 bg-inherit dark:text-green-500 font-bold"> 
+                    <select name="yCol" className="text-green-600 text-sm rounded-md mx-2 bg-inherit dark:text-green-500 font-bold"> 
                         <option className="text-zinc-800 font-mono" value=""> None </option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
@@ -114,10 +114,10 @@ function ScatterController({dataset, setViewportData}) {
                 </div>
             </div>
 
-            <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
-                <div className="inputLabel text-xl font-bold p-2">Z </div>
+            <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-3 text-sm dark:border-zinc-700">
+                <div className="inputLabel text-lg font-bold p-2">Z </div>
                 <div>
-                    <select name="zCol" className="text-blue-600 rounded-md mx-2 bg-inherit font-bold dark:text-blue-400"> 
+                    <select name="zCol" className="text-blue-600 text-sm rounded-md mx-2 bg-inherit font-bold dark:text-blue-400"> 
                         <option value="" className="text-zinc-800 font-mono"> None </option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
@@ -144,24 +144,24 @@ function ScatterController({dataset, setViewportData}) {
             </div> 
             
             <div className='md:flex align-middle p-2'>
-                <div className="axis md:w-1/2 flex p-6">
-                    <div className="inputLabel text-xl font-bold">Color </div>
-                    <select name="colorCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
+                <div className="axis md:w-1/2 flex p-2 items-center">
+                    <div className="inputLabel text-md font-bold">Color </div>
+                    <select name="colorCol" className="text-zinc-800 text-sm rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
                         }
                     </select>        
                 </div> 
-                <div className="axis md:w-1/2 flex p-6">
-                    <div className="inputLabel text-xl font-bold"> Scale </div>
-                    <select name="scaleCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
+                <div className="axis md:w-1/2 flex p-2 items-center">
+                    <div className="inputLabel text-md font-bold"> Scale </div>
+                    <select name="scaleCol" className="text-zinc-800 text-sm rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))}
                     </select>
                 </div>
             </div>
-            <button className="border-zinc-500 border-2 mx-4 w-1/3 bg-inherit dark:text-white" type="submit"> Build Visualisation </button>
+            <button className="border-zinc-500 border-2 mx-4 mb-2 w-1/2 bg-inherit dark:text-white" type="submit"> Build Visualisation </button>
         </form>
 
         <Alert alert={alert} />               

@@ -37,16 +37,15 @@ function SelectCard({setFile}){
     }
     return(
         <div className='m-8 md:flex gap-10'>
-            <div className='viewport-container flex-col lg:w-1/3 rounded-sm border-zinc-400 border-2 content-center text-left p-10 bg-white dark:bg-black dark:border-zinc-300'>
-                <span className='text-3xl font-mono font-bold'>Get Started, <span className='text-purple-600 dark:text-purple-400'>fast.</span></span><br/>
-                <div className='text-2xl mb-2 font-mono'>select a dataset from storage</div>
-                <input className= 'rounded-md m-2 dark:text-zinc-700' 
-                type='text' 
-                value={projectName} 
+            <div className='viewport-container flex-col lg:w-1/3 rounded-sm border-zinc-400 border-2 content-center text-left p-8 bg-white dark:bg-black dark:border-zinc-300'>
+                <span className='text-2xl font-mono font-bold'>Get Started, <span className='text-purple-600 dark:text-purple-400'>fast.</span></span><br/>
+                <div className='text-xl font-mono'>select a dataset from storage</div>
+                <input className= 'rounded-md my-3 dark:text-zinc-700' 
+                type='text' value={projectName} 
                 onChange={(e) => {setProjectName(e.target.value)}} 
                 placeholder='Project Name'/> <br/>
 
-                <input className='text-sm font-mono outline-none focus:outline-none file:py-3 file:px-6 file:mx-2 file:rounded-md file:border-2
+                <input className='text-sm font-mono outline-none focus:outline-none file:py-2 file:px-6 file:rounded-sm file:border-2
                 file:border-white file:text-md file:font-bold  file:text-white
                 file:bg-gradient-to-r file:from-violet-800 file:to-violet-500
                 hover:file:cursor-pointer hover:file:from-violet-800 hover:file:to-violet-800'
@@ -54,17 +53,17 @@ function SelectCard({setFile}){
                 onChange={handleFileChange}
                 /> <br/><br/>
 
-                <button onClick={handleSubmit} className='text-white'>Submit</button>
-
+                <button onClick={handleSubmit} className='border-zinc-500 border-2 w-1/2 rounded-sm center bg-inherit dark:text-white'>Continue</button>
                 <Alert alert={alert}/>
             </div>
+
             <div className='lg:w-2/3 border-zinc-400 border-2 content-center text-left rounded-sm p-10 bg-white dark:bg-black dark:border-zinc-300'>
                 <div>
-                    <div className='font-bold text-6xl'>
+                    <div className='font-bold text-5xl'>
                         Reshaping your data, <span className='text-purple-600 dark:text-purple-400'>literally.</span>
                     </div>
-                    <div className='font-mono text-lg py-4'>
-                        <span className='main-head text-xl'>3Data</span> is a tool that allows you to create immersive and interactive 3D (and 2D) visualisations of <span className='font-bold'>any</span> dataset.
+                    <div className='font-mono text-md py-4'>
+                        <span className='main-head text-md'>3Data</span> is a tool that allows you to create immersive and interactive 3D (and 2D) visualisations of <span className='font-bold'>any</span> dataset.
                         Currently supports rendering 50k+ datapoints, realtime, on the browser. <br/><br/>
 
                         This project is under development, and will be updated with more features soon ~ <br/>
@@ -72,15 +71,15 @@ function SelectCard({setFile}){
                     </div>
                 </div>
 
-                <div className='pt-16'>
+                <div className='pt-14'>
                     <div className='text-lg'>
-                        <span className='font-bold text-3xl text-purple-600 dark:text-purple-400'>Built Using - </span>
+                        <span className='font-bold text-2xl text-purple-600 dark:text-purple-400'>Built Using </span>
                     </div>
-                    <div className='font-mono text-lg py-2'>
+                    <div className='font-mono text-sm py-2'>
                         <ul>
-                        <li>ThreeJS, R3F </li>
-                        <li>React, Javascript </li>
-                        <li>WebGL, HTML, CSS, Tailwind </li>
+                            <li>ThreeJS, R3F </li>
+                            <li>React, Javascript </li>
+                            <li>WebGL, HTML, CSS, Tailwind </li>
                         </ul>
                     </div>
                 </div>
