@@ -1,10 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../context/UserContext';
+import Alert from './Alert';
 
 function SelectCard({setFile}){
     const [projectName, setProjectName] = useState('');
     const [fileStatus, setFileStatus] = useState(false);
     const {setUser} = useContext(UserContext);
+    const [alert, setAlert] = useState(null);
+    
+    useEffect(() => {
+        if(alert){
+            setTimeout(()=> setAlert(null), 5000)
+        }
+    }, [alert]);
 
     const handleFileChange = (e) => {
         // console.log(e.target.files[0]);
@@ -19,20 +27,18 @@ function SelectCard({setFile}){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         //Sanity Check for data
         if(fileStatus){
             if (projectName.length > 0) setUser({projectName});
             else setUser({projectName:"My Data"})
         }else{
-            alert("Please select a file!");
-        }
-        
+            setAlert("Please select a file!");
+        }   
     }
     return(
         <div className='m-8 md:flex gap-10'>
             <div className='viewport-container flex-col lg:w-1/3 rounded-sm border-zinc-400 border-2 content-center text-left p-10 bg-white dark:bg-black dark:border-zinc-300'>
-                <span className='text-3xl font-mono font-bold'>Get Started, <span className='text-purple-500'>fast.</span></span><br/>
+                <span className='text-3xl font-mono font-bold'>Get Started, <span className='text-purple-600 dark:text-purple-400'>fast.</span></span><br/>
                 <div className='text-2xl mb-2 font-mono'>select a dataset from storage</div>
                 <input className= 'rounded-md m-2 dark:text-zinc-700' 
                 type='text' 
@@ -49,23 +55,25 @@ function SelectCard({setFile}){
                 /> <br/><br/>
 
                 <button onClick={handleSubmit} className='text-white'>Submit</button>
+
+                <Alert alert={alert}/>
             </div>
             <div className='lg:w-2/3 border-zinc-400 border-2 content-center text-left rounded-sm p-10 bg-white dark:bg-black dark:border-zinc-300'>
                 <div>
                     <div className='font-bold text-6xl'>
-                        Reshaping your data, <span className='text-purple-500'>literally.</span>
+                        Reshaping your data, <span className='text-purple-600 dark:text-purple-400'>literally.</span>
                     </div>
                     <div className='font-mono text-lg py-4'>
                         <span className='main-head text-xl'>3Data</span> is a tool that allows you to create immersive and interactive 3D (and 2D) visualisations of <span className='font-bold'>any</span> dataset.
                         Currently supports more than 100k datapoints (in realtime on any browser), beyond which the device GPU is the benchmark. <br/> <br/>
 
-                        Visit <span className='underline underline-offset-4 font-bold'>this</span> repository for a tutorial or source code.
+                        Visit <a className='underline underline-offset-4 font-bold' href='https://github.com/PrateekTh/data-3D'>this</a> repository for a tutorial or source code.
                     </div>
                 </div>
 
-                <div className='py-4'>
+                <div className='pt-16'>
                     <div className='text-lg'>
-                        <span className='font-bold text-3xl'>Tech Stack</span> <span className='italic'>( for nerds and curious kids )</span>
+                        <span className='font-bold text-3xl text-purple-600 dark:text-purple-400'>Built Using - </span>
                     </div>
                     <div className='font-mono text-lg py-2'>
                         <ul>

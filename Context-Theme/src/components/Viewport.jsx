@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect} from 'react';
 import {Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import useTheme from '../context/ThemeContext';
@@ -23,7 +23,7 @@ function Viewport() {
 
     return ( 
         <div className='viewport-container'>
-            <Canvas shadows >
+            <Canvas shadows camera={{position:[2,1.5,2]}} >
                 <fog attach="fog" color={fogColor} near={150} far={600} />
                 <axesHelper args={[200, 200, 200]} />
                 <directionalLight color={"#FF8552"} intensity={2} position={[5,1,1]}/>

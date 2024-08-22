@@ -90,7 +90,7 @@ function DiscreteController({dataset, setViewportData}) {
             </div>
             
             
-            <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
+            <div className="axis border-b-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel text-xl font-bold p-2">Z </div>
                 <div>
                     <select name="zCol" className="text-zinc-800 rounded-md mx-2 bg-inherit dark:text-white font-mono"> 

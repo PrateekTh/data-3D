@@ -17,7 +17,7 @@ function Controller({dataset, setViewportData, plotType, setUser}){
             return <HomogenousController dataset={dataset} setViewportData={setViewportData} />
         default:
             return (
-                <div className=" flex-col space-y-6 text-zinc-800 text-lg font-mono p-4 text-left dark:text-white">
+                <div className=" flex-col space-y-6 text-zinc-800 text-lg font-mono p-6 text-left dark:text-white">
                     <div className="text-2xl font-bold text-zinc-700 dark:text-zinc-400"> Select a plot type to continue.</div>
 
                     <div>
@@ -33,7 +33,7 @@ function Controller({dataset, setViewportData, plotType, setUser}){
                         </div>
                     </div>
 
-                    <button className="border-zinc-500 border-2 my w-1/3 text-white" onClick={()=>setUser(null)}> Reset Data </button>
+                    <button className="border-zinc-500 font-bold border-2 my w-1/3 bg-inherit dark:text-white" onClick={()=>setUser(null)}> Reset Data </button>
 
                 </div>
             )

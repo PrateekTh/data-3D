@@ -1,16 +1,15 @@
 # //. 3Data .//
 
-Good 3D visualisation tools are hard to come by. Building one involves at least a baseline understanding of mathematics, statistics, data science, along with the necessary programming and development skills.
+Good 3D visualisation tools are hard to come by. While there are a number of amazing 2D visualisation tools and libraries, 3D is definitely still a step behind, with most technologies akin to CAD like software, rather than a to the point data plotting service.
 
-Thus, while there are a number of amazing 2D visualisation tools and libraries, 3D is definitely still a step behind, with most technologies akin to CAD like software, rather than a to the point data plotting service.
+Building involves at a minimal baseline understanding of math, statistics, data science, along with the necessary programming and development skills.
 
-This project is an attempt to remedy this, and given the recent developments in WebGL and especially the introduction of WebGPU, I believe the web can finally be used to build robust and fast applications, that are both graphically beautiful as well as highly data intensive.
+This project is my attempt to push the field a bit further, and given the recent developments in WebGL and especially the introduction of WebGPU, I believe the web can finally be used to build robust and fast applications, that are both graphically beautiful as well as highly data intensive.
 
 ## Introduction
 3Data (*Three Data*) is a robust web tool that aims to provide multidimensional visualisations of any user provided dataset on the web.
 
 **Check out the live demo at [this link](#introduction).**
-
 
 Main features include:
 - Realtime rendering of more than `50k` datapoints (KPI to focus on as the project grows).
@@ -115,7 +114,7 @@ Given the generalized nature, there's an unending number of features that can be
 
 Thus, focusing on the second half, before jumping to huge functional additions, the following tasks take precedence over others, and I will try to implement them in the near future:
 - Labelling axes with respect to the data and current visualisation.
-- Helper graphics, such as pointers to select and view individual datapoints.
+- Helper graphics, such as pointers to select and view individual datapoints, camera snapping controls, etc..
 - Lots of animations, and custom shader support for the viewport.
 
 Another very important goal apart from improving User Experience is the integration of **WebGPU** and **compute shaders**, to improve the performance greatly.

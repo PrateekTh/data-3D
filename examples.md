@@ -1,5 +1,5 @@
 ## World Happiness Report 2019
-Download this dataset from [this](https://www.kaggle.com/datasets/unsdsn/world-happiness) post on Kaggle, or from [here] in the repository.
+Download this dataset from [this](https://www.kaggle.com/datasets/unsdsn/world-happiness) post on Kaggle, or from [here](./datasets/Happiness_Index_2019.csv) in the repository.
 
 While this dataset is relatively smaller in size, given the number of countries is the maximum number of datapoints, it works really well in displaying different aspects of 3Data, without overcomplicating things.
 
@@ -11,14 +11,12 @@ A few example plots include:
     - **Y**: Score - Continuous
     - **Z**: Perception of Corruption - Continuous
 
-
     A very obvious interpretation here is the increase in GDP/Capita resulting in an overall greater happiness, which is to some extent, to be expected. 
 
     A rather interesting observation can be made on the Perception of Corruption:
 
-
-
-    The index for perception stays in a limited, low range till a certain threshold (which can be seen in both GDP & the Happiness Score), after which it increases drastically. Social Awareness is a huge issue in today's information based era desipite the dominance of democracy (which in turn benefits from a greater awareness level of the populace), and this gives a solid starting point to draw its factors.
+    The index for perception stays in a limited, low range till a certain threshold (which can be seen in both GDP & the Happiness Score), after which it increases drastically. 
+    Social Awareness is a huge issue in today's information based era desipite the dominance of democracy (which in turn benefits from a greater awareness level of the populace), and this gives a solid starting point to draw its factors.
 
 2. **Color**: Adding "Freedom to make life choices"
 
@@ -35,7 +33,7 @@ A few example plots include:
     A notable point is the cluster with lowest amounts of generosity, that can be seen in the aforementioned threshold, in the middle of the Y-axis (Happiness score). Countries, outside this range show higher generosity scores, irrespective of GDP & Scores.
 
 ## Student Performance Dataset (by Rabie El Kharoua, 2024)
-Another dataset from Kaggle, with details & download links available [on this link](https://doi.org/10.34740/KAGGLE/DS/5195702) and [here]() in the repository. 
+Another dataset from Kaggle, with details & download links available [on this link](https://doi.org/10.34740/KAGGLE/DS/5195702) and [here](./datasets/Student_performance_data%20_.csv) in the repository. 
 
 This interesting dataset contains data from roughly `2,392` high school students, with an diverse array of metrics and classifications, that involve demographics, study habits, parental involvement, extracurricular activities, and academic performance.
 

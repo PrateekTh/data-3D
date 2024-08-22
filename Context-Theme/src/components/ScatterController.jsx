@@ -7,7 +7,6 @@ function ScatterController({dataset, setViewportData}) {
     
     useEffect(() => {
         if(alert){
-            //render?
             setTimeout(()=> setAlert(null), 5000)
         }
     }, [alert]);
@@ -162,7 +161,7 @@ function ScatterController({dataset, setViewportData}) {
                     </select>
                 </div>
             </div>
-            <button className="border-zinc-500 border-2 mx-4 w-1/3 text-white" type="submit"> Build Visualisation </button>
+            <button className="border-zinc-500 border-2 mx-4 w-1/3 bg-inherit dark:text-white" type="submit"> Build Visualisation </button>
         </form>
 
         <Alert alert={alert} />               
