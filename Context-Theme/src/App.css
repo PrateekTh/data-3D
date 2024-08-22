@@ -11,6 +11,7 @@ body{
   background: url("./seamless-bg.svg");
   /* background-repeat:repeat-x; */
   background-size: 250px;
+  background-color: #A1A1AA;
 }
 
 input {

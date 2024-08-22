@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import UserContextProvider from './context/UserContextProvider'
-import { ViewportDataProvider } from './context/ViewportContext.js';
 import { ThemeProvider } from './context/ThemeContext.js'
 import './App.css'
 import Home from './components/Home'
 import Header from './components/Header.jsx';
-import TestDataDanfo from './components/TestDataDanfo.jsx';
 
 function App() {
 	
@@ -25,7 +23,6 @@ function App() {
 					<UserContextProvider>
 							<Header />
 							<Home/>
-							{/* <TestDataDanfo/> */}
 					</UserContextProvider>
 				</ThemeProvider>
 			</div>

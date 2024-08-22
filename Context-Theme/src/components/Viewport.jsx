@@ -23,13 +23,13 @@ function Viewport() {
 
     return ( 
         <div className='viewport-container'>
-            <Canvas shadows camera={{position:[2,1.5,2]}} >
-                <fog attach="fog" color={fogColor} near={150} far={600} />
+            <Canvas shadows camera={{position:[32,24,32]}} >
+                <fog attach="fog" color={fogColor} near={150} far={500} />
                 <axesHelper args={[200, 200, 200]} />
                 <directionalLight color={"#FF8552"} intensity={2} position={[5,1,1]}/>
                 <directionalLight color={"#FF8552"} intensity={2} position={[-5,1,1]}/>
-                
                 <DataPointsModel/>
+                {/*Labels*/}
                 <OrbitControls
                     minPolarAngle={-Math.PI/2}
                     maxPolarAngle={Math.PI/2}

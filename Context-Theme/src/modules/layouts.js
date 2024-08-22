@@ -130,51 +130,47 @@ function scatterLayout(data, dataTypes) {
 function discreteLayout(data, dataTypes) {
 	let numPoints = data.index.length;
 	iRef[0] = data.columns[0];
-
-	// console.log(dataTypes.length);
-
-	for(let i = 0; i < dataTypes.length; i++){
-		//Only x and z are needed, so i should ditch the for loop?
-		switch (dataTypes[i]){
-			case 'categorical':
-				// console.log("Categorizing: " + i + " - " + iRef[i]);
-				data.addColumn(iTemp[i], categorizeField(data, i, 1).data, { inplace: true });
-				break;
-			case 'continuous':
-				// console.log("Discretizing: " + i + " - " + iRef[i]);
-				data.addColumn(iTemp[i], discretizeField(data, i, normalizeRange, discreteSteps), { inplace: true });
-				break;
-			case 'index':
-				// console.log("Indicizing: " + i + " - " + iRef[i]);
-				data.addColumn(iTemp[i], indicizeField(numPoints), { inplace: true });
-				break;
-			case 'count':
-				console.log("To Count: "+ i + " - " + iRef[i]);
-				break;
-			default: 
-				// console.log("Uniformizing: " + i + " for " + iRef[i]);
-				data.addColumn(iTemp[i], uniformizeField(numPoints), { inplace: true });
-		}
-	}
-
-	// console.log(data);
+	
 	let temp;
 	if(data.index.length < 1){
 		//Create an empty dataframe
 		temp = new dfd.DataFrame([[0,0,0,0,0]], {index:[0], columns:iTemp, dtypes:["int32","int32","int32","int32","int32"] })
 		numPoints = 1;
 	}else{
+		for(let i = 0; i < dataTypes.length; i++){
+			switch (dataTypes[i]){
+				case 'categorical':
+					// console.log("Categorizing: " + i + " - " + iRef[i]);
+					data.addColumn(iTemp[i], categorizeField(data, i, 1).data, { inplace: true });
+					break;
+				case 'continuous':
+					// console.log("Discretizing: " + i + " - " + iRef[i]);
+					data.addColumn(iTemp[i], discretizeField(data, i, normalizeRange, discreteSteps), { inplace: true });
+					break;
+				case 'index':
+					// console.log("Indicizing: " + i + " - " + iRef[i]);
+					data.addColumn(iTemp[i], indicizeField(numPoints), { inplace: true });
+					break;
+				case 'count':
+					// console.log("To Count: "+ i + " - " + iRef[i]);
+					break;
+				default: 
+					// console.log("Uniformizing: " + i + " for " + iRef[i]);
+					data.addColumn(iTemp[i], uniformizeField(numPoints), { inplace: true });
+			}
+		}
+	
 		temp = data.loc("x", "z");
 	}
+	
+	// add an empty column to store counts
+	temp.addColumn("weights", Array(numPoints).fill(1), {inplace: true});
 
-	let arr =  Array(numPoints).fill(1);
-
-	temp.addColumn("weight", arr, {inplace: true});
-
+	// calculate frequencies
 	const layoutData = temp.groupby(["x", "z"]).count();
-	layoutData.rename({"weight_count":"scale"}, {inplace: true});
+	layoutData.rename({"weights_count":"scale"}, {inplace: true});
 
-	arr = Array(layoutData.index.length).fill(0);
+	let arr = Array(layoutData.index.length).fill(0);
 	layoutData.addColumn("y", arr, {inplace: true});
 	layoutData.addColumn("color", arr, {inplace: true});
 
@@ -195,7 +191,7 @@ export const useLayout = ({ data }) => {
 			setLayoutData(scatterLayout(data, dataTypes));
 			break;
 		default: {
-			setLayoutData(scatterLayout(data, dataTypes));
+			// setLayoutData(scatterLayout(data, dataTypes));
 		}
 		}
 	}, [data, plotType]);

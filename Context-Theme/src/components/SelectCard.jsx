@@ -65,9 +65,10 @@ function SelectCard({setFile}){
                     </div>
                     <div className='font-mono text-lg py-4'>
                         <span className='main-head text-xl'>3Data</span> is a tool that allows you to create immersive and interactive 3D (and 2D) visualisations of <span className='font-bold'>any</span> dataset.
-                        Currently supports more than 100k datapoints (in realtime on any browser), beyond which the device GPU is the benchmark. <br/> <br/>
+                        Currently supports rendering 50k+ datapoints, realtime, on the browser. <br/><br/>
 
-                        Visit <a className='underline underline-offset-4 font-bold' href='https://github.com/PrateekTh/data-3D'>this</a> repository for a tutorial or source code.
+                        This project is under development, and will be updated with more features soon ~ <br/>
+                        Visit <a className='underline underline-offset-4 font-bold' href='https://github.com/PrateekTh/data-3D'>this</a> repository to learn more.
                     </div>
                 </div>
 
@@ -79,7 +80,7 @@ function SelectCard({setFile}){
                         <ul>
                         <li>ThreeJS, R3F </li>
                         <li>React, Javascript </li>
-                        <li>HTML, CSS, Tailwind </li>
+                        <li>WebGL, HTML, CSS, Tailwind </li>
                         </ul>
                     </div>
                 </div>

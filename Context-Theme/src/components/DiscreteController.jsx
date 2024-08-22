@@ -17,7 +17,6 @@ function DiscreteController({dataset, setViewportData}) {
 
         const form = e.target;
         const formData = new FormData(form);
-
         const formJson = Object.fromEntries(formData.entries());
         // console.log(formJson);
 
@@ -128,7 +127,7 @@ function DiscreteController({dataset, setViewportData}) {
                     </select>
                 </div> */}
             </div>
-            <button className="border-zinc-500 border-2 mx-4 w-1/3 text-white" type="submit"> Build Visualisation </button>
+            <button className="border-zinc-500 border-2 mx-4 w-1/3 bg-inherit dark:text-white" type="submit"> Build Visualisation </button>
         </form>  
 
         <Alert alert={alert} />               

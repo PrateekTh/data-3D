@@ -59,7 +59,7 @@ function ScatterController({dataset, setViewportData}) {
             <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel align-middle text-xl font-bold p-2">X</div>
                 <div>
-                    <select name="xCol" className="text-red-500 rounded-md mx-2 bg-inherit dark:text-red-500 font-bold"> 
+                    <select name="xCol" className="text-red-500 rounded-md mx-2 bg-inherit dark:text-red-400 font-bold"> 
                         <option className="text-zinc-800 font-mono" value=""> Please Select</option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
@@ -88,7 +88,7 @@ function ScatterController({dataset, setViewportData}) {
             <div className="axis align-middle flex p-6">
                 <div className="inputLabel text-xl font-bold p-2">Y</div>
                 <div>
-                    <select name="yCol" className="text-green-600 rounded-md mx-2 bg-inherit dark:text-green-600 font-bold"> 
+                    <select name="yCol" className="text-green-600 rounded-md mx-2 bg-inherit dark:text-green-500 font-bold"> 
                         <option className="text-zinc-800 font-mono" value=""> None </option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
@@ -117,7 +117,7 @@ function ScatterController({dataset, setViewportData}) {
             <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel text-xl font-bold p-2">Z </div>
                 <div>
-                    <select name="zCol" className="text-blue-600 rounded-md mx-2 bg-inherit font-bold"> 
+                    <select name="zCol" className="text-blue-600 rounded-md mx-2 bg-inherit font-bold dark:text-blue-400"> 
                         <option value="" className="text-zinc-800 font-mono"> None </option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
