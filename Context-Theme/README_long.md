@@ -16,13 +16,17 @@ Here I will go through some major design choices, ideas, challenges  that I've f
 ### Initial Challenges (Apparent)
 
 
-## C. WebGL and the Viewport
+## C. User Interface and Themes
 
 
-## D. Processing Datasets
+## D. WebGL and the Viewport
 
 
-## E. Performance
+## E. Processing Datasets
+
+### Error Handling
+
+## F. Performance
 
 
-## F. What remains of Data3D?
+## G. What remains of Data3D?
