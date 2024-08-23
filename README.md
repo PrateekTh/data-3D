@@ -1,4 +1,4 @@
-# //. 3Data .//
+# <span style = "font-weight: bold; font-family: Tahoma;"> //. 3Data .// </span>
 
 Good 3D visualisation tools are hard to come by. While there are a number of amazing 2D visualisation tools and libraries, 3D is definitely still a step behind, with most technologies akin to CAD like software, rather than a to the point data plotting service.
 
@@ -9,14 +9,17 @@ This project is my attempt to push the field a bit further, and given the recent
 ## Introduction
 3Data (*Three Data*) is a robust web tool that aims to provide multidimensional visualisations of any user provided dataset on the web.
 
-**Check out the live demo at [this link](#introduction).**
+**Check out the live demo at [this link](https://3data.netlify.app/).**
+
+**Check out a detailed, and lengthy retrospective devlog [here](./README_long.md).**
 
 Main features include:
 - Realtime rendering of more than `50k` datapoints (KPI to focus on as the project grows).
 - `Five` available dimensions to plot data simultaneously.
 - Different types of `plots` and functionalities.
-- Being a fully client side application, `fast` and `highly secure`.
+- Being a fully client side application, `fast` and `highly secure`. 
 
+> **Note**: Currently supported types include: `.csv` 
 
 ## Setup
 In order to setup the project on your local machine, follow the following steps:
@@ -82,17 +85,13 @@ The **Color** field automatically infers the datatype, between continuous and ca
 ## Examples
 
 - ### World Happiness Report 2019 - [Analysis](./examples.md#world-happiness-report-2019)
-    Download this dataset from [this](https://www.kaggle.com/datasets/unsdsn/world-happiness) post on Kaggle, or from [here]() in the repository.
     
     While this dataset is relatively smaller in size with `156` datapoints, given the number of countries is the maximum number of datapoints, it works really well in displaying different aspects of 3Data, without overcomplicating things.
     
 
-- ### Student Performance Dataset (Rabie El Kharoua, 2024) - [Analysis]()
-    Another dataset from Kaggle, with details & download links available at [this link](https://doi.org/10.34740/KAGGLE/DS/5195702) and [here](./examples.md#student-performance-dataset-by-rabie-el-kharoua-2024) in the repository. 
+- ### Student Performance Dataset (Rabie El Kharoua, 2024) - [Analysis]() 
 
     This interesting dataset contains data from roughly `2,392` high school students, with an diverse array of metrics and classifications, that involve demographics, study habits, parental involvement, extracurricular activities, and academic performance.
-
-As it can be inferred, the above "recommended presets" are meant to serve only as starting points, in the process where a highly experimentation/observation based approach is encouraged.
 
 ## Tech Stack
 
@@ -116,5 +115,6 @@ Thus, focusing on the second half, before jumping to huge functional additions, 
 - Labelling axes with respect to the data and current visualisation.
 - Helper graphics, such as pointers to select and view individual datapoints, camera snapping controls, etc..
 - Lots of animations, and custom shader support for the viewport.
+- Optimisation of the current algorithims to support larger datasets.
 
 Another very important goal apart from improving User Experience is the integration of **WebGPU** and **compute shaders**, to improve the performance greatly.
