@@ -2,16 +2,27 @@
 
 Good 3D visualisation tools are hard to come by. While there are a number of amazing 2D visualisation tools and libraries, 3D is definitely still a step behind, with most technologies akin to CAD like software, rather than a to the point data plotting service.
 
-Building involves at a minimal baseline understanding of math, statistics, data science, along with the necessary programming and development skills.
+Building a tool, on the other hand, involves at a minimal baseline understanding of math, statistics, data science, along with the necessary programming and development skills.
 
-This project is my attempt to push the field a bit further, and given the recent developments in WebGL and especially the introduction of WebGPU, I believe the web can finally be used to build robust and fast applications, that are both graphically beautiful as well as highly data intensive.
+This project is my attempt to push the use of GPU in the web a bit further, and given the recent developments in WebGL and especially the introduction of WebGPU, I believe the web can finally be used to build robust and fast applications, that are both graphically beautiful as well as highly data intensive.
 
 ## Introduction
+
+<img src="./images/logo.png" style="width: 200px; border-radius:5px">
+
+
 3Data (*Three Data*) is a robust web tool that aims to provide multidimensional visualisations of any user provided dataset on the web.
 
-**Check out the live demo at [this link](https://3data.netlify.app/).**
+Other places to check out:
 
-**Check out a detailed, and lengthy retrospective devlog [here](./README_long.md).**
+- **The live demo at [this link](https://3data.netlify.app/).**
+
+- **A lengthy [retrospective devlog](./README_long.md).**
+
+- **Example [dataset analysis](./examples.md).**
+
+<img src="./images/01.png">
+
 
 Main features include:
 - Realtime rendering of more than `50k` datapoints (KPI to focus on as the project grows).
@@ -31,6 +42,8 @@ In order to setup the project on your local machine, follow the following steps:
 - Run `npm run dev` to start the development server.
 
 ## Tutorial & Overview
+
+<img src="./images/02.png">
 
 ### Datapoints 
 Datapoints refers to the individual meshes placed in 3D space. The meshes involve spheres, for scatter plots, and cylinders for distributions. 
@@ -103,7 +116,7 @@ The **Color** field automatically infers the datatype, between continuous and ca
     - [`React`](https://react.dev/): Prominent front-end JS framework/library.
     - [`ThreeJS`](https://threejs.org/): Awesome cross-platform WebGL API/Library.
     - [`React Three Fiber`](https://r3f.docs.pmnd.rs/getting-started/introduction): Highly resourceful react renderer for three.js.
-    - [`DanfoJS`](https://danfo.jsdata.org/): High-performance data manipulation API/library in JS (similar to pandas)
+    - [`DanfoJS`](https://danfo.jsdata.org/): High-performance data manipulation API/library in JS (similar to `pandas`, & built for smooth integration with `Tenserflow.js`)
 
 ## What's Next?
 
@@ -117,4 +130,4 @@ Thus, focusing on the second half, before jumping to huge functional additions, 
 - Lots of animations, and custom shader support for the viewport.
 - Optimisation of the current algorithims to support larger datasets.
 
-Another very important goal apart from improving User Experience is the integration of **WebGPU** and **compute shaders**, to improve the performance greatly.
+Another important goal apart from improving User Experience is the integration of **WebGPU** and **compute shaders**, to improve the performance greatly.

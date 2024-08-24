@@ -10,11 +10,11 @@ Here I will go through some major design choices, ideas, challenges  that I've f
 ## A. Motivation and Vision
 The backbone and source of thought for this project is data. Since 2023, the advancement of AI is being heralded as if a new age has begun, but I firmly believe that it is still an era of information, and will stay like that. While NLP advancements and LLMs are amazing developments in themselves, it is still far from true intelligence considering how data is at the heart of these technologies, vast amounts of it. 
 
-While current trends make it a bit imperative that I try to use an LLM to augment users' *"understanding of data"* in a project like this, in my humble opinion that would just be trying to skim over the core work that I'd have to do in creating new solutions for users, and turn it into a black box. Critical Thinking & Problem Solving is fun, and since I sincerely want to improve it with time, and keep as much of it as I can open-source, I'd rather keep learning and keep building!
+While current trends make it a bit imperative that I try to use an LLM to augment users' *"understanding of data"* in a project like this, but that would turn a lot of the main processing into into a black box. Critical Thinking & Problem Solving is fun, and since I sincerely want to improve the project with time, and keep as much of it as I can open-source, I'd rather keep learning and keep building!
 
-Thus, this project is a solution I devised to make data accessible for users to understand, in the current age where data just keeps growing in size and importance.  
+Thus, this project is a solution I devised to make data accessible for users to understand, in the current age where data just keeps growing in size and importance.
 
-While it is supposed to be a generalized solution to all types of datasets, a particular area of interest is augmenting visualisation of results from AI Models, from LLMs to ML models. 
+While it is supposed to be a generalized solution to all types of datasets, a particular area of interest is augmenting visualisation of results from AI Models, from LLMs to ML models. Thus, instead of trying to make another AI solve the problem for an AI, I'd like to try and augment humans to understand the AI and its language, i.e. data!
 
 *"Everyone asks what the AI can do for me, but no one asks what can I do for the AI".* 
 
@@ -31,9 +31,9 @@ Most WebGL oriented projects tend to hook up to a certain dataset and visualise 
 
 > Thus, this project had me account for a lot of mindful programming, one aspect coming from the **generalized data** being fed to it.
 
-Below is a rough flowchart/DFD of the project.
+Below is a rough UML diagram of the project components, showing various dependencies:
 
-<img src="https://images.uncyc.org/commons/2/21/69.JPG" alt="flow-chart" width=400>
+<img src="./images/diagram.png" alt="flow-chart" width=800>
 
 ## C. User Interface and Themes
 
@@ -44,7 +44,7 @@ Still, this isn't something that I will be able to hold off for long, since I de
 For accessibility, the website also contains the ability to switch between a Dark and Light theme, implemented using Tailwind.
 
 ## D. WebGL and the Viewport
-My desire to get better at WebGL has to be one of the driving factors throughout this project. "3D graphics, on the web" is a phrase that has captivated ever since I've been into development, and being an aspiring game designer as well, it is something I would like to become even better at.
+My desire to get better at WebGL has to be one of the driving factors throughout this project. "awesome 3D graphics, on the web" is a phrase that has captivated ever since I've been into development, and being an aspiring game designer as well, it is something I would like to become even better at.
 
 3Data is a peek into the power and utility of WebGL beyond entertainment & creative projects. The project makes a heavy use of it, through three.js as well as React Three Fiber, for processing, visualising and so on.
 
@@ -54,7 +54,7 @@ The types of base plots components available include:
 - **Plane Model**: Builds a Texture from the selected data, then used as the height map of a plane containing the amount of corresponding vertices.
 - **Datapoints Model**: Builds properties on a per-datapoint basis according to the user's choices, and uses Instanced meshes to display them.
 
-As of the current live version, the datapoints component has been functionally utilized.
+As of the current live version, mostly the datapoints component has been functionally utilized.
 
 ## E. Processing Datasets
 
@@ -98,7 +98,7 @@ The performance is, much at par with what I'd want from the initial build, but n
 
 - WebGL, with instanced geometry can be used to render an upwards of `500k` or even `1M` meshes on the web, and currently, the project is at a mere `5` - `10` percent of it.
 
-- While 3Data can still render these many datapoints, since it uses the same instanced geometry, the amount of time taken to process them in general calls for terrible UX, and I'd recommend to not use it just yet for it, as it is a goal to improve in this department as rapidly as it can be done.
+- While 3Data can still render these many datapoints, since it uses the same instanced geometry, the amount of time taken to process larger datasets in general calls for terrible UX, and I'd recommend to not use it just yet for it, as it is a goal to improve in this department as rapidly as it can be done.
 
 - Browser imposed limitations on resource usage have a significant impact, which explains the absence of 3D tools from the web.
 
@@ -106,11 +106,11 @@ The performance is, much at par with what I'd want from the initial build, but n
 
 A very definite solution to boost performance that I am personally interested in as well is WebGPU, which would allow the use of compute shaders. To understand the reasons, I will go over the <u>differences</u> between the CPU and GPU in layman terms: 
 
-- The CPU contains a comparatively small number of very, very fast cores, which makes it suitable for a wide variety of tasks. This makes it ideal to be modelled and labelled as a general purpose "brain" of a computer.
+- *The CPU contains a comparatively small number of very, very fast cores, which makes it suitable for a wide variety of tasks. This makes it ideal to be modelled and labelled as a general purpose "brain" of a computer*.
 
-- The GPU, on the other hand, is  a rather specialized device, which contains a large number of cores, that are not as (comparatively) fast. This makes it really efficient and the go-to solutions in the specialized situations where it can be used. 
+- *The GPU, on the other hand, is  a rather specialized device, which contains a large number of cores, that are not as (comparatively) fast. This makes it really efficient and the go-to solutions in the specialized situations where it can be used.*
 
-While working with WebGL graphic/processing task involves making use of both the CPU and the GPU, and the difference arrises in how well, and to what extent either of them support the needs.
+Intense graphic/processing tasks involve making use of both the CPU and the GPU, and the difference between WebGL and WebGPU arrises in how well, and to what extent either of them support the needs.
 
 - **Graphics API**: 
 
@@ -136,11 +136,11 @@ Most of the essential parts that are on top priority have been discussed in the 
 
 - **Heirarchical Data Models**: Considering the nature of AI processed data from a variety of tasks (sentiment analysis, summarization, segmentation, etc..), heirarchy in data is a growing trend as well, and an interesting type to model a solution for.
 
+- **ML Models for Analysis**: Eventually, adding several general purpose and specialized models will become feasible; and since data is already being processed more visualisability will only make the end result a lot more sweeter. 
+
 - **WebGPU Migration**: While the core concepts of WebGL and WebGPU may be very much similar, as I have mentioned multiple times the benefits of WebGPU being personally irresistible.
 
 
+This was a lot to go through, and I congratulate and thank anyone who went through all this passionate rambling. I really appreciate it, and hope you found it interesting!
 
-
-This was a lot to go through, and I congratulate and thank anyone who went through all this passionate rambling. I really appreciate it!
-
-<img src="https://images.uncyc.org/commons/2/21/69.JPG" alt="chiyo-chan" >
+<img src="https://pbs.twimg.com/media/GTUixtlaYAIR4tP?format=jpg&name=900x900" alt="tomo-chan" width=600>
