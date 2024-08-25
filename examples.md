@@ -7,25 +7,25 @@ A few example plots include:
 1. **Perception of Corruption, Happiness and GDP per Capita**
 
     Recommended preset:
-    - **X**: GDP per Capita - Continuous
-    - **Y**: Score - Continuous
-    - **Z**: Perception of Corruption - Continuous
+    - **X (Red)**: GDP per Capita - Continuous
+    - **Y (Green)**: Score - Continuous
+    - **Z (Blue)**: Perception of Corruption - Continuous
 
-    <img src="./images/A-01.png">
+    <img src="./images/A-01.png" width=700>
     
 
     A very obvious interpretation here is the increase in GDP/Capita resulting in an overall greater happiness, which is to some extent, to be expected. 
 
     A rather interesting observation can be made on the Perception of Corruption:
 
-    <img src="./images/A-02.gif">
+    <img src="./images/A-02.gif" width=700>
 
     The index for perception stays in a limited, low range till a certain threshold (which can be seen in both GDP & the Happiness Score), after which it increases drastically. 
     Social Awareness is a huge issue in today's information based era desipite the dominance of democracy (which in turn benefits from a greater awareness level of the populace), and this gives a solid starting point to draw its factors.
 
 2. **Color**: Adding "Freedom to make life choices"
 
-    <img src="./images/A-03.gif">
+    <img src="./images/A-03.gif" width=700>
 
     The Freedom to make life choices, as can be seen, adds further to the above conjecture, with holding a much more obvious connection with corruption perception.
 
@@ -35,7 +35,7 @@ A few example plots include:
 
     > In order to perform a deeper, more clear analysis of any field, two dimensions can be used to portray it.
 
-    <img src="./images/A-04.png">
+    <img src="./images/A-04.png" width=700>
 
 
     In this example, we see spikes in the datasets, with the blue points showing high scores on the generosity index, with most countries lying in rather lower - middle hues. 
@@ -50,11 +50,11 @@ This interesting dataset contains data from roughly `2,392` high school students
 1. **Absences, StudyTime and Grades**
 
     Recommended Preset:
-    - X: Study Time Weekly - Continuous
-    - Y: Grades - Continuous
-    - Z: Absences - Continuos
+    - **X (Red)**: Study Time Weekly - Continuous
+    - **Y (Green)**: Grades - Continuous
+    - **Z (Blue)**: Absences - Continuos
 
-    <img src="./images/B-01.png">
+    <img src="./images/B-01.png" width=700>
 
     This results in an interesting skewed plane of datapoints, which can be used to imply some direct observations,
 
@@ -66,7 +66,7 @@ This interesting dataset contains data from roughly `2,392` high school students
     Yet again, adding color makes the graphs even more intriguing.
     - **Color: Parental Support**
 
-        <img src="./images/B-03.png">
+        <img src="./images/B-03.png" width=600>
 
         It can be inferred directly from the graph that the involvements of parents in the students' education largely results in a push in their performance. 
 
@@ -74,7 +74,7 @@ This interesting dataset contains data from roughly `2,392` high school students
 
     - **Color: Tutoring**
 
-        <img src="./images/B-04.png">
+        <img src="./images/B-04.png" width=600>
 
         Similar to Parental support, tutoring does seem to have a significant impact on students' performance in a certain absence range.
 
