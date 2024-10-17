@@ -113,6 +113,7 @@ export default function Card({file}) {
                 </div>
 
             </div>
+            
             <div className="p-4 border-zinc-200 h-full xl:w-4/5 rounded-xl overflow-hidden" >
                 <ViewportDataProvider value={{data, dataTypes, selectedPoint, plotType, onSelectPoint}}>
                     <Viewport/>

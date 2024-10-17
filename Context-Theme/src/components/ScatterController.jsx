@@ -161,10 +161,12 @@ function ScatterController({dataset, setViewportData}) {
                     </select>
                 </div>
             </div>
-            <button className="border-zinc-500 border-2 mx-4 mb-2 w-1/2 bg-inherit dark:text-white" type="submit"> Build Visualisation </button>
-        </form>
+            <div className='px-4'>
+                <button className="border-zinc-500 border-2 w-1/2 bg-inherit dark:text-white" type="submit"> Build Visualisation </button>
 
-        <Alert alert={alert} />               
+                <Alert alert={alert} /> 
+            </div>
+        </form>           
     </>
     );
 

@@ -36,8 +36,8 @@ function SelectCard({setFile}){
         }   
     }
     return(
-        <div className='m-8 md:flex gap-10'>
-            <div className='viewport-container flex-col lg:w-1/3 rounded-sm border-zinc-400 border-2 content-center text-left p-8 bg-white dark:bg-black dark:border-zinc-300'>
+        <div className='p-6 md:flex gap-10'>
+            <div className='viewport-container flex-col mb-4 lg:mb-0 lg:w-1/3 rounded-sm border-zinc-400 border-2 content-center text-left p-8 bg-white dark:bg-black dark:border-zinc-300'>
                 <span className='text-2xl font-mono font-bold'>Get Started, <span className='text-purple-600 dark:text-purple-400'>fast.</span></span><br/>
                 <div className='text-xl font-mono'>select a dataset from storage</div>
                 <input className= 'rounded-md my-3 dark:text-zinc-700' 
