@@ -7,11 +7,12 @@ import { normalizeField, categorizeField } from '../workers/computeLayout';
 const categoryGap = 10;
 const discreteSteps = 30;
 const normalizeRange = 150;
-
+let scale = 1;
 const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 export const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];
 
 // opitmisation required for minor UX lag
+
 
 function indicizeField(numPoints){
 	return new dfd.Series(Array.from(Array(numPoints).keys()))
@@ -31,7 +32,7 @@ async function discretizeField(df, col, nRange, dSteps){
 
 function uniformizeField(numPoints, col){
 	let val = 0;
-	if(iRef[col] == 'Scale') val = 10;
+	if(iRef[col] == 'Scale') val = scale * 10;
 	let arr = Array(numPoints).fill(val);
 	let s = new dfd.Series(arr)
 	return s;
@@ -40,9 +41,6 @@ function uniformizeField(numPoints, col){
 async function scatterLayout(data, dataTypes, setLayoutData) {
 	let numPoints = data.index.length;
 	if(numPoints == 0) numPoints = 1;
-	// const [normalizeWorker] = useWorker(normalizeField);
-
-	// console.log(dataTypes);
 	
 	iRef[0] = data.columns[0];
 	
@@ -61,7 +59,8 @@ async function scatterLayout(data, dataTypes, setLayoutData) {
 				break;
 			case 'continuous':
 				// console.log("Normalizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
-				layoutData.addColumn(iTemp[i], await normalizeField(data, i, normalizeRange), { inplace: true });
+				if(iRef[i] == "Scale") {layoutData.addColumn(iTemp[i], await normalizeField(data, i, normalizeRange, scale), { inplace: true });}
+				else layoutData.addColumn(iTemp[i], await normalizeField(data, i, normalizeRange), { inplace: true });
 				break;
 			case 'index':
 				// console.log("Indicizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
@@ -69,13 +68,12 @@ async function scatterLayout(data, dataTypes, setLayoutData) {
 				break;
 			case 'color':
 				if(typeof(data.at(0, "Color")) != typeof(0)){ 
-					console.log("categorising")
+					// console.log("categorising")
 					layoutData.addColumn(iTemp[i], await categorizeField(data, i, categoryGap), { inplace: true });
 				}else {
-					console.log("normalising")
+					// console.log("normalising")
 					layoutData.addColumn(iTemp[i], await normalizeField(data, i, 1), { inplace: true });
 				}
-				console.log("Color");
 				break;
 			default: 
 				console.log("Uniformizing: " + i + " for " + iRef[i]);
@@ -137,10 +135,12 @@ async function discreteLayout(data, dataTypes, setLayoutData) {
 }
 
 export const useLayout = ({ data }) => {
-	const {dataTypes, plotType} = useViewportData();
+	const {dataTypes, plotType, baseScale} = useViewportData();
 	const [layoutData, setLayoutData] = useState(null);
+	scale = baseScale;
 	data.dropNa({ axis: 1, inplace:true });
 	let temp = null;
+
 	useEffect( () => {
 	
 		switch (plotType) {

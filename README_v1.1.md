@@ -15,11 +15,16 @@ For this iteration of the development cycle (I'm following an agile approach as 
 
 ## Tasks & Features
 
-### Refactoring layout computation 
+### Refactoring layout computation -  ✔
 
 We need more threads!
-- Add workers for layout computation and to update the instanced matrix
+- Add workers for layout computation and to update the instanced matrix - ✔
+
 - Adding loader graphics, for the duration of running web workers
+
+### Adding additional size controls - ✔
+The density and amount of data can make a single size inconsistent.
+- User must be able to tune the size of datapoints.
 
 ### Adding support for more file input types
 - CSV (Already exists)

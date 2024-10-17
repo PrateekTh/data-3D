@@ -21,6 +21,10 @@ function ScatterController({dataset, setViewportData}) {
         let alertMessage = "";
 
         //Perform Sanity Checks
+        if(!(formJson.baseScale && formJson.baseScale > 0 && formJson.baseScale <= 10)){
+            alertMessage += "Base Scale value must be set in (0, 10].\n";
+        }
+
         if(formJson.yCol.length && formJson.yType == "continuous"){
             if(typeof(dataset.at(0, dataset.columns[formJson.yCol])) != typeof(0)){
                 alertMessage += "Y Axis (" + dataset.columns[formJson.yCol] + " column) does not have a numerical datatype.\n";
@@ -144,8 +148,8 @@ function ScatterController({dataset, setViewportData}) {
             </div> 
             
             <div className='md:flex align-middle p-2'>
-                <div className="axis md:w-1/2 flex p-2 items-center">
-                    <div className="inputLabel text-md font-bold">Color </div>
+                <div className="axis md:w-2/5 flex p-2 items-center">
+                    <div className="inputLabel text-sm font-bold">Color </div>
                     <select name="colorCol" className="text-zinc-800 text-sm rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {
@@ -153,12 +157,13 @@ function ScatterController({dataset, setViewportData}) {
                         }
                     </select>        
                 </div> 
-                <div className="axis md:w-1/2 flex p-2 items-center">
-                    <div className="inputLabel text-md font-bold"> Scale </div>
+                <div className="axis md:w-3/5 flex p-2 items-center">
+                    <div className="inputLabel text-sm font-bold"> Scale </div>
                     <select name="scaleCol" className="text-zinc-800 text-sm rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))}
-                    </select>
+                    </select>x 
+                    <input name='baseScale' type='number' step='0.01' defaultValue={1} className="font-mono text-sm bg-inherit text-inherit py-1 px-2 ml-2 min-w-10 max-w-12 rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "/>
                 </div>
             </div>
             <div className='px-4'>

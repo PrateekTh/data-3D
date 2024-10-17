@@ -48,6 +48,7 @@ export default function Card({file}) {
     const [selectedPoint, setSelectedPoint] = useState(null);
     const [dataTypes, setDataTypes] = useState(["","","", "", ""]);
     const [plotType, setPlotType] = useState("");
+    const [baseScale, setBaseScale] = useState(1);
 	const onSelectPoint = (point) => {setSelectedPoint(point)};
 
     useEffect(() => {
@@ -86,7 +87,7 @@ export default function Card({file}) {
             sType = "continuous";
         }
         setDataTypes([userPrefs.xType, yType, zType, cType, sType]);
-
+        setBaseScale(userPrefs.baseScale);
         // console.log(sub_df);
         setData(sub_df);
     }
@@ -115,7 +116,7 @@ export default function Card({file}) {
             </div>
             
             <div className="p-4 border-zinc-200 h-full xl:w-4/5 rounded-xl overflow-hidden" >
-                <ViewportDataProvider value={{data, dataTypes, selectedPoint, plotType, onSelectPoint}}>
+                <ViewportDataProvider value={{data, dataTypes, selectedPoint, baseScale, plotType, onSelectPoint}}>
                     <Viewport/>
                 </ViewportDataProvider>
             </div>            

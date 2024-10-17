@@ -2,19 +2,30 @@
 import * as dfd from 'danfojs/dist/danfojs-browser/src';
 import {iRef} from '../modules/layouts.js' // need updated references from layouts
 
-function normalizeField(df, col, nRange){
+function normalizeField(df, col, nRange, scale = 1){
 	return new Promise(async function(resolve, reject){
 		let s = df;
 		if(df.column){
 			s = df.column(iRef[col])
 		}
+
+		
+
 		//Set datatype & account for NAs
 		s = s.asType("float32");
 		s = s.fillNa(0);
-	
+
 		//Find Max and Min
-		const sMax = s.max();
-		const sMin = s.min();
+		let sMax = s.max();
+		let sMin = s.min();
+
+		// if this is the Scale column, we need to multiply each element with the scale as well.
+		// instead of doing that, we'll divide the max and min by the scale, which will have the same effect, without the extra step.
+		if(iRef[col] == 'Scale') {
+			// console.log(scale)
+			sMax = sMax/scale;
+			sMin = sMin/scale;
+		}		
 		
 		// create a function scoped worker
 		const worker = new Worker(new URL('./normalizeWorker.js', import.meta.url), {
@@ -59,7 +70,7 @@ function categorizeField(df, col, catGap){
 		const val = s.values;
 		worker.postMessage({val, catGap});
 		worker.onmessage = (message) =>{
-			console.log(message.data);
+			// console.log(message.data);
 			if (iRef[col] == "Color"){
 				let temp = new dfd.Series(message.data);
 				resolve(normalizeField(temp, 3, 1));

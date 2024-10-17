@@ -5,6 +5,7 @@ export const ViewportContext = createContext({
     dataTypes:[],
     plotType:"scatter",
     // layout:"grid",
+    baseScale:1,
     selectedPoint: null,
     onSelectPoint:() => {console.log("Selected")}
 })
