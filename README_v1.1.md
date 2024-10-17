@@ -15,22 +15,30 @@ For this iteration of the development cycle (I'm following an agile approach as 
 
 ## Tasks & Features
 
-- Refactoring layout computation 
-    - Convert utility functions to be heavily async
-    - Adding loader graphics
+### Refactoring layout computation 
 
-- Adding support for more file input types
+We need more threads!
+- Add workers for layout computation and to update the instanced matrix
+- Adding loader graphics, for the duration of running web workers
 
-- Improving User controllers based on feedback
-    - Refactoring to an editor like interface
+### Adding support for more file input types
+- CSV (Already exists)
+- Excel
+- JSON
 
-- Adding Camera Snapping controls
+### Improving User controllers based on feedback
+- Refactoring to an editor like interface
 
-- 3D Helper Graphics 
-    - Labelling of Axis based on Fields selected
+### Adding Camera Snapping controls
 
-- Interaction with datapoints
-    - Current datapoint properties
-    - Helper pointer on current point
+### 3D Helper Graphics 
+- Labelling of Axis based on Fields selected
+- Helper pointer on current point
 
+
+### Interaction with datapoints
+- Current datapoint properties
+
+
+### Shaders
 - (Maybe) Custom Shaders & choice options for shaders

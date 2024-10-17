@@ -1,6 +1,6 @@
-import React, {useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import useViewportData from '../context/ViewportContext';
-import * as dfd from 'danfojs/dist/danfojs-browser/src'
+import * as dfd from 'danfojs/dist/danfojs-browser/src';
 
 // config variables
 const categoryGap = 10;
@@ -9,33 +9,47 @@ const normalizeRange = 100;
 const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];
 const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 
-// optimisation required for 40k+ datapoints
+// optimisation required for 40k+ datapoints - done
+// opitmisation required for minor UX lag
+
 function normalizeField(df, col, nRange){
-	let s;
-	// Categorising Check for color
-	if(iRef[col] == 'Color') {
-		nRange = 1;
-		if(typeof(df.iat(0, col)) != typeof(0)){
-			s = categorizeField(df, col, 1).data;
-		}else s = df.column(iRef[col]);
-	}else{
-		s = df.column(iRef[col]);
-	}
+	return new Promise(function(resolve, reject){
+		let s;
+		// Categorising Check for color
+		if(iRef[col] == 'Color') {
+			nRange = 1;
+			if(typeof(df.iat(0, col)) != typeof(0)){
+				s = categorizeField(df, col, 1).data;
+			}else s = df.column(iRef[col]);
+		}else{
+			s = df.column(iRef[col]);
+		}
 
-	//Set datatype & account for NAs
-	s = s.asType("float32");
-	s = s.fillNa(0);
+		//Set datatype & account for NAs
+		s = s.asType("float32");
+		s = s.fillNa(0);
+	
+		//Find Max and Min
+		const sMax = s.max();
+		const sMin = s.min();
+		
+		// create a function scoped worker
+		const worker = new Worker(new URL('../workers/normaliseWorker.js', import.meta.url), {
+			// type: 'module'
+		})
+		const val = s.values;
+		worker.postMessage({val, sMax, sMin, nRange});
+		// console.log(s)
+		//Normalize all values based on Max and Min
+		worker.onmessage = (message) =>{
+			// console.log(message.data);
+			resolve (message.data);
+			worker.terminate;
+		}
 
-	//Find Max and Min
-	const sMax = s.max();
-	const sMin = s.min();
-
-	//Normalize all values based on Max and Min
-	for(let i = 0; i<s.count(); i++){
-		s.values[i] = nRange * (s.values[i] - sMin)/(sMax - sMin);
-	}
-	// console.log(s)
-	return s;
+		worker.onerror = reject;
+		// console.log(s)
+	})
 }
 
 function indicizeField(numPoints){
@@ -90,9 +104,11 @@ function uniformizeField(numPoints, col){
 	return s;
 }
 
-function scatterLayout(data, dataTypes) {
+async function scatterLayout(data, dataTypes, setLayoutData) {
 	let numPoints = data.index.length;
 	if(numPoints == 0) numPoints = 1;
+	// const [normalizeWorker] = useWorker(normalizeField);
+
 	// console.log(dataTypes);
 	
 	iRef[0] = data.columns[0];
@@ -103,31 +119,32 @@ function scatterLayout(data, dataTypes) {
 
 	let layoutData = new dfd.DataFrame(temp);
 
-	//processing each column
+	//processing each column - with web workers
 	for(let i = 0; i < dataTypes.length; i++){
 		switch (dataTypes[i]){
 			case 'categorical':
 				// console.log("Categorizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
-				layoutData.addColumn(iTemp[i], categorizeField(data, i, categoryGap).data, { inplace: true });
+				layoutData.addColumn(iTemp[i], await categorizeField(data, i, categoryGap).data, { inplace: true });
 				break;
 			case 'continuous':
 				// console.log("Normalizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
-				layoutData.addColumn(iTemp[i], normalizeField(data, i, normalizeRange), { inplace: true });
+				layoutData.addColumn(iTemp[i], await normalizeField(data, i, normalizeRange), { inplace: true });
 				break;
 			case 'index':
 				// console.log("Indicizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
-				layoutData.addColumn(iTemp[i], indicizeField(numPoints), { inplace: true });
+				layoutData.addColumn(iTemp[i], await indicizeField(numPoints), { inplace: true });
 				break;
 			default: 
 				// console.log("Uniformizing: " + i + " for " + iRef[i]);
-				layoutData.addColumn(iTemp[i], uniformizeField(numPoints, i), { inplace: true });
+				layoutData.addColumn(iTemp[i], await uniformizeField(numPoints, i), { inplace: true });
 		}
 	}
 	// console.log(layoutData);
-	return layoutData;
+	// return layoutData;
+	setLayoutData(layoutData);
 }
 
-function discreteLayout(data, dataTypes) {
+async function discreteLayout(data, dataTypes, setLayoutData) {
 	let numPoints = data.index.length;
 	iRef[0] = data.columns[0];
 	
@@ -174,24 +191,25 @@ function discreteLayout(data, dataTypes) {
 	layoutData.addColumn("y", arr, {inplace: true});
 	layoutData.addColumn("color", arr, {inplace: true});
 
-	return layoutData;
+	setLayoutData(layoutData);
 }
 
 export const useLayout = ({ data }) => {
 	const {dataTypes, plotType} = useViewportData();
 	const [layoutData, setLayoutData] = useState(null);
 	data.dropNa({ axis: 1, inplace:true });
-
-	useEffect(() => {
+	let temp = null;
+	useEffect( () => {
+	
 		switch (plotType) {
 		case 'discrete':
-			setLayoutData(discreteLayout(data, dataTypes));
+			discreteLayout(data, dataTypes, setLayoutData);
 			break;
 		case 'scatter':
-			setLayoutData(scatterLayout(data, dataTypes));
+			scatterLayout(data, dataTypes, setLayoutData);
 			break;
 		default: {
-			// setLayoutData(scatterLayout(data, dataTypes));
+			// scatterLayout(data, dataTypes, setLayoutData);
 		}
 		}
 	}, [data, plotType]);
