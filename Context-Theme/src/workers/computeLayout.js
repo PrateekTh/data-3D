@@ -1,18 +1,13 @@
 // add all functions - async - to process data here
+import * as dfd from 'danfojs/dist/danfojs-browser/src';
+import {iRef} from '../modules/layouts.js' // need updated references from layouts
 
 function normalizeField(df, col, nRange){
-	return new Promise(function(resolve, reject){
-		let s;
-		// Categorising Check for color
-		if(iRef[col] == 'Color') {
-			nRange = 1;
-			if(typeof(df.iat(0, col)) != typeof(0)){
-				s = categorizeField(df, col, 1).data;
-			}else s = df.column(iRef[col]);
-		}else{
-			s = df.column(iRef[col]);
+	return new Promise(async function(resolve, reject){
+		let s = df;
+		if(df.column){
+			s = df.column(iRef[col])
 		}
-
 		//Set datatype & account for NAs
 		s = s.asType("float32");
 		s = s.fillNa(0);
@@ -22,7 +17,9 @@ function normalizeField(df, col, nRange){
 		const sMin = s.min();
 		
 		// create a function scoped worker
-		const worker = new Worker(new URL('./normaliseWorker.js', import.meta.url))
+		const worker = new Worker(new URL('./normalizeWorker.js', import.meta.url), {
+			// type: 'module'
+		})
 		const val = s.values;
 		worker.postMessage({val, sMax, sMin, nRange});
 		// console.log(s)
@@ -37,7 +34,6 @@ function normalizeField(df, col, nRange){
 		// console.log(s)
 	})
 }
-
 function indicizeField(numPoints){
 	return new dfd.Series(Array.from(Array(numPoints).keys()))
 }
@@ -55,30 +51,25 @@ function discretizeField(df, col, nRange, dSteps){
 }
 
 function categorizeField(df, col, catGap){	
-	let s = df.column(iRef[col]);
-	//iterate over the series to categorize each field into a map (str, array[2]) i.e. ["category name"] -> [catID(int), totalCount(int)]
-	const categoryList = new Map();
-	let catCount = 0;
-
-	for(let i = 0; i<s.count(); i++){
-		if(categoryList.get(s.values[i])){
-			const cInfo = categoryList.get(s.values[i]);
-			s.values[i] = (cInfo[0]) * catGap;
-			categoryList.set(s.values[i], [cInfo[0], cInfo[1] + 1])
-		}else{
-			categoryList.set(s.values[i], [catCount, 1]);
-			s.values[i] = catCount;
-			catCount++;
+	return new Promise(function(resolve, reject){
+		let s = df.column(iRef[col]);
+		//iterate over the series to categorize each field into a map (str, array[2]) 
+		// i.e. ["category name"] -> [catID(int), totalCount(int)]
+		const worker = new Worker(new URL('./categorizeWorker.js', import.meta.url))
+		const val = s.values;
+		worker.postMessage({val, catGap});
+		worker.onmessage = (message) =>{
+			console.log(message.data);
+			if (iRef[col] == "Color"){
+				let temp = new dfd.Series(message.data);
+				resolve(normalizeField(temp, 3, 1));
+			}else resolve(message.data);
+			worker.terminate;
 		}
-	}
-
-	s = s.asType("float32");
-
-	console.log(s);
-	return {
-		data: s,
-		map: categoryList
-	};
+		worker.onerror = reject;
+		// console.log(s);
+	})
+	
 }
 
 function uniformizeField(numPoints, col){

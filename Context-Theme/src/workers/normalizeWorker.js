@@ -1,5 +1,5 @@
 // specific workers for specific tasks
-// normaliseWorker.js
+// normalizeWorker.js
 
 onmessage = function(message){
 
@@ -11,5 +11,5 @@ onmessage = function(message){
 		col[i] = data.nRange * (col[i] - data.sMin)/(data.sMax - data.sMin);
 	}
     // normalizeField(message.data)
-	this.postMessage(col);
+	postMessage(col);
 }

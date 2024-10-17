@@ -78,7 +78,7 @@ export default function Card({file}) {
 
         if(userPrefs.colorCol.length) {
             sub_df.addColumn( "Color", dataset.column(dataset.columns[userPrefs.colorCol]), { inplace: true })
-            cType = "continuous";
+            cType = "color";
         };
 
         if(userPrefs.scaleCol.length) {

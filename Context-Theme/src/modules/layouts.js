@@ -1,64 +1,25 @@
 import {useEffect, useState } from 'react';
 import useViewportData from '../context/ViewportContext';
 import * as dfd from 'danfojs/dist/danfojs-browser/src';
+import { normalizeField, categorizeField } from '../workers/computeLayout';
 
 // config variables
 const categoryGap = 10;
 const discreteSteps = 30;
-const normalizeRange = 100;
-const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];
+const normalizeRange = 150;
+
 const iTemp = ['x', 'y', 'z', 'color', 'scale'];
+export const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];
 
-// optimisation required for 40k+ datapoints - done
 // opitmisation required for minor UX lag
-
-function normalizeField(df, col, nRange){
-	return new Promise(function(resolve, reject){
-		let s;
-		// Categorising Check for color
-		if(iRef[col] == 'Color') {
-			nRange = 1;
-			if(typeof(df.iat(0, col)) != typeof(0)){
-				s = categorizeField(df, col, 1).data;
-			}else s = df.column(iRef[col]);
-		}else{
-			s = df.column(iRef[col]);
-		}
-
-		//Set datatype & account for NAs
-		s = s.asType("float32");
-		s = s.fillNa(0);
-	
-		//Find Max and Min
-		const sMax = s.max();
-		const sMin = s.min();
-		
-		// create a function scoped worker
-		const worker = new Worker(new URL('../workers/normaliseWorker.js', import.meta.url), {
-			// type: 'module'
-		})
-		const val = s.values;
-		worker.postMessage({val, sMax, sMin, nRange});
-		// console.log(s)
-		//Normalize all values based on Max and Min
-		worker.onmessage = (message) =>{
-			// console.log(message.data);
-			resolve (message.data);
-			worker.terminate;
-		}
-
-		worker.onerror = reject;
-		// console.log(s)
-	})
-}
 
 function indicizeField(numPoints){
 	return new dfd.Series(Array.from(Array(numPoints).keys()))
 }
 
 // Divide a field into steps
-function discretizeField(df, col, nRange, dSteps){
-	const s = normalizeField(df, col, nRange); // [-50, 50]
+async function discretizeField(df, col, nRange, dSteps){
+	const s = new dfd.Series( await normalizeField(df, col, nRange)); // [-50, 50]
 	const discreteDiv = nRange/dSteps;
 	for(let i = 0; i<s.count(); i++){
 		s.values[i] = Math.floor(s.values[i]/discreteDiv);
@@ -66,34 +27,6 @@ function discretizeField(df, col, nRange, dSteps){
 	}
 	// console.log(s);
 	return s;
-}
-
-function categorizeField(df, col, catGap){	
-	let s = df.column(iRef[col]);
-	//iterate over the series to categorize each field into a map (str, array[2]) i.e. ["category name"] -> [catID(int), totalCount(int)]
-	const categoryList = new Map();
-	let catCount = 0;
-
-	for(let i = 0; i<s.count(); i++){
-		if(categoryList.get(s.values[i])){
-			const cInfo = categoryList.get(s.values[i]);
-			s.values[i] = (cInfo[0]) * catGap;
-			categoryList.set(s.values[i], [cInfo[0], cInfo[1] + 1])
-		}else{
-			categoryList.set(s.values[i], [catCount, 1]);
-			s.values[i] = catCount;
-			catCount++;
-		}
-	}
-
-	s = s.asType("float32");
-
-
-	console.log(s);
-	return {
-		data: s,
-		map: categoryList
-	};
 }
 
 function uniformizeField(numPoints, col){
@@ -124,7 +57,7 @@ async function scatterLayout(data, dataTypes, setLayoutData) {
 		switch (dataTypes[i]){
 			case 'categorical':
 				// console.log("Categorizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
-				layoutData.addColumn(iTemp[i], await categorizeField(data, i, categoryGap).data, { inplace: true });
+				layoutData.addColumn(iTemp[i], await categorizeField(data, i, categoryGap), { inplace: true });
 				break;
 			case 'continuous':
 				// console.log("Normalizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
@@ -134,13 +67,22 @@ async function scatterLayout(data, dataTypes, setLayoutData) {
 				// console.log("Indicizing: " + i + " for " + iTemp[i] + " - " + iRef[i]);
 				layoutData.addColumn(iTemp[i], await indicizeField(numPoints), { inplace: true });
 				break;
+			case 'color':
+				if(typeof(data.at(0, "Color")) != typeof(0)){ 
+					console.log("categorising")
+					layoutData.addColumn(iTemp[i], await categorizeField(data, i, categoryGap), { inplace: true });
+				}else {
+					console.log("normalising")
+					layoutData.addColumn(iTemp[i], await normalizeField(data, i, 1), { inplace: true });
+				}
+				console.log("Color");
+				break;
 			default: 
-				// console.log("Uniformizing: " + i + " for " + iRef[i]);
+				console.log("Uniformizing: " + i + " for " + iRef[i]);
 				layoutData.addColumn(iTemp[i], await uniformizeField(numPoints, i), { inplace: true });
 		}
 	}
 	// console.log(layoutData);
-	// return layoutData;
 	setLayoutData(layoutData);
 }
 
@@ -158,11 +100,11 @@ async function discreteLayout(data, dataTypes, setLayoutData) {
 			switch (dataTypes[i]){
 				case 'categorical':
 					// console.log("Categorizing: " + i + " - " + iRef[i]);
-					data.addColumn(iTemp[i], categorizeField(data, i, 1).data, { inplace: true });
+					data.addColumn(iTemp[i], await categorizeField(data, i, 1), { inplace: true });
 					break;
 				case 'continuous':
 					// console.log("Discretizing: " + i + " - " + iRef[i]);
-					data.addColumn(iTemp[i], discretizeField(data, i, normalizeRange, discreteSteps), { inplace: true });
+					data.addColumn(iTemp[i], await discretizeField(data, i, normalizeRange, discreteSteps), { inplace: true });
 					break;
 				case 'index':
 					// console.log("Indicizing: " + i + " - " + iRef[i]);
