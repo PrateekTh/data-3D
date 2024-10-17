@@ -66,7 +66,7 @@ While trying to come up with solutions, I went ahead and conducted a lot of rese
 
 While both provide a ton of features, it can be observed with a bit of use that they do get overshadowed by **high complexity**. Understanding, using and having them in the arsenal is certainly powerful, but the steep learning curve and understanding required to build what needs to be built is often too high. Also, as I have experienced in building 3Data as well, greater generalization results in exponentially more processing, and cases to account for, which consequently takes a hit at the overall performance.
 
-Naturally, I believe that there exists a sweet spot between a learning powerful tool like graphia and the simplicity a user may wish for when they first look at the interface.
+Naturally, I believe that there exists a sweet spot between a learning powerful tool like graphia and the simplicity a user may wish for when they first look at an interface.
 
 ### Implementation
 Learning from several tools and studying more and more data analysis, I built the following architecture to process data for the datapoints model: 
@@ -78,39 +78,51 @@ Learning from several tools and studying more and more data analysis, I built th
 3. For remaining dimensions, the data types are either fixed or determined while processing.
 
 4. The selected data is filtered out of the main dataset, and passed onto the `Viewport` and subsequently the selected model type, which passes it onto the `layouts.js` module, to get plottable data.
+    - The layout computations take into account the user's choices, data types and all the provided context to process each field as per the requirements. 
+    - The `layouts` contains the control functions for different layout types, which discern the tasks based on the user's choices, and eventually make use of the `computeLayout.js` module, which is effectively a worker manager module.
+    - A majority of the functions in `computeLayout` are asynchronouse, and create and use the respective workers to execute processing tasks in threads separate from the main thread.
+    - These functions are of varying complexity, and perform tasks such as **normalising** a numerical field, **categorising** discrete data, **discretizing** continuous fields, **uniformizing**, etc...
+5. Finally, the recieved data is plotted using an `Instanced Mesh` and updating the instanced mesh matrices as per the recieved data.
 
-5. The layout computations take into account the user choices, data types and all the provided context to process each field as per the requirements. The processing involves one or more of several functions of varying complexity in the module, such as **normalising** a numerical field, **categorising** discrete data, **discretizing** continuous fields, **uniformizing** etc...
+With the addition of Web Workers, and more optimisations, this process runs seamlessly for roughly `100k` datapoints, rendering which may take upto `8` seconds on standard machines.
 
-6. Finally, the recieved data is plotted using an `Instanced Mesh` and updating the instanced mesh matrices as per the recieved data.
-
-While this process does work smoothly for now, especially for smaller datasets (upto `20k` datapoints), there's certainly a lot of work to be done, be it optimising or refactoring the methods themselves.
-
-### Error Handling
+### Errors
 As of now there are a only a few known problems that may show up:
-- Large datasets may quite some time to process when a visualization is built.
-- Incorrect datatypes entered by the user.
-- Incorrect filetypes - `csv` is recommended, and the more will be added *asap*.
+- Larger datasets (`>500k` datapoints) may quite some time to process when a visualization is built.
+- Corrupted datasets/fields may cause unexpected behaviour.
 
-While the time and performance issues are still being resolved, a custom Alert class has been implemented to let users know of any incompatible choices. An example of such choices might be choosing a continuous data type for a name field.
+While the time and performance issues are still being resolved, a custom Alert class has been implemented to let users know of any known incompatiblities.
 
 ## F. Performance
-The performance is, much at par with what I'd want from the initial build, but not at all close to what it needs to be.
 
-- WebGL, with instanced geometry can be used to render an upwards of `500k` or even `1M` meshes on the web, and currently, the project is at a mere `5` - `10` percent of it.
+The performance is increasing greatly with each update and optimisation, and I look forward to keep improving it!
 
-- While 3Data can still render these many datapoints, since it uses the same instanced geometry, the amount of time taken to process larger datasets in general calls for terrible UX, and I'd recommend to not use it just yet for it, as it is a goal to improve in this department as rapidly as it can be done.
+- 3Data is approaching the limits of WebGL currently, and can render a significantly large amount of points in decent time.
+    - WebGL can render upwards of `500k` & `1M` instanced meshes, subjective to their resolution.
 
-- Browser imposed limitations on resource usage have a significant impact, which explains the absence of 3D tools from the web.
+- 3Data can easily handle `100k` points in realtime, without any large impact on the UX. Still, for a greater number of points, improvements can be made.
+
+- Browser imposed limitations on resource usage also have a significant impact, which explains the absence of 3D tools from the web.
+
+### Web Workers
+
+In an processing-intensive app like 3Data, making the most efficient use of available resources is necessary, without damaging UX. Thus, a prominent solution to create fast and performant web apps as of now is to use Web Workers. 
+
+- JavaScript in itself is a single threaded language, and uses the event loop to provide seamless user interfaces. If a heavy, time consuming task enters in the event loop, it will end up delaying all other events, which causes major UX problems.
+
+- The task itself takes greater time since the main thread's resources are allocated to a variety of browser/rendering/network tasks, etc... 
+
+- **Web Workers** enable a programmer to create separate execution runtimes for JavaScript, which run parallelly on separate threads. This has its own pros and cons:
+    - A Web Worker runs asynchronously, and communicates with the main thread by exchanging messages with it, in a way similar to an API.
+    - Since worker scripts exist in a separate runtime:
+        - They are great for carrying out specific intensive tasks much faster, and without inhibiting the main thread's event loop.
+        - They **do not** have direct access to otherwise available global objects, such as `window`, certain browser APIs and the DOM.
+
+This makes for several use cases where Web workers are an amazing tool, and quite some cases where they may prove overkill. I believe `3Data` definitely lies in the former, which is why after the latest update (addition of layout computing workers), it is now faster and more efficient than ever!
 
 ### WebGPU
 
-A very definite solution to boost performance that I am personally interested in as well is WebGPU, which would allow the use of compute shaders. To understand the reasons, I will go over the <u>differences</u> between the CPU and GPU in layman terms: 
-
-- *The CPU contains a comparatively small number of very, very fast cores, which makes it suitable for a wide variety of tasks. This makes it ideal to be modelled and labelled as a general purpose "brain" of a computer*.
-
-- *The GPU, on the other hand, is  a rather specialized device, which contains a large number of cores, that are not as (comparatively) fast. This makes it really efficient and the go-to solutions in the specialized situations where it can be used.*
-
-Intense graphic/processing tasks involve making use of both the CPU and the GPU, and the difference between WebGL and WebGPU arrises in how well, and to what extent either of them support the needs.
+A very definite solution to boost performance that I am personally interested in as well is WebGPU, which would allow the use of compute shaders. The reasons arise from <u>differences</u> between the CPU and GPU, and their architectures. Intense graphic/processing tasks involve making use of both the CPU and the GPU, and the difference between WebGL and WebGPU arrises in how well, and to what extent either of them supports the needs.
 
 - **Graphics API**: 
 
@@ -121,12 +133,7 @@ Intense graphic/processing tasks involve making use of both the CPU and the GPU,
     WebGL contains full functionality to build interactive websites, and write custom shaders, but a major missing part in WebGL that WebGPU provides is compute shaders, that allow running general purpose code (not related to visuals/graphics) on the GPU. Given the parallel processing nature of the GPU, the use of compute shaders can provide a huge boost. ML & AI training algorithms make heavy use of the GPU for the same reason.
     - Since I do hold some experience in writing shaders due to experience in game development, keeping this in mind, all of the processing functions of have been built to contain GPU-friendly logic, with each "loop" being intentionally similar to an independent shader program.
 
-- **Support and Usability**:
-    
-    While WebGL & WebGPU share a lot of concepts but WebGPU being comparatively lower level, is quite a bit more complex. It involves lot more memory management and steps compared to WebGL, which implicitly maintains a lot of things for the user unless modified, such as a global state, the canvas, internal samplers etc..
-
 The simple conclusion here is that there is a direct advantage and clear reasons (and plans) to shift to WebGPU, but I'm just not there yet. I acknowlege there is a lot to learn, and eventually, I will get there (soon).
-
 
 ## G. There's still more?
 

@@ -6,11 +6,8 @@ function normalizeField(df, col, nRange, scale = 1){
 	return new Promise(async function(resolve, reject){
 		let s = df;
 		if(df.column){
-			s = df.column(iRef[col])
+			if(df.index) s = df.column(iRef[col])
 		}
-
-		
-
 		//Set datatype & account for NAs
 		s = s.asType("float32");
 		s = s.fillNa(0);

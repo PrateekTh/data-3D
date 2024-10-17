@@ -4,12 +4,18 @@
 onmessage = function(message){
 
 	// console.log(message);
-	data = message.data;
-	// console.log(data.nRange, data)
+
+	const data = message.data;
 	let col = message.data.val
-	for(let i = 0; i<col.length; i++){
-		col[i] = data.nRange * (col[i] - data.sMin)/(data.sMax - data.sMin);
+
+	if(data.sMax != data.sMin){
+		for(let i = 0; i<col.length; i++){
+			col[i] = data.nRange * (col[i] - data.sMin)/(data.sMax - data.sMin);
+		}
+	}else{
+		col = Array(col.length).fill(data.nRange/2);
 	}
-    // normalizeField(message.data)
+	
+	// console.log(col)
 	postMessage(col);
 }

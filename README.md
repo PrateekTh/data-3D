@@ -1,6 +1,6 @@
 # <span style = "font-weight: bold; font-family: Tahoma;"> //. 3Data .// </span>
 
-Good 3D visualisation tools are hard to come by. While there are a number of amazing 2D visualisation tools and libraries, 3D is definitely still a step behind, with most technologies akin to CAD like software, rather than a to the point data plotting service.
+Good 3D visualisation tools are hard to come by. While there are a number of amazing 2D visualisation tools and libraries, 3D is definitely still a step behind, with most technologies akin to slow, and overkill CAD like software, with a heavy absence than any to-the-point data plotting service.
 
 Building a tool, on the other hand, involves at a minimal baseline understanding of math, statistics, data science, along with the necessary programming and development skills.
 
@@ -21,8 +21,9 @@ Other places to check out:
 
 - **Example [dataset analysis](./examples.md).**
 
-<img src="./images/01.png">
+- **Latest [Change Log](./README_v1.1.md)**
 
+<img src="./images/01.png">
 
 Main features include:
 - Realtime rendering of more than `50k` datapoints (KPI to focus on as the project grows).
@@ -30,9 +31,21 @@ Main features include:
 - Different types of `plots` and functionalities.
 - Being a fully client side application, `fast` and `highly secure`. 
 
-> **Note**: Currently supported types include: `.csv` 
+> **Note**: Currently supported types include: `.csv`, `.xlsx`, `.json` ( non-heirarchical JSONs)
 
-## Setup
+## Tech Stack
+
+- **Languages**
+    - JavaScript 
+    - HTML & [Tailwind CSS](https://tailwindcss.com/)
+
+- **Frameworks & Libraries**
+    - [`React`](https://react.dev/): Prominent front-end JS framework/library.
+    - [`ThreeJS`](https://threejs.org/): Awesome cross-platform WebGL API/Library.
+    - [`React Three Fiber`](https://r3f.docs.pmnd.rs/getting-started/introduction): Highly resourceful react renderer for three.js.
+    - [`DanfoJS`](https://danfo.jsdata.org/): High-performance data manipulation API/library in JS (similar to `pandas`, & built for smooth integration with `Tenserflow.js`)
+
+## Local Setup
 In order to setup the project on your local machine, follow the following steps:
 - Clone this repository
 - Navigate to the directory with using Command Prompt or a code editor of your choice.
@@ -41,7 +54,7 @@ In order to setup the project on your local machine, follow the following steps:
     - In case you do not have Node Package Manager installed, download it from [this link](https://nodejs.org/en/download/prebuilt-installer).
 - Run `npm run dev` to start the development server.
 
-## Tutorial & Overview
+## Overview & Usage Reference
 
 <img src="./images/02.png">
 
@@ -106,21 +119,11 @@ The **Color** field automatically infers the datatype, between continuous and ca
 
     This interesting dataset contains data from roughly `2,392` high school students, with an diverse array of metrics and classifications, that involve demographics, study habits, parental involvement, extracurricular activities, and academic performance.
 
-## Tech Stack
+## What's Next?. 
 
-- **Languages**
-    - JavaScript 
-    - HTML & [Tailwind CSS](https://tailwindcss.com/)
+For readers - *Try it out, and let me know!*
 
-- **Frameworks & Libraries**
-    - [`React`](https://react.dev/): Prominent front-end JS framework/library.
-    - [`ThreeJS`](https://threejs.org/): Awesome cross-platform WebGL API/Library.
-    - [`React Three Fiber`](https://r3f.docs.pmnd.rs/getting-started/introduction): Highly resourceful react renderer for three.js.
-    - [`DanfoJS`](https://danfo.jsdata.org/): High-performance data manipulation API/library in JS (similar to `pandas`, & built for smooth integration with `Tenserflow.js`)
-
-## What's Next?
-
-It is obvious that the current state of the project, though very useful, is still far from complete. 
+Raise an issue to contribute, or if there's any features that are a must.
 
 Given the generalized nature, there's an unending number of features that can be added, including several features that are a necessity to provide a great user experience.
 
@@ -128,6 +131,4 @@ Thus, focusing on the second half, before jumping to huge functional additions, 
 - Labelling axes with respect to the data and current visualisation.
 - Helper graphics, such as pointers to select and view individual datapoints, camera snapping controls, etc..
 - Lots of animations, and custom shader support for the viewport.
-- Optimisation of the current algorithims to support larger datasets.
-
-Another important goal apart from improving User Experience is the integration of **WebGPU** and **compute shaders**, to improve the performance greatly.
+- Optimisation of current methods to support even larger datasets.

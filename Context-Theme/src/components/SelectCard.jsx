@@ -50,6 +50,7 @@ function SelectCard({setFile}){
                 file:bg-gradient-to-r file:from-violet-800 file:to-violet-500
                 hover:file:cursor-pointer hover:file:from-violet-800 hover:file:to-violet-800'
                 type='file'
+                accept='.csv, .json, .xlsx'
                 onChange={handleFileChange}
                 /> <br/><br/>
 

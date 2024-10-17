@@ -1,8 +1,8 @@
-# Temporary Devlog V1.1
+# Temporary Changelog V1.1
 
 Let's begin the next sprint of adding features to the current state of the project!
 
-> This is a temporary devlog, which I'll be converting to a retrospective one once this version is done!
+> This is a temporary devlog, which I'll be converting to an updatelog one once this iteration is done!
 
 First of all, I'm really thankful to the 15-20 or so people who visited and tried this tool out! I hope it added some value to your current project/endeavour, or just provided amusement to the point of curled lips and raised eyebrows.
 
@@ -26,10 +26,8 @@ We need more threads!
 The density and amount of data can make a single size inconsistent.
 - User must be able to tune the size of datapoints.
 
-### Adding support for more file input types
-- CSV (Already exists)
-- Excel
-- JSON
+### Adding support for more file input types ✔
+- CSVs, Excels, JSONs
 
 ### Improving User controllers based on feedback
 - Refactoring to an editor like interface

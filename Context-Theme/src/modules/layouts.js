@@ -4,7 +4,7 @@ import * as dfd from 'danfojs/dist/danfojs-browser/src';
 import { normalizeField, categorizeField } from '../workers/computeLayout';
 
 // config variables
-const categoryGap = 10;
+const categoryGap = 20;
 const discreteSteps = 30;
 const normalizeRange = 150;
 let scale = 1;

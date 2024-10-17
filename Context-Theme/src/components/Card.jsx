@@ -52,17 +52,23 @@ export default function Card({file}) {
 	const onSelectPoint = (point) => {setSelectedPoint(point)};
 
     useEffect(() => {
-        dfd.readCSV(file).then((dataset) => setDataset(dataset));        
+        console.log(file);
+        if(file.type === 'text/csv') dfd.readCSV(file).then((dataset) => setDataset(dataset));
+        else if(file.type === 'application/json') dfd.readJSON(file).then((dataset) => setDataset(dataset));
+        else if(file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') dfd.readExcel(file).then((dataset) => setDataset(dataset));
     }, []);
 
     //Set Data to initialize the Viewport
     useEffect(()=>{
         let sub_df = new dfd.DataFrame();
         setData(sub_df)
+        // console.log(dataset)
     }, [dataset])
 
     function setViewportData(userPrefs){
         // console.log(userPrefs);
+        console.log(dataset);
+
         let sub_df = dataset.loc({columns: [dataset.columns[userPrefs.xCol]]});
         let yType, zType, cType, sType;
 
