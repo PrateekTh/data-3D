@@ -5,6 +5,7 @@ import useTheme from '../context/ThemeContext';
 import UserContext from '../context/UserContext'
 import DataPointsModel from './DataPointsModel';
 import { basicMaterial } from '../modules/shaders';
+import PointDetails from './PointDetails';
 
 
 function Viewport() {
@@ -23,6 +24,9 @@ function Viewport() {
 
     return ( 
         <div className='viewport-container'>
+            <div className='relative'>
+                <PointDetails/>
+            </div>
             <Canvas shadows camera={{position:[64,48,64]}} >
                 <fog attach="fog" color={fogColor} near={150} far={500} />
                 <axesHelper args={[200, 200, 200]} />

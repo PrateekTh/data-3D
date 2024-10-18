@@ -16,6 +16,10 @@
   font-family: "Abril Fatface";
 }
 
+.main-body{
+  background-size: 250px;
+}
+
 .viewport-container {
   height: 72vh;
 }

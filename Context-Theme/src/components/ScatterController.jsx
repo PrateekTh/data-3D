@@ -163,7 +163,7 @@ function ScatterController({dataset, setViewportData}) {
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))}
                     </select>x 
-                    <input name='baseScale' type='number' step='0.01' defaultValue={1} className="font-mono text-sm bg-inherit text-inherit py-1 px-2 ml-2 min-w-10 max-w-12 rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "/>
+                    <input name='baseScale' type='number' step='0.001' defaultValue={1} className="font-mono text-sm bg-inherit text-inherit py-1 px-2 ml-2 min-w-10 max-w-12 rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "/>
                 </div>
             </div>
             <div className='px-4'>

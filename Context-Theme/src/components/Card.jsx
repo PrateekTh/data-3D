@@ -49,7 +49,10 @@ export default function Card({file}) {
     const [dataTypes, setDataTypes] = useState(["","","", "", ""]);
     const [plotType, setPlotType] = useState("");
     const [baseScale, setBaseScale] = useState(1);
-	const onSelectPoint = (point) => {setSelectedPoint(point)};
+	const onSelectPoint = (point) => {
+        console.log(point);
+        setSelectedPoint(point);
+    };
 
     useEffect(() => {
         console.log(file);

@@ -29,6 +29,10 @@ The density and amount of data can make a single size inconsistent.
 ### Adding support for more file input types ✔
 - CSVs, Excels, JSONs
 
+### Interaction with datapoints  ✔
+- Current datapoint properties ✔
+- Helper pointer on current point ✔
+
 ### Improving User controllers based on feedback
 - Refactoring to an editor like interface
 
@@ -36,12 +40,6 @@ The density and amount of data can make a single size inconsistent.
 
 ### 3D Helper Graphics 
 - Labelling of Axis based on Fields selected
-- Helper pointer on current point
-
-
-### Interaction with datapoints
-- Current datapoint properties
-
 
 ### Shaders
 - (Maybe) Custom Shaders & choice options for shaders

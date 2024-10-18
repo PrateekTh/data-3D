@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
-
+import { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useLayout } from '../modules/layouts';
 import useViewportData from '../context/ViewportContext';
+import { Sphere } from '@react-three/drei';
 
 //config variables, not modified by user (as of now);
 const SELECTED_COLOR = new THREE.Color('red');
@@ -10,6 +10,9 @@ const COLOR_LOW = new THREE.Color('#A63D40');
 const COLOR_HIGH = new THREE.Color('#1AC8ED');
 const scaleAdjust = 25;
 const scratchObject3D = new THREE.Object3D();
+const selectionMatrix = new THREE.Matrix4();
+const selectionPosition = new THREE.Vector3;
+
 
 function updateInstancedMeshMatrices({ mesh, layoutData, plotType }) {
   	if (!mesh) return;
@@ -55,6 +58,9 @@ function updateInstancedMeshMatrices({ mesh, layoutData, plotType }) {
 	}
 
 	// Update Instanced Mesh
+	mesh.computeBoundingBox();
+	mesh.computeBoundingSphere();
+
 	mesh.instanceColor.needsUpdate = true;
     mesh.instanceMatrix.needsUpdate = true;
 }
@@ -62,9 +68,9 @@ function updateInstancedMeshMatrices({ mesh, layoutData, plotType }) {
 function PointGeometry({plotType}){
 	// console.log(plotType);
 	if(plotType == "discrete") {
-		return <cylinderGeometry attach="geometry" args={[0.5,0.5,0.5, 8]} />
+		return <cylinderGeometry attach="geometry" args={[0.4,0.4,0.4, 8]} />
 	}
-	return <sphereGeometry attach="geometry" args={[0.5, 8, 6]} />
+	return <sphereGeometry attach="geometry" args={[0.8, 8, 6]} />
 }
 
 //-----------------------------------------------------------//
@@ -74,6 +80,9 @@ const InstancedPoints = () => {
     const meshRef = useRef();
 	const {data, plotType} = useViewportData();
 	const numPoints = data.index.length;
+	
+	const [helperCoords, setHelperCoords] = useState([0,0,0]);
+
 
     const {selectedPoint, onSelectPoint} = useViewportData();
 	const layoutData = useLayout({data});
@@ -86,15 +95,18 @@ const InstancedPoints = () => {
 	
 	function handleInstanceClick(e){
 		e.stopPropagation();
+		// console.log(e);
 		const { instanceId } = e;
-		const point  = data[instanceId];
-
+		const point  = instanceId;
 		if(point === selectedPoint){
 			onSelectPoint(null); //deselect
+			setHelperCoords([0, 0, 0]);
 		}else{
 			onSelectPoint(point);
+			meshRef.current.getMatrixAt(instanceId, selectionMatrix);
+			selectionPosition.setFromMatrixPosition(selectionMatrix);
+			setHelperCoords([selectionPosition.x, selectionPosition.y, selectionPosition.z]);
 		}
-		console.log(instanceId + " was Clicked");
 	}
 
 	return (
@@ -108,6 +120,10 @@ const InstancedPoints = () => {
 				<PointGeometry plotType={plotType}/>
 				<meshStandardMaterial attach="material"/>
 			</instancedMesh>
+
+			<Sphere args={[1.5,6,6]} position={helperCoords}>
+				<meshBasicMaterial color={"orange"} wireframe/>
+			</Sphere>
 			{/* <mesh position={[12.5, 0, 12.5]} rotation={[-Math.PI / 2, 0, 0]}>
 				<planeGeometry args={[25,25]}/>
 				<meshStandardMaterial attach="material" color={0xF15BB5}/>
