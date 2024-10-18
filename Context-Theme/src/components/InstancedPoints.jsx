@@ -70,7 +70,7 @@ function PointGeometry({plotType}){
 	if(plotType == "discrete") {
 		return <cylinderGeometry attach="geometry" args={[0.4,0.4,0.4, 8]} />
 	}
-	return <sphereGeometry attach="geometry" args={[0.8, 8, 6]} />
+	return <sphereGeometry attach="geometry" args={[0.4, 8, 6]} />
 }
 
 //-----------------------------------------------------------//
@@ -78,7 +78,7 @@ const InstancedPoints = () => {
 
 
     const meshRef = useRef();
-	const {data, plotType} = useViewportData();
+	const {data, plotType, baseScale} = useViewportData();
 	const numPoints = data.index.length;
 	
 	const [helperCoords, setHelperCoords] = useState([0,0,0]);
@@ -121,7 +121,7 @@ const InstancedPoints = () => {
 				<meshStandardMaterial attach="material"/>
 			</instancedMesh>
 
-			<Sphere args={[1.5,6,6]} position={helperCoords}>
+			<Sphere args={[Math.sqrt(baseScale) * 0.8,6,6]} position={helperCoords}>
 				<meshBasicMaterial color={"orange"} wireframe/>
 			</Sphere>
 			{/* <mesh position={[12.5, 0, 12.5]} rotation={[-Math.PI / 2, 0, 0]}>

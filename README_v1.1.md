@@ -33,13 +33,13 @@ The density and amount of data can make a single size inconsistent.
 - Current datapoint properties ✔
 - Helper pointer on current point ✔
 
+### 3D Helper Graphics ✔
+- Labelling of Axis based on Fields selected ✔
+
 ### Improving User controllers based on feedback
 - Refactoring to an editor like interface
 
 ### Adding Camera Snapping controls
-
-### 3D Helper Graphics 
-- Labelling of Axis based on Fields selected
 
 ### Shaders
 - (Maybe) Custom Shaders & choice options for shaders

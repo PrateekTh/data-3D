@@ -44,6 +44,7 @@ function Controller({dataset, setViewportData, plotType, setUser}){
 export default function Card({file}) {
 
     const {user, setUser, dataset, setDataset} = useContext(UserContext);
+    const [userPrefs, setUserPrefs] = useState(null);
     const [data, setData] = useState();
     const [selectedPoint, setSelectedPoint] = useState(null);
     const [dataTypes, setDataTypes] = useState(["","","", "", ""]);
@@ -97,6 +98,13 @@ export default function Card({file}) {
         }
         setDataTypes([userPrefs.xType, yType, zType, cType, sType]);
         setBaseScale(userPrefs.baseScale);
+        setUserPrefs({ 
+            x: dataset.columns[userPrefs.xCol], 
+            y: dataset.columns[userPrefs.yCol],
+            z: dataset.columns[userPrefs.zCol],
+            color: dataset.columns[userPrefs.colorCol],
+            scaleCol: dataset.columns[userPrefs.scaleCol]
+        });
         // console.log(sub_df);
         setData(sub_df);
     }
@@ -126,7 +134,7 @@ export default function Card({file}) {
             
             <div className="p-4 border-zinc-200 h-full xl:w-4/5 rounded-xl overflow-hidden" >
                 <ViewportDataProvider value={{data, dataTypes, selectedPoint, baseScale, plotType, onSelectPoint}}>
-                    <Viewport/>
+                    <Viewport userPrefs = {userPrefs}/>
                 </ViewportDataProvider>
             </div>            
         </div>
