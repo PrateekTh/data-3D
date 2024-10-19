@@ -13,7 +13,7 @@ Second of all, a huge thanks for the feedback! I'll keep it all in mind as I lay
 ## Objective
 For this iteration of the development cycle (I'm following an agile approach as it is the most suitable for my situation), the focus will be on <u>heavily **improving User Experience**</u>.
 
-## Tasks & Features
+## Tasks & Features ✔
 
 ### Refactoring layout computation -  ✔
 
@@ -36,10 +36,11 @@ The density and amount of data can make a single size inconsistent.
 ### 3D Helper Graphics ✔
 - Labelling of Axis based on Fields selected ✔
 
-### Improving User controllers based on feedback
+### Adding Camera Snapping controls ✔
+
+------------------------
+
+Pushing to future updates:
+
 - Refactoring to an editor like interface
-
-### Adding Camera Snapping controls
-
-### Shaders
-- (Maybe) Custom Shaders & choice options for shaders
+- Custom Shaders & choice options for shaders

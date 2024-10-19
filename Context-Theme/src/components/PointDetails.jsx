@@ -5,7 +5,7 @@ import * as dfd from "danfojs/dist/danfojs-browser/src";
 
 function PointDetails() {
     const { dataset } = useContext(UserContext);
-    const { selectedPoint } = useViewportData();
+    const { selectedPoint, onSelectPoint } = useViewportData();
 
     const [pointData, setPointData] = useState(null);
 
@@ -27,8 +27,12 @@ function PointDetails() {
 
     return ( <>
         {pointData && 
-        <div className='absolute block p-3 z-40 select-none font-mono border-l border-purple-500 text-xl text-left max-[w-2/5] lg:w-2/5 h-100 overflow-hidden'>
-            <div className='cursor-pointer' onClick={onCopyRecord}>Selection <span className='text-xs'> copy ⧉</span></div>
+        <div className='absolute block p-3 z-40 select-none max-h-96 font-mono border-l border-purple-500 text-xl text-left w-2/5 lg:w-1/5  overflow-scroll no-scrollbar'>
+            <div className='' > 
+                <span className='font-bold text-purple-500' > Selection </span> 
+                <span className='text-xs cursor-pointer' onClick={onCopyRecord}> copy ⧉</span>
+                <span className='text-sm cursor-pointer text-red-500' onClick={()=> onSelectPoint(null)}> x </span>
+            </div>
             <div className='text-xs'>
             {dataset.columns.map((d, i) => (
                 <div className="dark:text-zinc-500 text-zinc-400 font-mono" value={i} key={i}> {d} : 

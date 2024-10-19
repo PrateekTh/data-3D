@@ -83,7 +83,6 @@ const InstancedPoints = () => {
 	
 	const [helperCoords, setHelperCoords] = useState([0,0,0]);
 
-
     const {selectedPoint, onSelectPoint} = useViewportData();
 	const layoutData = useLayout({data});
 
@@ -121,9 +120,11 @@ const InstancedPoints = () => {
 				<meshStandardMaterial attach="material"/>
 			</instancedMesh>
 
+			{selectedPoint && 
 			<Sphere args={[Math.sqrt(baseScale) * 0.8,6,6]} position={helperCoords}>
 				<meshBasicMaterial color={"orange"} wireframe/>
 			</Sphere>
+			}
 			{/* <mesh position={[12.5, 0, 12.5]} rotation={[-Math.PI / 2, 0, 0]}>
 				<planeGeometry args={[25,25]}/>
 				<meshStandardMaterial attach="material" color={0xF15BB5}/>

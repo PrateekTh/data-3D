@@ -51,7 +51,7 @@ export default function Card({file}) {
     const [plotType, setPlotType] = useState("");
     const [baseScale, setBaseScale] = useState(1);
 	const onSelectPoint = (point) => {
-        console.log(point);
+        // console.log(point);
         setSelectedPoint(point);
     };
 
