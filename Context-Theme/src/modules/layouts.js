@@ -6,7 +6,7 @@ import { normalizeField, categorizeField } from '../workers/computeLayout';
 // config variables
 const categoryGap = 20;
 const discreteSteps = 30;
-const normalizeRange = 150;
+const normalizeRange = 200;
 let scale = 1;
 const iTemp = ['x', 'y', 'z', 'color', 'scale'];
 export const iRef = ['X', 'Y', 'Z', 'Color', 'Scale'];

@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import * as THREE from 'three';
-import useTheme, { ThemeContext } from '../context/ThemeContext';
+import useTheme, { ThemeContext } from '../../context/ThemeContext';
 
 //consider declaring geometry here, and initializing in useEffect
 let geometry = new THREE.PlaneGeometry( 20, 20, 200, 200 );

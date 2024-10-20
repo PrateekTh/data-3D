@@ -31,6 +31,8 @@ The density and amount of data can make a single size inconsistent.
 
 ### Interaction with datapoints  ✔
 - Current datapoint properties ✔
+- Copy properties (JSON) on click ✔
+- Copy individual properties on click ✔
 - Helper pointer on current point ✔
 
 ### 3D Helper Graphics ✔

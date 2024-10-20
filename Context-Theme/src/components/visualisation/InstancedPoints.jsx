@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { useLayout } from '../modules/layouts';
-import useViewportData from '../context/ViewportContext';
+import { useLayout } from '../../modules/layouts';
+import useViewportData from '../../context/ViewportContext';
 import { Sphere } from '@react-three/drei';
 
 //config variables, not modified by user (as of now);
 const SELECTED_COLOR = new THREE.Color('red');
 const COLOR_LOW = new THREE.Color('#A63D40');
 const COLOR_HIGH = new THREE.Color('#1AC8ED');
-const scaleAdjust = 25;
+const scaleAdjust = 10;
 const scratchObject3D = new THREE.Object3D();
 const selectionMatrix = new THREE.Matrix4();
 const selectionPosition = new THREE.Vector3;
@@ -121,7 +121,7 @@ const InstancedPoints = () => {
 			</instancedMesh>
 
 			{selectedPoint && 
-			<Sphere args={[Math.sqrt(baseScale) * 0.8,6,6]} position={helperCoords}>
+			<Sphere args={[Math.max(0.5, Math.sqrt(baseScale) * 0.8),6,6]} position={helperCoords}>
 				<meshBasicMaterial color={"orange"} wireframe/>
 			</Sphere>
 			}

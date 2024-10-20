@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Alert from './Alert';
+import Alert from '../Alert';
 
 
 function ScatterController({dataset, setViewportData}) {

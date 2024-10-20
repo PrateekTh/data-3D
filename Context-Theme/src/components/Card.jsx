@@ -3,9 +3,9 @@ import UserContext from "../context/UserContext";
 import Viewport from "./Viewport";
 import * as dfd from "danfojs/dist/danfojs-browser/src";
 import { ViewportDataProvider } from "../context/ViewportContext";
-import ScatterController from "./ScatterController";
-import DiscreteController from "./DiscreteController";
-import HomogenousController from "./HomogenousController";
+import ScatterController from "./controllers/ScatterController";
+import DiscreteController from "./controllers/DiscreteController";
+import HomogenousController from "./controllers/HomogenousController";
 
 function Controller({dataset, setViewportData, plotType, setUser}){
     switch (plotType) {

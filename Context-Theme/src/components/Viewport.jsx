@@ -2,10 +2,11 @@ import React, {useState, useEffect, useRef} from 'react';
 import {Canvas} from "@react-three/fiber"
 import {Text} from "@react-three/drei"
 import useTheme from '../context/ThemeContext';
-import DataPointsModel from './DataPointsModel';
+import DataPointsModel from './visualisation/DataPointsModel';
 import { basicMaterial } from '../modules/shaders';
-import CameraManager from './CameraManager';
+import CameraManager from './visualisation/CameraManager';
 import PointDetails from './PointDetails';
+import CameraControls from './visualisation/CameraControls';
 
 
 function Viewport({userPrefs}) {
@@ -24,10 +25,6 @@ function Viewport({userPrefs}) {
         }
     }, [themeMode]);
 
-    function onUpdateCamera( position, target ){
-        setCameraProperties({position:position, target:target});
-    }
-
     return ( 
         <div className='viewport-container'>
             <div className='relative flex w-full justify-between'>
@@ -36,19 +33,13 @@ function Viewport({userPrefs}) {
                 </div>
 
                 <div >
-                    <div className='absolute -ml-20 flex flex-col gap-2 z-40'>
-                        <span className='font-mono font-bold text-purple-500'> Snap View </span>
-                        <button onClick={()=> onUpdateCamera([80, 80, 175],  [80, 80, 0])}> X-Y </button>
-                        <button onClick={()=> onUpdateCamera([175, 80, 80],  [0, 80, 80])}> Y-Z </button>
-                        <button onClick={()=> onUpdateCamera([80, 175, 80],  [80, 0, 80])}> Z-X </button>
-                        <button onClick={()=> onUpdateCamera([125, 125, 125],  [20, 20, 20])}> Reset </button>
-                    </div>
+                    <CameraControls setCameraProperties = {setCameraProperties}/>
                 </div>
 
             </div>
-            <Canvas shadows camera={{position:[100,100,100]}} >
+            <Canvas shadows camera={{position:[150,150,150]}} >
                 <fog attach="fog" color={fogColor} near={150} far={500} />
-                <axesHelper args={[200, 200, 200]} />
+                <axesHelper args={[250, 250, 250]} />
                 <CameraManager cameraProperties= {cameraProperties} setCameraProperties ={setCameraProperties}/>
 
                 <directionalLight color={"#FF8552"} intensity={2} position={[5,1,1]}/>
@@ -56,15 +47,15 @@ function Viewport({userPrefs}) {
 
                 <DataPointsModel/>
 
-                <Text fontSize={5} font={"/lucon-web.woff"} position={[60, 4, -1]} color={'red'}> 
+                <Text fontSize={8} font={"/lucon-web.woff"} position={[100, 6, -1]} color={'red'}> 
                     X{userPrefs?.x? " - " + userPrefs.x : " Axis"}
                  </Text>
 
-                <Text fontSize={5} font={"/lucon-web.woff"} position={[-5, 60, 1]} color={'green'} rotation={[0, 0, Math.PI/2]}> 
+                <Text fontSize={8} font={"/lucon-web.woff"} position={[-6, 100, 1]} color={'green'} rotation={[0, Math.PI/4, Math.PI/2]}> 
                     Y{userPrefs?.y? " - " + userPrefs.y : " Axis"}
                 </Text>
 
-                <Text fontSize={5} font={"/lucon-web.woff"} position={[0, 5, 60]} color={'cyan'} rotation={[0, Math.PI/2, 0]}> 
+                <Text fontSize={8} font={"/lucon-web.woff"} position={[0, 6, 100]} color={'cyan'} rotation={[0, Math.PI/2, 0]}> 
                     Z{userPrefs?.z? " - " + userPrefs.z : " Axis"}
                 </Text>
 
