@@ -18,11 +18,11 @@ function App() {
 	}, [themeMode]);
 	return (
 		<>
-			<div className='duration-200 flex-col w-full h-full items-center main-body min-h-screen bg-zinc-200 bg-opacity-90 dark:bg-zinc-900 dark:bg-opacity-90 text-zinc-700 dark:text-white m-0'>
+			<div className='duration-200 flex-col w-full h-full items-center min-h-screen bg-gradient-to-tr from-teal-100 to-purple-300 bg-opacity-90 dark:from-zinc-900 dark:to-zinc-800 dark:bg-opacity-90 text-zinc-700 dark:text-white m-0'>
 				<ThemeProvider value={{themeMode, lightTheme, darkTheme}}>
 					<UserContextProvider>
-							<Header />
-							<Home/>
+						<Header />
+						<Home />
 					</UserContextProvider>
 				</ThemeProvider>
 			</div>

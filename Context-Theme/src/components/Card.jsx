@@ -3,42 +3,7 @@ import UserContext from "../context/UserContext";
 import Viewport from "./Viewport";
 import * as dfd from "danfojs/dist/danfojs-browser/src";
 import { ViewportDataProvider } from "../context/ViewportContext";
-import ScatterController from "./controllers/ScatterController";
-import DiscreteController from "./controllers/DiscreteController";
-import HomogenousController from "./controllers/HomogenousController";
-
-function Controller({dataset, setViewportData, plotType, setUser}){
-    switch (plotType) {
-        case 'scatter':
-            return <ScatterController dataset={dataset} setViewportData={setViewportData} />        
-        case 'discrete':
-            return <DiscreteController dataset={dataset} setViewportData={setViewportData} />
-        case 'homogenous':
-            return <HomogenousController dataset={dataset} setViewportData={setViewportData} />
-        default:
-            return (
-                <div className=" flex-col space-y-4 text-zinc-800 text-md font-mono p-6 text-left dark:text-white">
-                    <div className="text-xl font-bold text-zinc-700 dark:text-zinc-400"> Select a plot type to continue.</div>
-
-                    <div>
-                        <div className="text-xl font-bold text-purple-600 dark:text-purple-400"> Scatter Plots</div>
-                        <div>
-                            Each entry in data serves as a separate sphere datapoint in space, with dimensions being linked to its position and properties.
-                        </div>
-                    </div>
-                    <div>
-                        <div className="text-xl font-bold text-purple-600 dark:text-purple-400"> Distribution Plots</div>
-                        <div>
-                            A count based distribution plot, which displays the number of entries in a sub-range as the height of a datapoints. Each datapoint is cylindrical, and support upto two dimensions.
-                        </div>
-                    </div>
-
-                    <button className="border-zinc-500 font-bold border-2 my w-1/2 bg-inherit dark:text-white" onClick={()=>setUser(null)}> Reset Data </button>
-
-                </div>
-            )
-    }
-}
+import Controller from "./Controller"
 
 //To Add: More User Customizability and Control
 export default function Card({file}) {
@@ -56,7 +21,7 @@ export default function Card({file}) {
     };
 
     useEffect(() => {
-        console.log(file);
+        // console.log(file);
         if(file.type === 'text/csv') dfd.readCSV(file).then((dataset) => setDataset(dataset));
         else if(file.type === 'application/json') dfd.readJSON(file).then((dataset) => setDataset(dataset));
         else if(file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') dfd.readExcel(file).then((dataset) => setDataset(dataset));
@@ -70,12 +35,8 @@ export default function Card({file}) {
     }, [dataset])
 
     function setViewportData(userPrefs){
-        // console.log(userPrefs);
-        console.log(dataset);
-
         let sub_df = dataset.loc({columns: [dataset.columns[userPrefs.xCol]]});
         let yType, zType, cType, sType;
-
         // Replace ifs with ternaries
         if(userPrefs.yCol.length) {
             sub_df.addColumn("Y", dataset.column(dataset.columns[userPrefs.yCol]), { inplace: true });
@@ -110,8 +71,8 @@ export default function Card({file}) {
     }
 
     return (
-        <div className="duration-300 m-4 h-full bg-white border-2 bg-opacity-90 border-zinc-400 rounded-sm shadow xl:flex dark:bg-black dark:bg-opacity-90 dark:border-zinc-300">
-            <div className="xl:w-2/6 items-center xl:border-r-2 border-zinc-200 dark:border-zinc-600">
+        <div className="duration-300 lg:m-4 h-full bg-white border-2 bg-opacity-90 border-purple-400 rounded-sm shadow xl:flex dark:bg-black dark:bg-opacity-90 dark:border-zinc-400">
+            <div className="xl:w-2/6 items-center xl:border-r-2 border-purple-400 dark:border-zinc-400">
                 <div className="flex items-center gap-4 p-4">
                     <div className="grow font-semibold text-zinc-900 dark:text-white">
                         <span className="text-xl font-bold text-zinc-900 dark:text-white">                        
@@ -119,13 +80,14 @@ export default function Card({file}) {
                         </span>
                     </div>
                     <span className="basis-1/6 text-right inputLabel text-md font-bold">Type</span> 
-                    <select name="val" className="w-1/3 text-zinc-800 text-xs rounded-md bg-inherit dark:text-white font-mono" onChange={(e)=>setPlotType(e.target.value)}> 
-                        <option value="" className="text-black"> Please Select</option>
+                    <select name="val" className="w-1/3 text-zinc-800 text-xs rounded-md bg-inherit dark:text-white font-mono" value={plotType} onChange={(e)=>setPlotType(e.target.value)}> 
+                        <option value="" className="text-black"> None </option>
                         <option value="scatter" className="text-black"> Scatter</option>
                         <option value="discrete" className="text-black"> Distribution</option>
                         <option value="homogenous" className="text-black"> Homogenous</option>    
                     </select>
                 </div>
+
                 <div className="userInputBox text-left">
                     <Controller dataset = {dataset} setViewportData = {setViewportData} plotType={plotType} setUser={setUser}/>
                 </div>

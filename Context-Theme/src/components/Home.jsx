@@ -11,7 +11,7 @@ function Home() {
     
     return (
     <>
-        <div className='p-2'>
+        <div className='p-2 xl:h-[83vh]'>
             {/* {console.log(file)} */}
             <Card file={file}/>
         </div>

@@ -76,7 +76,7 @@ async function scatterLayout(data, dataTypes, setLayoutData) {
 				}
 				break;
 			default: 
-				console.log("Uniformizing: " + i + " for " + iRef[i]);
+				// console.log("Uniformizing: " + i + " for " + iRef[i]);
 				layoutData.addColumn(iTemp[i], await uniformizeField(numPoints, i), { inplace: true });
 		}
 	}

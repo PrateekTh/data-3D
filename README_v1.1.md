@@ -1,44 +1,36 @@
-# Temporary Changelog V1.1
+# Update log V1.5
 
-Let's begin the next sprint of adding features to the current state of the project!
+This version of 3Data is faster than ever, with several new features. Now your EDA is bound do be a lot more addictive - because it hasn't been easier and faster to dive deep into massive datasets on the fly.
 
-> This is a temporary devlog, which I'll be converting to an updatelog one once this iteration is done!
+First of all, I'm really thankful to all the people who visited and provided feedback.
+<img src="https://c.tenor.com/1weNCYu3iQkAAAAC/tenor.gif" width=200>
 
-First of all, I'm really thankful to the 15-20 or so people who visited and tried this tool out! I hope it added some value to your current project/endeavour, or just provided amusement to the point of curled lips and raised eyebrows.
+## Changes: 
 
-<img src="https://c.tenor.com/1weNCYu3iQkAAAAC/tenor.gif" width=250>
+### Refactored layout computation - 
+- Add workers for layout computation
+- Added Multithreading for heavy tasks via workers, greatly increasing efficiency (in resource usage) and speed.
 
-Second of all, a huge thanks for the feedback! I'll keep it all in mind as I lay down milestones and goals as I move on.
-
-## Objective
-For this iteration of the development cycle (I'm following an agile approach as it is the most suitable for my situation), the focus will be on <u>heavily **improving User Experience**</u>.
-
-## Tasks & Features ✔
-
-### Refactoring layout computation -  ✔
-
-We need more threads!
-- Add workers for layout computation and to update the instanced matrix - ✔
-
-- Adding loader graphics, for the duration of running web workers
-
-### Adding additional size controls - ✔
+### Added additional size controls -
 The density and amount of data can make a single size inconsistent.
-- User must be able to tune the size of datapoints.
 
-### Adding support for more file input types ✔
-- CSVs, Excels, JSONs
+### Added support for more file input types -
+- Now accepts CSVs, Excels, JSONs
 
-### Interaction with datapoints  ✔
-- Current datapoint properties ✔
-- Copy properties (JSON) on click ✔
-- Copy individual properties on click ✔
-- Helper pointer on current point ✔
+### Added Interaction with datapoints  -
+- Clicking on a datapoint selects it
+    - Helper pointer on currently selected point
+    - Current datapoint properties
+- Copy properties (JSON) on click
+- Copy individual properties on click
 
-### 3D Helper Graphics ✔
-- Labelling of Axis based on Fields selected ✔
+### User Interface Updates
+- Labelling of Axis based on Fields selected
+- Additional size control - User can set a multiplier for point size, from [0.01, 10)
+- Refined and Updated UI for better support on mobile devices
 
-### Adding Camera Snapping controls ✔
+
+### Adding Camera Snapping controls
 
 ------------------------
 

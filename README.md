@@ -1,10 +1,10 @@
 # <span style = "font-weight: bold; font-family: Tahoma;"> //. 3Data .// </span>
 
+> The latest version of 3Data is now Live! Check out the latest [changes](./README_v1.1.md)
+
 Good 3D visualisation tools are hard to come by. While there are a number of amazing 2D visualisation tools and libraries, 3D is definitely still a step behind, with most technologies akin to slow, and overkill CAD like software, with a heavy absence than any to-the-point data plotting service.
 
 Building a tool, on the other hand, involves at a minimal baseline understanding of math, statistics, data science, along with the necessary programming and development skills.
-
-This project is my attempt to push the use of GPU in the web a bit further, and given the recent developments in WebGL and especially the introduction of WebGPU, I believe the web can finally be used to build robust and fast applications, that are both graphically beautiful as well as highly data intensive.
 
 ## Introduction
 
@@ -15,7 +15,7 @@ This project is my attempt to push the use of GPU in the web a bit further, and 
 
 Other places to check out:
 
-- **The live demo at [this link](https://3data.netlify.app/).**
+- **The live tool at [this link](https://3data.netlify.app/).**
 
 - **A lengthy [retrospective devlog](./README_long.md).**
 
@@ -26,10 +26,11 @@ Other places to check out:
 <img src="./images/01.png">
 
 Main features include:
-- Realtime rendering of more than `50k` datapoints (KPI to focus on as the project grows).
+- Realtime rendering of more than `250k` datapoints.
 - `Five` available dimensions to plot data simultaneously.
 - Different types of `plots` and functionalities.
-- Being a fully client side application, `fast` and `highly secure`. 
+- `Superfast`, due to fully asynchronous layout computations.
+- Being a fully client side application, `highly secure`. 
 
 > **Note**: Currently supported types include: `.csv`, `.xlsx`, `.json` ( non-heirarchical JSONs)
 

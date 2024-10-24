@@ -121,7 +121,7 @@ const InstancedPoints = () => {
 			</instancedMesh>
 
 			{selectedPoint && 
-			<Sphere args={[Math.max(0.5, Math.sqrt(baseScale) * 0.8),6,6]} position={helperCoords}>
+			<Sphere args={[Math.max(0.8, baseScale * 0.8),6,6]} position={helperCoords}>
 				<meshBasicMaterial color={"orange"} wireframe/>
 			</Sphere>
 			}

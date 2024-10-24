@@ -5,13 +5,14 @@ import * as dfd from "danfojs/dist/danfojs-browser/src";
 
 function PointDetails() {
     const { dataset } = useContext(UserContext);
-    const { selectedPoint, onSelectPoint } = useViewportData();
+    const { data, selectedPoint, onSelectPoint, plotType } = useViewportData();
 
     const [pointData, setPointData] = useState(null);
 
     useEffect(() => {
         if(selectedPoint != null){
-            let record = dataset.loc({rows:[selectedPoint]})
+            let record = null;
+            if (plotType != 'discrete') record = dataset.loc({rows:[selectedPoint]});
             setPointData(record);
         }else{
             setPointData(null);
@@ -29,7 +30,7 @@ function PointDetails() {
 
     return ( <>
         {pointData && 
-        <div className='absolute block p-3 z-40 select-none max-h-96 font-mono border-l border-purple-500 text-xl text-left w-2/5 lg:w-1/5  overflow-y-scroll overflow-x-hidden no-scrollbar'>
+        <div className='absolute block p-3 z-40 select-none max-h-96 font-mono border-l border-purple-500 text-xl text-left w-2/5 xl:w-1/5  overflow-y-scroll overflow-x-hidden no-scrollbar'>
             <div className='' > 
                 <span className='font-bold text-purple-500 dark:text-purple-400' > Selection </span> 
                 <span className='text-xs cursor-pointer duration-200 hover:text-purple-500 dark:hover:text-purple-400 ' onClick={onCopyRecord}> copy ⧉</span>
