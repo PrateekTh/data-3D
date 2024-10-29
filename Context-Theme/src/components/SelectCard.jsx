@@ -1,6 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../context/UserContext';
 import Alert from './Alert';
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+
+
+gsap.registerPlugin(useGSAP);
 
 function SelectCard({setFile}){
     const [projectName, setProjectName] = useState('');
