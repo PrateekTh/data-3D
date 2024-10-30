@@ -37,8 +37,8 @@ function Viewport({userPrefs}) {
                 </div>
 
             </div>
-            <Canvas shadows camera={{position:[150,150,150]}} >
-                <fog attach="fog" color={fogColor} near={150} far={500} />
+            <Canvas shadows camera={{position:[150,150,150], far:1200}} >
+                {/* <fog attach="fog" color={fogColor} near={150} far={500} /> */}
                 <axesHelper args={[250, 250, 250]} />
                 <CameraManager cameraProperties= {cameraProperties} setCameraProperties ={setCameraProperties}/>
 
