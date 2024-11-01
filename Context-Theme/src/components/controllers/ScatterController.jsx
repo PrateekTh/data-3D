@@ -64,12 +64,12 @@ function ScatterController({dataset, setViewportData}) {
                 <div className="inputLabel align-middle text-lg font-bold p-2">X</div>
                 <div>
                     <select name="xCol" className="text-red-500 text-sm rounded-md mx-2 bg-inherit dark:text-red-400 font-bold"> 
-                        <option className="text-zinc-800 font-mono" value=""> Please Select</option>
+                        <option className="text-zinc-800 font-base" value=""> Please Select</option>
                         {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
+                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-base" value={i} key={i}> {d}</option>))
                         }
                     </select> 
-                    <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
+                    <div className="dataType flex h-6 p-2 my-2 font-base align-middle">
                         <div>
                             <input id="xCont" type="radio" value="continuous" name="xType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
@@ -93,12 +93,12 @@ function ScatterController({dataset, setViewportData}) {
                 <div className="inputLabel text-lg font-bold p-2">Y</div>
                 <div>
                     <select name="yCol" className="text-green-600 text-sm rounded-md mx-2 bg-inherit dark:text-green-500 font-bold"> 
-                        <option className="text-zinc-800 font-mono" value=""> None </option>
+                        <option className="text-zinc-800 font-base" value=""> None </option>
                         {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
+                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-base" value={i} key={i}> {d}</option>))
                         }
                     </select> 
-                    <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
+                    <div className="dataType flex h-6 p-2 my-2 font-base align-middle">
                         <div>
                             <input id="yCont" type="radio" value="continuous" name="yType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
@@ -122,12 +122,12 @@ function ScatterController({dataset, setViewportData}) {
                 <div className="inputLabel text-lg font-bold p-2">Z </div>
                 <div>
                     <select name="zCol" className="text-blue-600 text-sm rounded-md mx-2 bg-inherit font-bold dark:text-blue-400"> 
-                        <option value="" className="text-zinc-800 font-mono"> None </option>
+                        <option value="" className="text-zinc-800 font-base"> None </option>
                         {
-                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-mono" value={i} key={i}> {d}</option>))
+                            dataset.columns.map((d, i) => (<option className="text-zinc-800 font-base" value={i} key={i}> {d}</option>))
                         }  
                     </select> 
-                    <div className="dataType flex h-6 p-2 my-2 font-mono align-middle">
+                    <div className="dataType flex h-6 p-2 my-2 font-base align-middle">
                         <div>
                             <input id="zCont" type="radio" value="continuous" name="zType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
@@ -150,7 +150,7 @@ function ScatterController({dataset, setViewportData}) {
             <div className='md:flex align-middle p-2'>
                 <div className="axis md:w-2/5 flex p-2 items-center">
                     <div className="inputLabel text-sm font-bold">Color </div>
-                    <select name="colorCol" className="text-zinc-800 text-sm rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
+                    <select name="colorCol" className="text-zinc-800 text-sm rounded-md mx-2 bg-inherit dark:text-white font-base w-2/3 truncate"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
@@ -159,11 +159,11 @@ function ScatterController({dataset, setViewportData}) {
                 </div> 
                 <div className="axis md:w-3/5 flex p-2 items-center">
                     <div className="inputLabel text-sm font-bold"> Scale </div>
-                    <select name="scaleCol" className="text-zinc-800 text-sm rounded-md mx-2 bg-inherit dark:text-white font-mono w-2/3 truncate"> 
+                    <select name="scaleCol" className="text-zinc-800 text-sm rounded-md mx-2 bg-inherit dark:text-white font-base w-2/3 truncate"> 
                     <option className="text-zinc-800" value=""> Uniform </option>
                         {dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))}
                     </select>x 
-                    <input name='baseScale' type='number' step='0.001' defaultValue={1} className="font-mono text-sm bg-inherit text-inherit py-1 px-2 ml-2 min-w-10 max-w-12 rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "/>
+                    <input name='baseScale' type='number' step='0.001' defaultValue={1} className="font-base text-sm bg-inherit text-inherit py-1 px-2 ml-2 min-w-10 max-w-12 rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "/>
                 </div>
             </div>
             <div className='px-4'>

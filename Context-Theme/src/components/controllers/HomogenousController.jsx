@@ -16,7 +16,7 @@ function HomogenousController({dataset, setViewportData}) {
 
     }
     if(dataset.index) return ( <>        
-        <div className="flex-col space-y-2 text-md p-4 text-left font-mono"> 
+        <div className="flex-col space-y-2 text-md p-4 text-left font-base"> 
             <div className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2"> Homogenous Plot</div>
             <div className="text-md font-bold text-zinc-700 dark:text-zinc-400"> This plot type will be added soon!</div>
             <div className=' text-zinc-800 dark:text-white'>

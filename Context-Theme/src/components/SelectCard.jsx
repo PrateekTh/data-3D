@@ -88,14 +88,14 @@ function SelectCard({setFile}){
                         <path d="M50.1,61.6c0.3-0.5,0.4-1.2,0.1-1.8c-0.3-0.6-0.9-0.9-1.6-0.9H11.4L35.6,2.5h49.8l-26.8,40c-0.3,0.5-0.4,1.2-0.1,1.8  c0.3,0.6,0.9,0.9,1.6,0.9h28.4L26,97.5L50.1,61.6z"/>
                     </svg>
                 </div>
-                <span className='appear-y text-2xl font-mono font-bold'>Get Started, <span className='text-purple-600 dark:text-purple-400'>fast.</span></span><br/>
-                <div className='appear-y text-xl font-mono'>select a dataset from storage</div>
-                <input className= 'appear-y rounded-md my-3 dark:text-zinc-700' 
+                <span className='appear-y text-2xl font-base font-bold'>Get Started, <span className='text-purple-600 dark:text-purple-400'>fast.</span></span><br/>
+                <div className='appear-y text-sm font-base'>select a dataset from storage</div>
+                <input className= 'appear-y font-base rounded-md my-3 dark:text-zinc-700' 
                 type='text' value={projectName}
                 onChange={(e) => {setProjectName(e.target.value)}} 
                 placeholder='Project Name'/> <br/>
 
-                <input className='appear-y text-sm font-mono outline-none focus:outline-none file:py-2 file:px-6 file:rounded-sm file:border-2
+                <input className='appear-y text-sm font-base outline-none focus:outline-none file:py-2 file:px-6 file:rounded-sm file:border-2
                 file:border-white file:text-md file:font-bold  file:text-white
                 file:bg-gradient-to-r file:from-violet-800 file:to-violet-500
                 hover:file:cursor-pointer hover:file:from-violet-800 hover:file:to-violet-800'
@@ -110,10 +110,10 @@ function SelectCard({setFile}){
 
             <div className='main-right lg:w-2/3 h-full border-zinc-400 border-2 content-center text-left rounded-sm p-6 xl:p-8 bg-white dark:bg-black dark:border-zinc-300'>
                 <div>
-                    <div className='font-bold text-5xl duration-300 hover:drop-shadow-[0_0.1px_3.1px_#A855F7]'>
+                    <div className='font-bold font-base text-5xl duration-300 hover:drop-shadow-[0_0.1px_3.1px_#A855F7]'>
                         Data analysis <span className='text-purple-600 dark:text-purple-400'>reimagined.</span>
                     </div>
-                    <div className='font-mono text-md py-4'>
+                    <div className='font-base text-md py-4'>
                         <span className='appear-x main-head text-md'>3Data</span> <span className='appear-x'>is a tool that allows you to create immersive and interactive 3D (and 2D) visualisations of </span><span className='appear-x font-bold'>any dataset</span>
                         <span className='appear-x'> Currently supports rendering 250k+ datapoints, in realtime, on the browser.</span><br/><br/>
 
@@ -126,7 +126,7 @@ function SelectCard({setFile}){
                     <div className='text-lg appear-y'>
                         <span className='font-bold text-2xl text-purple-600 dark:text-purple-400'>Powered by </span>
                     </div>
-                    <div className='font-mono text-sm py-2'>
+                    <div className='font-base text-sm py-2'>
                         <ul>
                             <li className='appear-y'>ThreeJS, R3F </li>
                             <li className='appear-y'>React, Javascript </li>

@@ -30,7 +30,7 @@ function PointDetails() {
 
     return ( <>
         {pointData && 
-        <div className='absolute block p-3 z-40 select-none max-h-96 font-mono border-l border-purple-500 text-xl text-left w-2/5 xl:w-1/5  overflow-y-scroll overflow-x-hidden no-scrollbar'>
+        <div className='absolute block p-3 z-40 select-none max-h-96 font-base border-l border-purple-500 text-xl text-left w-2/5 xl:w-1/5  overflow-y-scroll overflow-x-hidden no-scrollbar'>
             <div className='' > 
                 <span className='font-bold text-purple-500 dark:text-purple-400' > Selection </span> 
                 <span className='text-xs cursor-pointer duration-200 hover:text-purple-500 dark:hover:text-purple-400 ' onClick={onCopyRecord}> copy ⧉</span>
@@ -38,7 +38,7 @@ function PointDetails() {
             </div>
             <div className='text-xs'>
             {dataset.columns.map((d, i) => (
-                <div className="dark:text-zinc-500 text-zinc-500 font-mono" value={i} key={i}> {d}: 
+                <div className="dark:text-zinc-500 text-zinc-500 font-base" value={i} key={i}> {d}: 
                     <span className='text-zinc-700 cursor-pointer font-semibold hover:text-purple-500 dark:hover:text-purple-400 dark:text-zinc-300' onClick={()=>onCopyField(i)}> 
                         {pointData.values[0][i]}
                     </span>

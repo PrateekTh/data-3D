@@ -62,13 +62,13 @@ function DiscreteController({dataset, setViewportData}) {
             <div className="axis border-y-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel align-middle text-xl font-bold p-2">X</div>
                 <div>
-                    <select name="xCol" className="text-zinc-800 rounded-md text-sm mx-2 bg-inherit dark:text-white font-mono"> 
+                    <select name="xCol" className="text-zinc-800 rounded-md text-sm mx-2 bg-inherit dark:text-white font-base"> 
                         <option className="text-zinc-800" value=""> Please Select</option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
                         }
                     </select> 
-                    <div className="dataType text-sm flex h-6 p-2 my-2 font-mono align-middle">
+                    <div className="dataType text-sm flex h-6 p-2 my-2 font-base align-middle">
                         <div>
                             <input id="xCont" type="radio" value="continuous" name="xType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>
@@ -92,13 +92,13 @@ function DiscreteController({dataset, setViewportData}) {
             <div className="axis border-b-2 border-zinc-200 bg-zinc-300 bg-opacity-5 flex p-6 dark:border-zinc-700">
                 <div className="inputLabel text-xl font-bold p-2">Z </div>
                 <div>
-                    <select name="zCol" className="text-zinc-800 rounded-md text-sm mx-2 bg-inherit dark:text-white font-mono"> 
+                    <select name="zCol" className="text-zinc-800 rounded-md text-sm mx-2 bg-inherit dark:text-white font-base"> 
                         <option value="" className="text-zinc-800"> Please Select</option>
                         {
                             dataset.columns.map((d, i) => (<option className="text-zinc-800" value={i} key={i}> {d}</option>))
                         }  
                     </select> 
-                    <div className="dataType text-sm flex h-6 p-2 my-2 font-mono align-middle">
+                    <div className="dataType text-sm flex h-6 p-2 my-2 font-base align-middle">
                         <div>
                             <input id="zCont" type="radio" value="continuous" name="zType" 
                             className="mx-2 text-zinc-600 focus:ring-0 focus:ring-white hidden peer"/>

@@ -12,7 +12,7 @@ export default function Controller({dataset, setViewportData, plotType, setUser}
             return <HomogenousController dataset={dataset} setViewportData={setViewportData} />
         default:
             return (
-                <div className=" flex-col space-y-4 text-zinc-800 text-md font-mono p-6 text-left dark:text-white">
+                <div className=" flex-col space-y-4 text-zinc-800 text-md font-base p-6 text-left dark:text-white">
                     <div className="text-xl font-bold text-zinc-700 dark:text-zinc-400"> Select a plot type to continue.</div>
 
                     <div>

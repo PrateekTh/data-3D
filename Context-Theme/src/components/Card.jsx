@@ -80,7 +80,7 @@ export default function Card({file}) {
                         </span>
                     </div>
                     <span className="basis-1/6 text-right inputLabel text-md font-bold">Type</span> 
-                    <select name="val" className="w-1/3 text-zinc-800 text-xs rounded-md bg-inherit dark:text-white font-mono" value={plotType} onChange={(e)=>setPlotType(e.target.value)}> 
+                    <select name="val" className="w-1/3 text-zinc-800 text-xs rounded-md bg-inherit dark:text-white font-base" value={plotType} onChange={(e)=>setPlotType(e.target.value)}> 
                         <option value="" className="text-black"> None </option>
                         <option value="scatter" className="text-black"> Scatter</option>
                         <option value="discrete" className="text-black"> Distribution</option>
