@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -18,7 +18,7 @@
 }
 
 .font-base {
-  font-family: "Roboto Slab", serif;
+  font-family: "Lexend", serif;
 }
 
 .viewport-container {
@@ -36,7 +36,7 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: "Roboto Slab", serif;
+  font-family: "Lexend", serif;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
